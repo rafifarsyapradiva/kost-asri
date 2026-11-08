@@ -83,43 +83,43 @@
   "chatbot": {
     "MENU": {
       "keyword": "MENU",
-      "synonyms": ["INFO", "HALO", "PING", "MULAI", "BANTUAN"],
-      "body": "Halo! Selamat datang di layanan informasi otomatis *ASRI BOARDING HOUSE* (Tembalang, Semarang).\n\nSilakan balas dengan *angka 1 s/d 7* sesuai informasi yang dibutuhkan:\n*1* - Info Kelas Kamar & Tarif\n*2* - Ketersediaan Kamar Hari Ini\n*3* - Cara Reservasi Online & Ketentuan DP 30%\n*4* - Cek Tagihan Aktif Saya\n*5* - Metode Pembayaran Resmi\n*6* - Lokasi Kost & Jam Operasional\n*7* - Hubungi Penjaga / Admin Kost"
+      "synonyms": ["HALO", "HAI", "HI", "MULAI", "P"],
+      "body": "Halo! Selamat datang di layanan informasi otomatis *ASRI BOARDING HOUSE* (Tembalang, Semarang).\n\nSilakan balas dengan *angka 1 s/d 7* atau kata kunci berikut:\n*1* / *KAMAR* - Ketersediaan Kamar Hari Ini\n*2* / *HARGA* - Tabel Tarif Harian/Mingguan/Bulanan\n*3* / *TAGIHAN* - Cek Invoice Aktif Saya\n*4* / *BAYAR* - Cara Pembayaran Resmi\n*5* / *LOKASI* - Alamat & Google Maps\n*6* / *FAQ* - 5 Pertanyaan Umum Teratas\n*7* / *ADMIN* - Hubungi Penjaga / Admin Kost"
     },
     "1": {
       "keyword": "1",
-      "synonyms": ["TARIF", "HARGA", "KELAS"],
-      "body": "🏠 *INFO KELAS KAMAR & TARIF ASRI BOARDING HOUSE*\n\n1. *Standard* (16 Kamar): Harian *Rp 60.000* | Mingguan *Rp 300.000* | Bulanan *Rp 900.000*\n2. *VIP* (10 Kamar): Harian *Rp 85.000* | Mingguan *Rp 450.000* | Bulanan *Rp 1.300.000*\n3. *Deluxe* (6 Kamar): Harian *Rp 120.000* | Mingguan *Rp 650.000* | Bulanan *Rp 1.800.000*\n\nBalas *2* untuk cek kamar kosong atau *MENU* untuk kembali."
+      "synonyms": ["KAMAR", "KOSONG", "TERSEDIA", "READY"],
+      "body": "✅ *KETERSEDIAAN KAMAR HARI INI — ASRI BOARDING HOUSE*\n\nDenah 2 lantai (*32 kamar*: Standard, VIP, Deluxe) diperbarui otomatis secara real-time.\n\nCek jumlah kamar kosong per kelas hari ini & mulai reservasi online langsung di:\nhttps://asriboardinghouse.id/reservasi\n\nBalas *2* untuk info tarif atau *MENU* untuk kembali."
     },
     "2": {
       "keyword": "2",
-      "synonyms": ["KOSONG", "TERSEDIA", "KAMAR"],
-      "body": "✅ *KETERSEDIAAN KAMAR HARI INI*\n\nStatus kamar kosong real-time pada denah 2 lantai (*32 kamar*) diperbarui otomatis setiap saat.\n\nSilakan pilih kamar langsung dari denah interaktif kami di:\n{link_bayar}\n\nBalas *3* untuk panduan reservasi atau *MENU* untuk menu utama."
+      "synonyms": ["HARGA", "TARIF", "BIAYA", "PRICE"],
+      "body": "🏠 *TABEL TARIF KAMAR ASRI BOARDING HOUSE*\n\n1. *Standard* (16 Kamar): Harian *Rp 60.000* | Mingguan *Rp 300.000* | Bulanan *Rp 900.000*\n2. *VIP* (10 Kamar): Harian *Rp 85.000* | Mingguan *Rp 450.000* | Bulanan *Rp 1.300.000*\n3. *Deluxe* (6 Kamar): Harian *Rp 120.000* | Mingguan *Rp 650.000* | Bulanan *Rp 1.800.000*\n\nBalas *1* untuk cek kamar kosong atau *MENU* untuk kembali."
     },
     "3": {
       "keyword": "3",
-      "synonyms": ["RESERVASI", "BOOKING", "DP"],
-      "body": "📝 *CARA RESERVASI ONLINE & KETENTUAN DP*\n\n1. Buka website resmi & pilih kamar hijau (*Tersedia*) di Lantai 1 atau 2.\n2. Pilih tipe sewa (*Harian/Mingguan/Bulanan*) & opsi prorata.\n3. Isi data diri, foto KTP, & kontak Wali (wajib untuk Mingguan/Bulanan).\n4. Bayar *Lunas 100%* atau *DP minimal 30%* dalam 24 jam (DP tidak dapat dikembalikan bila batal, pelunasan wajib saat Check-in).\n5. Unduh *Nota Reservasi PDF*."
+      "synonyms": ["TAGIHAN", "INVOICE", "CEK TAGIHAN"],
+      "body": "📄 *RINGKASAN TAGIHAN AKTIF ANDA*\n\nPenyewa: *{nama}* (Kamar *{kode_kamar}*)\nNo. Invoice: *{nomor_invoice}* ({periode})\nSisa Tagihan: *{sisa_tagihan}*\nJatuh Tempo: *{tanggal_jatuh_tempo}*\n\nTautan pembayaran resmi:\n{link_bayar}\n_(Jika nomor belum terdaftar sebagai penyewa aktif, sistem akan menampilkan info nomor belum terdaftar.)_"
     },
     "4": {
       "keyword": "4",
-      "synonyms": ["TAGIHAN", "INVOICE", "BAYAR"],
-      "body": "📄 *RINGKASAN TAGIHAN AKTIF ANDA*\n\nPenyewa: *{nama}* (Kamar *{kode_kamar}*)\nNo. Invoice: *{nomor_invoice}* ({periode})\nSisa Tagihan: *{sisa_tagihan}*\nJatuh Tempo: *{tanggal_jatuh_tempo}*\n\nTautan pembayaran resmi:\n{link_bayar}"
+      "synonyms": ["BAYAR", "PEMBAYARAN", "TRANSFER"],
+      "body": "💳 *CARA PEMBAYARAN RESMI ASRI BOARDING HOUSE*\n\n1. *Online Otomatis (Midtrans)*: Virtual Account (BCA, BNI, BRI, Mandiri), QRIS, GoPay, ShopeePay melalui tautan tagihan aktif Anda:\n{link_bayar}\n2. *Tunai (Cash)*: Dibayarkan langsung kepada Penjaga / Admin di kost dan wajib dicatat ke sistem untuk menerbitkan *Kwitansi PDF*."
     },
     "5": {
       "keyword": "5",
-      "synonyms": ["METODE", "REKENING", "QRIS"],
-      "body": "💳 *METODE PEMBAYARAN RESMI*\n\n1. *Online Otomatis (Midtrans)*: Virtual Account (BCA, BNI, BRI, Mandiri), QRIS, GoPay, ShopeePay — terverifikasi otomatis & langsung menerbitkan Kwitansi PDF.\n2. *Tunai (Cash)*: Dibayarkan langsung kepada Penjaga / Admin di lokasi kost dan wajib dicatat ke sistem untuk menerbitkan Kwitansi Resmi."
+      "synonyms": ["LOKASI", "ALAMAT", "MAPS"],
+      "body": "📍 *LOKASI & JAM OPERASIONAL*\n\n*ASRI BOARDING HOUSE*\nKawasan Kampus Tembalang, Kota Semarang, Jawa Tengah (dekat UNDIP & Polines).\nGoogle Maps: https://maps.google.com/?q=Tembalang+Semarang\n\nJam Check-in: *14:00 - 21:00 WIB* | Check-out: maks. *12:00 WIB*"
     },
     "6": {
       "keyword": "6",
-      "synonyms": ["LOKASI", "ALAMAT", "JAM"],
-      "body": "📍 *LOKASI & JAM OPERASIONAL*\n\n*ASRI BOARDING HOUSE*\nKawasan Kampus Tembalang, Kota Semarang (dekat UNDIP & Polines).\n\nJam Layanan Check-in: *14:00 - 21:00 WIB*\nBatas Check-out: *12:00 WIB*\nPenjaga kost & CCTV aktif memantau keamanan lingkungan."
+      "synonyms": ["FAQ", "TANYA", "INFO"],
+      "body": "❓ *5 PERTANYAAN UMUM (FAQ) TERATAS*\n\n1. *DP Reservasi*: Minimal *30%* (tahan kamar 24 jam, tidak dapat dikembalikan bila batal, lunas saat Check-in).\n2. *Prorata Bulanan*: Masuk selain tgl 1 dapat memilih *Opsi 1* (gabung di awal) atau *Opsi 2* (1 bulan penuh dulu).\n3. *Jatuh Tempo Bulanan*: Terbit tgl *1*, jatuh tempo tgl *10*.\n4. *Data Wali*: Wajib untuk sewa Mingguan & Bulanan.\n5. *Fasilitas*: Wi-Fi, AC/Non-AC sesuai kelas, K. Mandi Dalam, Dapur, Parkir & CCTV."
     },
     "7": {
       "keyword": "7",
-      "synonyms": ["ADMIN", "PENJAGA", "KOMPLAIN", "CS"],
-      "body": "👤 *HUBUNGI PENJAGA / ADMIN KOST*\n\nPermintaan bantuan Anda telah ditandai untuk ditindaklanjuti oleh *Admin / Penjaga ASRI BOARDING HOUSE*.\n\nSilakan tuliskan pesan atau kendala Anda beserta *Nomor Kamar* pada chat ini, petugas kami akan segera membalas pada jam operasional."
+      "synonyms": ["ADMIN", "CS", "PENJAGA", "MANUSIA"],
+      "body": "👤 *SAMBUNGKAN KE PENJAGA / ADMIN KOST*\n\nMode percakapan otomatis dinonaktifkan sementara selama *60 menit* untuk nomor ini dan notifikasi telah dikirimkan kepada *Admin / Penjaga ASRI BOARDING HOUSE*.\n\nSilakan tuliskan pesan atau kendala Anda beserta *Nomor Kamar* pada chat ini."
     }
   }
 }

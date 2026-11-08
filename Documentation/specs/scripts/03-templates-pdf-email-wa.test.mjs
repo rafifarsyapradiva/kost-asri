@@ -84,3 +84,34 @@ test('DSN-041 & Review Focus #1: WhatsApp notifications and Chatbot 1-7 stay <= 
     assert.ok(emojis.length <= 2, `${id} uses ${emojis.length} emojis (max 2)`);
   }
 });
+
+test('Review Fix #1: Chatbot MENU and 1-7 map 1-to-1 with PRD §12 (KAMAR, HARGA, TAGIHAN, BAYAR, LOKASI, FAQ, ADMIN) without leaking {link_bayar} on option 1', () => {
+  const data = JSON.parse(fs.readFileSync(path.join(tplDir, 'whatsapp/templates.json'), 'utf8'));
+  const expectedKeywords = {
+    '1': 'KAMAR',
+    '2': 'HARGA',
+    '3': 'TAGIHAN',
+    '4': 'BAYAR',
+    '5': 'LOKASI',
+    '6': 'FAQ',
+    '7': 'ADMIN',
+  };
+  for (const [num, word] of Object.entries(expectedKeywords)) {
+    const entry = data.chatbot[num];
+    assert.ok(
+      entry.keyword === word || entry.synonyms.includes(word),
+      `chatbot[${num}] must map to PRD §12 keyword ${word}`
+    );
+  }
+  assert.doesNotMatch(data.chatbot['1'].body, /\{link_bayar\}/, 'public option 1 KAMAR must not require invoice {link_bayar}');
+  assert.match(data.chatbot['6'].body, /FAQ|Prorata|DP/i, 'option 6 must answer top FAQs');
+  assert.match(data.chatbot['7'].body, /60 menit/i, 'option 7 must mention 60-minute bot handover window');
+});
+
+test('Review Fix #2: invoice.blade.php references authoritative $invoice->cycle_index column instead of billing_cycle', () => {
+  const inv = fs.readFileSync(path.join(tplDir, 'pdf/invoice.blade.php'), 'utf8');
+  assert.doesNotMatch(inv, /billing_cycle/);
+  assert.match(inv, /\$invoice->cycle_index/);
+});
+
+

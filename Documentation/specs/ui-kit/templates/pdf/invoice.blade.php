@@ -45,7 +45,7 @@
     </tr>
     <tr>
       <td><strong>Periode Sewa</strong></td>
-      <td class="num">{{ $periodLabel }} (Siklus ke-{{ $invoice->billing_cycle }})</td>
+      <td class="num">{{ $periodLabel }} (Siklus ke-{{ $invoice->cycle_index }})</td>
       <td><strong>Jatuh Tempo</strong></td>
       <td class="num"><strong>{{ $dueDateLabel }}</strong></td>
     </tr>
@@ -93,3 +93,4 @@
   </div>
 </body>
 </html>
+
