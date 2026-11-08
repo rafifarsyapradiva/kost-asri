@@ -29,3 +29,4 @@ class InvoicePaymentController extends Controller
         ]);
     }
 }
+

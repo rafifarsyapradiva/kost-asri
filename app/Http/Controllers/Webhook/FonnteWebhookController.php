@@ -80,3 +80,4 @@ class FonnteWebhookController extends Controller
         return response()->json(['ok' => true]);
     }
 }
+

@@ -39,3 +39,4 @@ class CheckoutReminderCommand extends Command
         return self::SUCCESS;
     }
 }
+

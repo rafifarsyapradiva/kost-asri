@@ -31,3 +31,4 @@
     <a href="{{ $payUrl }}" class="btn">Bayar Tagihan Online</a>
 </div>
 @endcomponent
+

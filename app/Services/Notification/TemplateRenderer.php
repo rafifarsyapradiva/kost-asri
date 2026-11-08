@@ -22,3 +22,4 @@ class TemplateRenderer
         return strtr($template, $replacements);
     }
 }
+

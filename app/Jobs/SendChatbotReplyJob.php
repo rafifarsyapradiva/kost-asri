@@ -29,3 +29,4 @@ class SendChatbotReplyJob implements ShouldQueue
         $fonnteService->send($this->target, $this->message);
     }
 }
+

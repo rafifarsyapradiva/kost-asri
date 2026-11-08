@@ -60,3 +60,4 @@ class NotifyPaymentRemindersCommand extends Command
         return self::SUCCESS;
     }
 }
+

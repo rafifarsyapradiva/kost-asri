@@ -19,3 +19,4 @@ class ReceiptPdfController extends Controller
         return $pdfService->streamReceipt($receipt);
     }
 }
+

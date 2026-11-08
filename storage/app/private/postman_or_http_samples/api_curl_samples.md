@@ -75,3 +75,4 @@ curl -i -X GET "http://localhost:8000/receipts/1/pdf" \
   -H "Cookie: kost_asri_session={SESSION_ID}" \
   -o "kwitansi.pdf"
 ```
+

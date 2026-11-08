@@ -28,3 +28,4 @@
 
 <p style="font-size: 13px; color: #64748b;">Pembayaran juga dapat diserahkan langsung secara tunai kepada Penjaga Kost di kantor resepsionis.</p>
 @endcomponent
+

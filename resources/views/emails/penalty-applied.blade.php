@@ -25,3 +25,4 @@
     <a href="{{ $payUrl }}" class="btn">Selesaikan Pembayaran Sekarang</a>
 </div>
 @endcomponent
+
