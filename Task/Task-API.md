@@ -190,8 +190,8 @@ Selain route halaman Inertia/Blade pada Blueprint §7, berikut kontrak endpoint 
 - [x] **API-010 — Implementasi `FonnteService` (`send`, cek status device `/device`) dengan timeout, error parsing & logging** · Est 2j · Dep: SET-020, DB-023 · M.
 - [x] **API-011 — Implementasi custom Laravel Notification Channel `FonnteChannel` + pencatatan otomatis ke `notification_logs`** · Est 2j · Dep: API-010, BE-037 · M (FR-NTF-01, FR-NTF-02, FR-NTF-04).
 - [x] **API-012 — Terapkan staggering/rate-limit antrean pengiriman WA massal (jeda 3 detik antar pesan)** · Est 1j · Dep: API-011 · M.
-- [ ] **API-013 — Implementasi `Webhook\FonnteWebhookController` (validasi `?token=`, filter pesan grup/loopback, simpan `webhook_logs` & `chatbot_messages`)** · Est 2j · Dep: API-010, BE-040 · M (FR-BOT-01, NFR-02).
-- [ ] **API-014 — Queued job `SendChatbotReplyJob` untuk membalas hasil `ChatbotEngine` ke pengirim WA** · Est 1j · Dep: API-013 · M (FR-BOT-02..04).
+- [x] **API-013 — Implementasi `Webhook\FonnteWebhookController` (validasi `?token=`, filter pesan grup/loopback, simpan `webhook_logs` & `chatbot_messages`)** · Est 2j · Dep: API-010, BE-040 · M (FR-BOT-01, NFR-02).
+- [x] **API-014 — Queued job `SendChatbotReplyJob` untuk membalas hasil `ChatbotEngine` ke pengirim WA** · Est 1j · Dep: API-013 · M (FR-BOT-02..04).
 - [x] **API-015 — Widget cek status koneksi device Fonnte di halaman Pengaturan Admin** · Est 1j · Dep: API-010, BE-049 · S.
 
 ### 5.4 Email SMTP & Mailable

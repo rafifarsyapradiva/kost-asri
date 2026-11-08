@@ -134,7 +134,7 @@ Ditambah `Content-Security-Policy` terukur yang hanya mengizinkan script/frame d
 - [x] **SEC-016 — Verifikasi penguncian baris `lockForUpdate()` pada pembuatan reservasi, pencatatan pembayaran, dan generator penomoran dokumen** · Est 1.5j · Dep: DB-025, BE-026, BE-035 · M (BR-01, NFR-06).
 - [x] **SEC-017 — Terapkan proteksi *Anti-Room-Hoarding*: batasi maksimal 1 reservasi `pending_payment` aktif per pengguna + rate limit pembuatan reservasi per IP (`5/jam`)** · Est 1.5j · Dep: BE-026, API-030 · M.
 - [x] **SEC-018 — Hardening `MidtransWebhookController`: perbandingan `hash_equals` SHA-512, validasi silang `gross_amount` == `payment.amount`, idempotensi, & alert jika signature gagal berulang** · Est 1.5j · Dep: API-006 · M (BR-24, NFR-02).
-- [ ] **SEC-019 — Hardening `FonnteWebhookController`: validasi `hash_equals` token rahasia, abaikan grup/broadcast, & cegah kebocoran tagihan ke nomor WA yang tidak terdaftar di `users.phone`** · Est 1.5j · Dep: API-013, BE-040 · M (NFR-02).
+- [x] **SEC-019 — Hardening `FonnteWebhookController`: validasi `hash_equals` token rahasia, abaikan grup/broadcast, & cegah kebocoran tagihan ke nomor WA yang tidak terdaftar di `users.phone`** · Est 1.5j · Dep: API-013, BE-040 · M (NFR-02).
 - [x] **SEC-020 — Hardening konfigurasi DomPDF (`enable_remote=false`, `enable_php=false`, `chroot` ke `base_path()`) untuk mencegah SSRF & LFI lewat teks PDF** · Est 1j · Dep: SET-016, API-020 · M.
 
 ### 5.5 HTTP Headers, Audit Log, Dependency & Hardening Server (Fase 3 & 5)

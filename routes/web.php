@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\Cms\ReservationStepController;
 use App\Http\Controllers\Admin\Cms\SiteSettingController;
 use App\Http\Controllers\Admin\Cms\TestimonialController as AdminTestimonialController;
 use App\Http\Controllers\Admin\Cms\VideoController;
+use App\Http\Controllers\Admin\ChatbotController as AdminChatbotController;
 use App\Http\Controllers\Admin\CheckInController;
 use App\Http\Controllers\Admin\InvoiceAdjustmentController;
 use App\Http\Controllers\Admin\LeaseController;
@@ -180,6 +181,13 @@ Route::middleware('auth')->group(function (): void {
         // Notification Logs & Manual Resend (BE-039, FR-NTF-04)
         Route::get('/notification-logs', [AdminNotificationLogController::class, 'index'])->name('notification-logs.index');
         Route::post('/notification-logs/{notificationLog}/resend', [AdminNotificationLogController::class, 'resend'])->name('notification-logs.resend');
+
+        // Chatbot Management (BE-041, FR-BOT-05)
+        Route::get('/chatbot', [AdminChatbotController::class, 'index'])->name('chatbot.index');
+        Route::post('/chatbot/keywords', [AdminChatbotController::class, 'storeKeyword'])->name('chatbot.keywords.store');
+        Route::put('/chatbot/keywords/{keyword}', [AdminChatbotController::class, 'updateKeyword'])->name('chatbot.keywords.update');
+        Route::delete('/chatbot/keywords/{keyword}', [AdminChatbotController::class, 'destroyKeyword'])->name('chatbot.keywords.destroy');
+        Route::post('/chatbot/sessions/{session}/release-handover', [AdminChatbotController::class, 'releaseHandover'])->name('chatbot.sessions.release-handover');
 
         // CMS Landing Page Modules
         Route::prefix('cms')->name('cms.')->group(function (): void {

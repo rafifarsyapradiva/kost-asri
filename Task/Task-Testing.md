@@ -138,7 +138,7 @@ it('menerapkan bebas denda di siklus 1, peringatan wali di siklus 2, dan denda 1
 - [x] **TST-010 — Unit test edge case Bulanan masuk tepat tanggal 1 (tanpa prorata, langsung 1 bulan penuh)** · Est 1j · Dep: BE-019 · M.
 - [x] **TST-011 — Unit test kalkulasi DP minimal (`ceil(30% × total)`), DP kustom > 30%, dan tolak DP < 30% (`BR-02`, `BR-16`)** · Est 1j · Dep: BE-020 · M.
 - [x] **TST-012 — Unit test `PenaltyService` dasar: denda 10% dihitung murni dari pokok (`rent` + `prorata`), satu kali per invoice, tidak berbunga (`BR-18`)** · Est 1.5j · Dep: BE-024 · M.
-- [ ] **TST-013 — Unit test `KeywordMatcher` Chatbot (pencocokan huruf tidak peka kapital, tanda baca, angka menu `1`–`7`, sinonim, dan fallback `MENU`)** · Est 1j · Dep: BE-040 · M.
+- [x] **TST-013 — Unit test `KeywordMatcher` Chatbot (pencocokan huruf tidak peka kapital, tanda baca, angka menu `1`–`7`, sinonim, dan fallback `MENU`)** · Est 1j · Dep: BE-040 · M.
 
 ### 4.3 Feature Test — Autentikasi, Otorisasi & Keamanan (`tests/Feature/Auth/`)
 - [x] **TST-014 — Feature test Register manual, Login, Logout, Reset Password, & rate limit 5 percobaan gagal (`FR-AUTH-01`, `FR-AUTH-02`, `FR-AUTH-04`)** · Est 2j · Dep: BE-001 · M.
@@ -169,7 +169,7 @@ it('menerapkan bebas denda di siklus 1, peringatan wali di siklus 2, dan denda 1
 - [x] **TST-032 — Feature test command `payment:reconcile-midtrans` menyinkronkan pembayaran `pending` menggunakan mock respons SDK Midtrans (`FR-CRON-06`)** · Est 1.5j · Dep: API-008 · M.
 - [ ] **TST-033 — Feature test jadwal pengingat `notify:reminders` (tgl 1, 5, 9, 10 & H-2, H-1, H) dan `stay:checkout-reminder` (`FR-CRON-04`, `FR-CRON-07`, `BR-21`)** · Est 2j · Dep: BE-043, BE-044 · M.
 - [x] **TST-034 — Feature test `FonnteChannel` & fitur Kirim Ulang notifikasi gagal via `Http::fake()` (`FR-NTF-01`, `FR-NTF-02`, `FR-NTF-04`)** · Est 2j · Dep: API-011, BE-039 · M.
-- [ ] **TST-035 — Feature test Webhook Chatbot Fonnte (`POST /webhook/fonnte`): balasan `MENU` & `1`–`7`, pencocokan tagihan penyewa by nomor HP, mode diam 60 menit saat `ADMIN` handover, pengabaian pesan grup, serta 403 saat token salah (`FR-BOT-01..05`)** · Est 2.5j · Dep: API-014 · M.
+- [x] **TST-035 — Feature test Webhook Chatbot Fonnte (`POST /webhook/fonnte`): balasan `MENU` & `1`–`7`, pencocokan tagihan penyewa by nomor HP, mode diam 60 menit saat `ADMIN` handover, pengabaian pesan grup, serta 403 saat token salah (`FR-BOT-01..05`)** · Est 2.5j · Dep: API-014 · M.
 - [ ] **TST-036 — Feature test generator DomPDF untuk Nota Reservasi, Invoice, Kwitansi, dan Laporan menghasilkan stream `application/pdf` valid (`%PDF-`) (`FR-PDF-01..03`, `FR-DASH-02`)** · Est 2j · Dep: API-025 · M.
 - [x] **TST-037 — Feature test CMS 9 modul landing page (CRUD, upload gambar `Storage::fake`, reorder, moderasi testimoni, penyembunyian section kosong di halaman `/`) (`FR-CMS-01..10`, `FR-TNT-03`)** · Est 2.5j · Dep: BE-018 · M.
 - [ ] **TST-038 — Eksekusi penuh `php artisan test --coverage`, pastikan 0 kegagalan & coverage mesin billing ≥ 80%** · Est 1.5j · Dep: TST-003..037 · M (NFR-10).

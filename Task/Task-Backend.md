@@ -150,8 +150,8 @@
 - [x] **BE-039 — `Admin\NotificationLogController` (daftar log status WA/Email + tombol kirim ulang manual)** · Est 2j · Dep: BE-038 · M (FR-NTF-04).
 
 ### 4.9 Chatbot Engine & Artisan Commands
-- [ ] **BE-040 — Implementasi `KeywordMatcher` & `ChatbotEngine` rule-based (menu, ketersediaan live, tarif, cek tagihan by nomor WA, cara bayar, lokasi, FAQ, handover 60 menit)** · Est 3.5j · Dep: DB-030, BE-011 · M (FR-BOT-02..04).
-- [ ] **BE-041 — `Admin\ChatbotController` (CRUD keyword/sinonim/balasan, riwayat percakapan, tombol akhiri handover lebih cepat)** · Est 2.5j · Dep: BE-040 · M (FR-BOT-05).
+- [x] **BE-040 — Implementasi `KeywordMatcher` & `ChatbotEngine` rule-based (menu, ketersediaan live, tarif, cek tagihan by nomor WA, cara bayar, lokasi, FAQ, handover 60 menit)** · Est 3.5j · Dep: DB-030, BE-011 · M (FR-BOT-02..04).
+- [x] **BE-041 — `Admin\ChatbotController` (CRUD keyword/sinonim/balasan, riwayat percakapan, tombol akhiri handover lebih cepat)** · Est 2.5j · Dep: BE-040 · M (FR-BOT-05).
 - [ ] **BE-042 — Artisan Command `billing:generate-monthly` & `billing:generate-weekly`** · Est 2j · Dep: BE-022, BE-023 · M (FR-CRON-01, FR-CRON-02).
 - [ ] **BE-043 — Artisan Command `billing:apply-penalties` & `notify:reminders` (tgl 1, 5, 9, 10 & H-2, H-1, H)** · Est 2.5j · Dep: BE-024, BE-038 · M (FR-CRON-03, FR-CRON-04, BR-21).
 - [ ] **BE-044 — Artisan Command `reservation:expire-unpaid` & `stay:checkout-reminder`** · Est 2j · Dep: BE-029, BE-038 · M (FR-CRON-05, FR-CRON-07).
