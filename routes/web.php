@@ -173,6 +173,7 @@ Route::middleware('auth')->group(function (): void {
         Route::get('/payments', [AdminPaymentController::class, 'index'])->name('payments.index');
         Route::post('/invoices/{invoice}/cash', [AdminPaymentController::class, 'recordCash'])->name('invoices.cash');
         Route::get('/reports/pdf', ReportPdfController::class)->name('reports.pdf');
+        Route::get('/tenants/{tenantProfile}/ktp', [KtpPhotoController::class, 'show'])->name('tenants.ktp');
 
         // Invoice Adjustment, Void, & Waive Penalty (BE-025, FR-BILL-07, FR-PEN-04)
         Route::post('/invoices/{invoice}/items', [InvoiceAdjustmentController::class, 'addItem'])->name('invoices.items.add');

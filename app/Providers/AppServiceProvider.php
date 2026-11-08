@@ -15,8 +15,11 @@ use App\Policies\LeasePolicy;
 use App\Policies\ReceiptPolicy;
 use App\Policies\ReservationPolicy;
 use App\Policies\TenantProfilePolicy;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -43,5 +46,26 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(TenantProfile::class, TenantProfilePolicy::class);
 
         Notification::extend('fonnte', fn ($app) => $app->make(FonnteChannel::class));
+
+        // Named Rate Limiters (API-030, NFR-01, NFR-02)
+        RateLimiter::for('login', static function (Request $request) {
+            $key = (string) ($request->input('email') ?: $request->ip());
+
+            return Limit::perMinute(5)->by($key);
+        });
+
+        RateLimiter::for('webhook', static function (Request $request) {
+            return Limit::perMinute(120)->by($request->ip());
+        });
+
+        RateLimiter::for('public-calc', static function (Request $request) {
+            return Limit::perMinute(60)->by($request->ip());
+        });
+
+        RateLimiter::for('snap-token', static function (Request $request) {
+            $key = $request->user()?->id ? (string) $request->user()->id : $request->ip();
+
+            return Limit::perMinute(20)->by($key);
+        });
     }
 }

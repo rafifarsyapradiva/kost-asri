@@ -7,6 +7,7 @@ namespace App\Console\Commands;
 use App\Enums\InvoiceStatus;
 use App\Enums\InvoiceType;
 use App\Models\Invoice;
+use App\Models\Setting;
 use App\Services\Billing\PenaltyService;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -36,6 +37,8 @@ class ApplyPenaltiesCommand extends Command
                 $processed++;
             }
         }
+
+        Setting::set('cron_last_run.billing:apply-penalties', now()->toIso8601String());
 
         $this->info("{$processed} tagihan jatuh tempo diproses.");
 

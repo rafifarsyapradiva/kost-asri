@@ -209,11 +209,11 @@ Selain route halaman Inertia/Blade pada Blueprint §7, berikut kontrak endpoint 
 - [x] **API-025 — Controller unduh/stream PDF berotorisasi Policy (`ReservationPdfController`, `InvoicePdfController`, `ReceiptPdfController`) + lampiran otomatis ke Email** · Est 1.5j · Dep: API-021..023, BE-008 · M.
 
 ### 5.6 Cronjob / Scheduler & Endpoint JSON Internal
-- [ ] **API-026 — Daftarkan seluruh 9 jadwal command di `routes/console.php` dengan `withoutOverlapping()` & logging output** · Est 1j · Dep: BE-042..044, API-008, DB-039 · M (FR-CRON-01..07).
-- [ ] **API-027 — Tambahkan pencatatan `cron_last_run.{command}` & alert in-app bila jadwal harian belum jalan melewati batas wajar** · Est 1.5j · Dep: API-026 · S.
-- [ ] **API-028 — Endpoint JSON publik `GET /api/availability` & `POST /reservasi/hitung` lengkap rate limiter (`throttle:60,1`)** · Est 1.5j · Dep: BE-011, BE-027 · M (FR-ROOM-04, FR-RSV-02).
-- [ ] **API-029 — Endpoint stream foto KTP privat `GET /admin/tenants/{profile}/ktp` dengan header `Cache-Control: private, no-store`** · Est 1j · Dep: BE-005 · M (NFR-03).
-- [ ] **API-030 — Konfigurasi Named Rate Limiters di `AppServiceProvider` (`login`, `webhook`, `public-calc`, `snap-token`)** · Est 1j · Dep: SET-017 · M (NFR-01, NFR-02).
+- [x] **API-026 — Daftarkan seluruh 9 jadwal command di `routes/console.php` dengan `withoutOverlapping()` & logging output** · Est 1j · Dep: BE-042..044, API-008, DB-039 · M (FR-CRON-01..07).
+- [x] **API-027 — Tambahkan pencatatan `cron_last_run.{command}` & alert in-app bila jadwal harian belum jalan melewati batas wajar** · Est 1.5j · Dep: API-026 · S.
+- [x] **API-028 — Endpoint JSON publik `GET /api/availability` & `POST /reservasi/hitung` lengkap rate limiter (`throttle:60,1`)** · Est 1.5j · Dep: BE-011, BE-027 · M (FR-ROOM-04, FR-RSV-02).
+- [x] **API-029 — Endpoint stream foto KTP privat `GET /admin/tenants/{profile}/ktp` dengan header `Cache-Control: private, no-store`** · Est 1j · Dep: BE-005 · M (NFR-03).
+- [x] **API-030 — Konfigurasi Named Rate Limiters di `AppServiceProvider` (`login`, `webhook`, `public-calc`, `snap-token`)** · Est 1j · Dep: SET-017 · M (NFR-01, NFR-02).
 
 ### 5.7 Verifikasi Sandbox & Dokumentasi Kontrak
 - [ ] **API-031 — Uji integrasi login Google di browser lokal (akun baru & akun email existing)** · Est 0.5j · Dep: API-003 · M.

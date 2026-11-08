@@ -7,6 +7,7 @@ namespace App\Console\Commands;
 use App\Enums\LeaseStatus;
 use App\Enums\RentType;
 use App\Models\Lease;
+use App\Models\Setting;
 use App\Services\Billing\InvoiceGenerator;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -32,6 +33,8 @@ class GenerateWeeklyInvoicesCommand extends Command
                 $count++;
             }
         }
+
+        Setting::set('cron_last_run.billing:generate-weekly', now()->toIso8601String());
 
         $this->info("{$count} tagihan mingguan berhasil dibuat.");
 
