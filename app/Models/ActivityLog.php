@@ -42,6 +42,17 @@ class ActivityLog extends Model
         ];
     }
 
+    protected static function booted(): void
+    {
+        static::updating(function (): void {
+            throw new \RuntimeException('Audit logs are append-only and immutable (SEC-023).');
+        });
+
+        static::deleting(function (): void {
+            throw new \RuntimeException('Audit logs are append-only and immutable (SEC-023).');
+        });
+    }
+
     public function actor(): BelongsTo
     {
         return $this->belongsTo(User::class, 'actor_id');

@@ -38,4 +38,15 @@ class WebhookLog extends Model
             'created_at' => 'datetime',
         ];
     }
+
+    protected static function booted(): void
+    {
+        static::updating(function (): void {
+            throw new \RuntimeException('Audit logs are append-only and immutable (SEC-023).');
+        });
+
+        static::deleting(function (): void {
+            throw new \RuntimeException('Audit logs are append-only and immutable (SEC-023).');
+        });
+    }
 }

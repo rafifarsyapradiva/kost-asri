@@ -40,6 +40,17 @@ class PenaltyLog extends Model
         ];
     }
 
+    protected static function booted(): void
+    {
+        static::updating(function (): void {
+            throw new \RuntimeException('Audit logs are append-only and immutable (SEC-023).');
+        });
+
+        static::deleting(function (): void {
+            throw new \RuntimeException('Audit logs are append-only and immutable (SEC-023).');
+        });
+    }
+
     public function invoice(): BelongsTo
     {
         return $this->belongsTo(Invoice::class);
