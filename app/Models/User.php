@@ -63,27 +63,7 @@ class User extends Authenticatable
     protected function phone(): Attribute
     {
         return Attribute::make(
-            set: function (?string $value): ?string {
-                if ($value === null || trim($value) === '') {
-                    return null;
-                }
-
-                $cleaned = preg_replace('/[^0-9]/', '', $value) ?? '';
-
-                if (str_starts_with($cleaned, '08')) {
-                    return '628' . substr($cleaned, 2);
-                }
-
-                if (str_starts_with($cleaned, '628')) {
-                    return $cleaned;
-                }
-
-                if (str_starts_with($cleaned, '8')) {
-                    return '628' . substr($cleaned, 1);
-                }
-
-                return $cleaned;
-            }
+            set: fn (?string $value): ?string => \App\Support\PhoneNormalizer::normalize($value) ?? ($value ? preg_replace('/[^0-9]/', '', $value) : null)
         );
     }
 
