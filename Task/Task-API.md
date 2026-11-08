@@ -195,10 +195,10 @@ Selain route halaman Inertia/Blade pada Blueprint §7, berikut kontrak endpoint 
 - [x] **API-015 — Widget cek status koneksi device Fonnte di halaman Pengaturan Admin** · Est 1j · Dep: API-010, BE-049 · S.
 
 ### 5.4 Email SMTP & Mailable
-- [ ] **API-016 — Desain layout dasar Markdown Email bertema Deep Forest Green & Terracotta (`resources/views/emails/layouts/`)** · Est 1.5j · Dep: DSN-040 · M.
-- [ ] **API-017 — Implementasi Mailable/Notification Email untuk Penyewa (verifikasi, reset password, nota reservasi, invoice baru, reminder, kwitansi lunas)** · Est 2.5j · Dep: API-016, BE-038 · M (FR-NTF-03).
-- [ ] **API-018 — Implementasi Mailable/Notification Email Eskalasi Wali (peringatan siklus ke-2 & pengenaan denda siklus ke-3+ / mingguan)** · Est 1.5j · Dep: API-016, BE-024 · M (FR-NTF-02).
-- [ ] **API-019 — Listener `LogSentEmail` & `LogFailedEmail` ke `notification_logs` + mekanisme fallback saat WA gagal** · Est 1.5j · Dep: API-017, DB-023 · M (FR-NTF-04).
+- [x] **API-016 — Desain layout dasar Markdown Email bertema Deep Forest Green & Terracotta (`resources/views/emails/layouts/`)** · Est 1.5j · Dep: DSN-040 · M.
+- [x] **API-017 — Implementasi Mailable/Notification Email untuk Penyewa (verifikasi, reset password, nota reservasi, invoice baru, reminder, kwitansi lunas)** · Est 2.5j · Dep: API-016, BE-038 · M (FR-NTF-03).
+- [x] **API-018 — Implementasi Mailable/Notification Email Eskalasi Wali (peringatan siklus ke-2 & pengenaan denda siklus ke-3+ / mingguan)** · Est 1.5j · Dep: API-016, BE-024 · M (FR-NTF-02).
+- [x] **API-019 — Listener `LogSentEmail` & `LogFailedEmail` ke `notification_logs` + mekanisme fallback saat WA gagal** · Est 1.5j · Dep: API-017, DB-023 · M (FR-NTF-04).
 
 ### 5.5 DomPDF — Nota, Invoice, Kwitansi & Laporan
 - [ ] **API-020 — Implementasi `PdfService` dasar + helper embed logo Base64 & CSS cetak `tabular-nums`** · Est 1.5j · Dep: SET-016 · M.

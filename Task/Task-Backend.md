@@ -143,9 +143,9 @@
   - Kunci baris invoice (`lockForUpdate`), validasi aturan pembayaran sebagian hanya untuk `reservation` (BR-22), update `paid_amount` & status invoice/reservasi/lease (`paid_until`), terbitkan `Receipt` bernomor `KWT/ASRI/...`, dispatch `PaymentSucceeded` (FR-PAY-04, FR-PAY-05).
 - [x] **BE-036 — Implementasi `RecordCashPaymentAction` & `Admin\PaymentController`** · Est 2j · Dep: BE-035 · M
   - Pencatatan pembayaran tunai oleh penjaga kost lengkap `received_by` & catatan (FR-PAY-03).
-- [ ] **BE-037 — Implementasi `TemplateRenderer` & manajemen template notifikasi di pengaturan admin** · Est 2j · Dep: DB-029 · M
+- [x] **BE-037 — Implementasi `TemplateRenderer` & manajemen template notifikasi di pengaturan admin** · Est 2j · Dep: DB-029 · M
   - Substitusi aman seluruh placeholder `{nama}`, `{kode_kamar}`, `{total}`, `{nominal_denda}`, `{nama_wali}`, dll (PRD §11.2, FR-DASH-04).
-- [ ] **BE-038 — Implementasi Events & Queued Listeners untuk seluruh matriks pemicu PRD §11.1** · Est 3.5j · Dep: BE-037 · M
+- [x] **BE-038 — Implementasi Events & Queued Listeners untuk seluruh matriks pemicu PRD §11.1** · Est 3.5j · Dep: BE-037 · M
   - Mencakup pengiriman ke penyewa, `AnonymousNotifiable` untuk wali (siklus 2 & 3+ / mingguan), dan database notification lonceng in-app admin/penyewa (FR-NTF-01..03, FR-NTF-05).
 - [x] **BE-039 — `Admin\NotificationLogController` (daftar log status WA/Email + tombol kirim ulang manual)** · Est 2j · Dep: BE-038 · M (FR-NTF-04).
 
