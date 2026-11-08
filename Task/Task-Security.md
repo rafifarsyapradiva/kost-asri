@@ -139,13 +139,13 @@ Ditambah `Content-Security-Policy` terukur yang hanya mengizinkan script/frame d
 
 ### 5.5 HTTP Headers, Audit Log, Dependency & Hardening Server (Fase 3 & 5)
 - [ ] **SEC-021 — Buat & daftarkan middleware `SetSecurityHeaders` (CSP Midtrans/YouTube/Maps, HSTS, `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`)** · Est 2j · Dep: SET-017 · M.
-- [ ] **SEC-022 — Pastikan pengecualian CSRF di `bootstrap/app.php` **hanya** berlaku spesifik untuk `webhook/midtrans` dan `webhook/fonnte`** · Est 0.5j · Dep: SET-017 · M (NFR-01).
+- [x] **SEC-022 — Pastikan pengecualian CSRF di `bootstrap/app.php` **hanya** berlaku spesifik untuk `webhook/midtrans` dan `webhook/fonnte`** · Est 0.5j · Dep: SET-017 · M (NFR-01).
 - [ ] **SEC-023 — Kunci integritas `activity_logs`, `penalty_logs`, dan `webhook_logs` (larang route/method update & delete pada model audit)** · Est 1j · Dep: BE-007 · M (NFR-09).
 - [ ] **SEC-024 — Masking seluruh kunci API di halaman Pengaturan Admin & larang pengiriman secret mentah ke props Inertia frontend** · Est 1j · Dep: BE-049, FE-038 · M (NFR-02).
 - [ ] **SEC-025 — Konfigurasi Apache VirtualHost lokal & Nginx produksi agar DocumentRoot menunjuk ke `/public` serta blokir akses URL ke `/.env`, `/.git`, `/Blueprint`, `/Documentation`, `/Task`** · Est 1.5j · Dep: SET-003, SET-025 · M.
 - [ ] **SEC-026 — Buat user database MySQL produksi minimal-privilege (`kost_asri_app`) & nonaktifkan login MySQL remote dari luar localhost** · Est 1j · Dep: SET-025 · M.
 - [ ] **SEC-027 — Tambahkan enkripsi AES-256 pada file hasil `backup:database` harian** · Est 1j · Dep: DB-039, SET-029 · S (NFR-11).
-- [ ] **SEC-028 — Jalankan `composer audit` & `npm audit` serta pastikan 0 kerentanan High/Critical pada dependensi pihak ketiga** · Est 1j · Dep: SET-006, SET-007 · M.
+- [x] **SEC-028 — Jalankan `composer audit` & `npm audit` serta pastikan 0 kerentanan High/Critical pada dependensi pihak ketiga** · Est 1j · Dep: SET-006, SET-007 · M.
 
 ### 5.6 Pengujian Keamanan Terdedikasi & Kesiapan Insiden (Fase 4 & 5)
 - [ ] **SEC-029 — Tulis automated security tests di Pest (`tests/Feature/Security/`): uji IDOR silang, mass-assignment `role=admin`, manipulasi harga reservasi, room-hoarding, signed URL wali kedaluwarsa, & LFI di PDF** · Est 3.5j · Dep: TST-017, SEC-007..020 · M.

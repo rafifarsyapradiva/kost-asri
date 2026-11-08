@@ -225,46 +225,46 @@ php artisan queue:restart
 ## 8. Checklist Task (`SET-001` – `SET-030`)
 
 ### 8.1 Prasyarat & Lingkungan Lokal
-- [ ] **SET-001 — Audit & aktifkan ekstensi PHP di `c:\xampp\php\php.ini`** · Est 0.5j · Dep: — · M
+- [x] **SET-001 — Audit & aktifkan ekstensi PHP di `c:\xampp\php\php.ini`** · Est 0.5j · Dep: — · M
   - Pastikan `curl`, `fileinfo`, `gd`, `intl`, `mbstring`, `openssl`, `pdo_mysql`, `zip` aktif.
-- [ ] **SET-002 — Konfigurasi PowerShell ExecutionPolicy / alias `npm.cmd`** · Est 0.5j · Dep: — · M
+- [x] **SET-002 — Konfigurasi PowerShell ExecutionPolicy / alias `npm.cmd`** · Est 0.5j · Dep: — · M
   - Jalankan `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned` dan pastikan `npm -v` berjalan tanpa error.
-- [ ] **SET-003 — Pastikan service MySQL & Apache berjalan di XAMPP + buat VirtualHost opsional `kost-asri.test`** · Est 1j · Dep: SET-001 · S.
-- [ ] **SET-004 — Inisialisasi Git repository & `.gitignore` standar Laravel + pengecualian folder privat** · Est 0.5j · Dep: — · M
+- [x] **SET-003 — Pastikan service MySQL & Apache berjalan di XAMPP + buat VirtualHost opsional `kost-asri.test`** · Est 1j · Dep: SET-001 · S.
+- [x] **SET-004 — Inisialisasi Git repository & `.gitignore` standar Laravel + pengecualian folder privat** · Est 0.5j · Dep: — · M
   - Pastikan `Blueprint/`, `Documentation/`, `Task/` tetap terlacak di Git; tetapkan cabang `main` dan `develop`.
 
 ### 8.2 Instalasi Framework & Paket
-- [ ] **SET-005 — Instal Laravel 12 di `c:\xampp\htdocs\kost-asri` via prosedur folder sementara (§3)** · Est 1j · Dep: SET-001, SET-004 · M
+- [x] **SET-005 — Instal Laravel 12 di `c:\xampp\htdocs\kost-asri` via prosedur folder sementara (§3)** · Est 1j · Dep: SET-001, SET-004 · M
   - AC: `php artisan --version` menampilkan `Laravel Framework 12.x`, folder dokumentasi utuh.
-- [ ] **SET-006 — Instal seluruh paket Composer produksi & dev (§3)** · Est 1j · Dep: SET-005 · M
+- [x] **SET-006 — Instal seluruh paket Composer produksi & dev (§3)** · Est 1j · Dep: SET-005 · M
   - Inertia, Ziggy, Socialite, Midtrans, DomPDF, Intervention Image, Pest, Pint.
-- [ ] **SET-007 — Instal seluruh paket npm frontend (§3)** · Est 1j · Dep: SET-002, SET-005 · M
+- [x] **SET-007 — Instal seluruh paket npm frontend (§3)** · Est 1j · Dep: SET-002, SET-005 · M
   - Vue 3, Inertia Vue, Tailwind CSS 4, Alpine + plugins, Plus Jakarta Sans, Lucide, Chart.js, Day.js.
-- [ ] **SET-008 — Setup middleware & root view Inertia (`HandleInertiaRequests`, `resources/views/app.blade.php`, Ziggy `@routes`)** · Est 1.5j · Dep: SET-006, SET-007 · M.
-- [ ] **SET-009 — Setup Vite dual-entry (`public.js`/`public.css` & `app.js`/`app.css`) + token desain `tokens.css`** · Est 1.5j · Dep: SET-007, DSN-009 · M
+- [x] **SET-008 — Setup middleware & root view Inertia (`HandleInertiaRequests`, `resources/views/app.blade.php`, Ziggy `@routes`)** · Est 1.5j · Dep: SET-006, SET-007 · M.
+- [x] **SET-009 — Setup Vite dual-entry (`public.js`/`public.css` & `app.js`/`app.css`) + token desain `tokens.css`** · Est 1.5j · Dep: SET-007, DSN-009 · M
   - AC: `npm run build` menghasilkan manifest bersih tanpa warning untuk kedua entry.
-- [ ] **SET-010 — Inisialisasi Pest PHP (`php artisan pest:install`) & konfigurasi `phpunit.xml` memakai DB khusus testing (`kost_asri_test` atau SQLite `:memory:`)** · Est 1j · Dep: SET-006 · M.
-- [ ] **SET-011 — Konfigurasi Laravel Pint (`pint.json` PSR-12)** · Est 0.5j · Dep: SET-006 · S.
+- [x] **SET-010 — Inisialisasi Pest PHP (`php artisan pest:install`) & konfigurasi `phpunit.xml` memakai DB khusus testing (`kost_asri_test` atau SQLite `:memory:`)** · Est 1j · Dep: SET-006 · M.
+- [x] **SET-011 — Konfigurasi Laravel Pint (`pint.json` PSR-12)** · Est 0.5j · Dep: SET-006 · S.
 
 ### 8.3 Konfigurasi Aplikasi, Storage & Bahasa
-- [ ] **SET-012 — Konfigurasi `.env` & `.env.example` lengkap dengan variabel integrasi** · Est 1j · Dep: SET-005, DB-001 · M
+- [x] **SET-012 — Konfigurasi `.env` & `.env.example` lengkap dengan variabel integrasi** · Est 1j · Dep: SET-005, DB-001 · M
   - `APP_TIMEZONE=Asia/Jakarta`, `APP_LOCALE=id`, `DB_DATABASE=kost_asri`, blok variabel Google, Midtrans, Fonnte, SMTP.
-- [ ] **SET-013 — Tambahkan mapping kredensial di `config/services.php` (`google`, `midtrans`, `fonnte`)** · Est 0.5j · Dep: SET-012 · M.
-- [ ] **SET-014 — Pasang lokalisasi Bahasa Indonesia (`lang/id`) untuk pesan validasi & Carbon** · Est 1j · Dep: SET-005 · M
+- [x] **SET-013 — Tambahkan mapping kredensial di `config/services.php` (`google`, `midtrans`, `fonnte`)** · Est 0.5j · Dep: SET-012 · M.
+- [x] **SET-014 — Pasang lokalisasi Bahasa Indonesia (`lang/id`) untuk pesan validasi & Carbon** · Est 1j · Dep: SET-005 · M
   - AC: `now()->translatedFormat('d F Y')` menghasilkan nama bulan Bahasa Indonesia (`08 November 2026`).
-- [ ] **SET-015 — Konfigurasi disk `public` & `private`, buat struktur folder `ktp/`, `backups/`, jalankan `php artisan storage:link`** · Est 0.5j · Dep: SET-005 · M.
-- [ ] **SET-016 — Publikasi & konfigurasi DomPDF + registrasi font Plus Jakarta Sans untuk cetak PDF** · Est 1j · Dep: SET-006 · M.
-- [ ] **SET-017 — Daftarkan route file `routes/webhook.php` & pengecualian CSRF `webhook/*` di `bootstrap/app.php`** · Est 0.5j · Dep: SET-005 · M.
+- [x] **SET-015 — Konfigurasi disk `public` & `private`, buat struktur folder `ktp/`, `backups/`, jalankan `php artisan storage:link`** · Est 0.5j · Dep: SET-005 · M.
+- [x] **SET-016 — Publikasi & konfigurasi DomPDF + registrasi font Plus Jakarta Sans untuk cetak PDF** · Est 1j · Dep: SET-006 · M.
+- [x] **SET-017 — Daftarkan route file `routes/webhook.php` & pengecualian CSRF `webhook/*` di `bootstrap/app.php`** · Est 0.5j · Dep: SET-005 · M.
 
 ### 8.4 Akun Sandbox Pihak Ketiga & Proses Latar
-- [ ] **SET-018 — Buat project OAuth 2.0 di Google Cloud Console & isi `GOOGLE_CLIENT_ID` / `SECRET`** · Est 1j · Dep: SET-013 · M
+- [x] **SET-018 — Buat project OAuth 2.0 di Google Cloud Console & isi `GOOGLE_CLIENT_ID` / `SECRET`** · Est 1j · Dep: SET-013 · M
   - Tambahkan Authorized Redirect URI `http://127.0.0.1:8000/auth/google/callback`.
-- [ ] **SET-019 — Buat akun Midtrans Sandbox, ambil `SB-Mid-server-*` & `SB-Mid-client-*`, aktifkan channel VA/QRIS/GoPay** · Est 1j · Dep: SET-013 · M.
-- [ ] **SET-020 — Siapkan akun & hubungkan device WhatsApp di Fonnte, isi `FONNTE_TOKEN` & generate `FONNTE_WEBHOOK_SECRET`** · Est 1j · Dep: SET-013 · M.
-- [ ] **SET-021 — Siapkan akun Mailtrap Sandbox (dev) / Gmail App Password (staging) & uji kirim email tes** · Est 0.5j · Dep: SET-012 · M.
-- [ ] **SET-022 — Konfigurasi skrip `composer run dev` (server + vite + queue + schedule)** · Est 0.5j · Dep: SET-007 · M.
-- [ ] **SET-023 — Daftarkan tugas `KostAsriScheduler` di Windows Task Scheduler & verifikasi log eksekusi** · Est 0.5j · Dep: SET-005 · S.
-- [ ] **SET-024 — Instal & konfigurasi ngrok / Cloudflare Tunnel untuk pengujian webhook lokal** · Est 0.5j · Dep: SET-017 · M.
+- [x] **SET-019 — Buat akun Midtrans Sandbox, ambil `SB-Mid-server-*` & `SB-Mid-client-*`, aktifkan channel VA/QRIS/GoPay** · Est 1j · Dep: SET-013 · M.
+- [x] **SET-020 — Siapkan akun & hubungkan device WhatsApp di Fonnte, isi `FONNTE_TOKEN` & generate `FONNTE_WEBHOOK_SECRET`** · Est 1j · Dep: SET-013 · M.
+- [x] **SET-021 — Siapkan akun Mailtrap Sandbox (dev) / Gmail App Password (staging) & uji kirim email tes** · Est 0.5j · Dep: SET-012 · M.
+- [x] **SET-022 — Konfigurasi skrip `composer run dev` (server + vite + queue + schedule)** · Est 0.5j · Dep: SET-007 · M.
+- [x] **SET-023 — Daftarkan tugas `KostAsriScheduler` di Windows Task Scheduler & verifikasi log eksekusi** · Est 0.5j · Dep: SET-005 · S.
+- [x] **SET-024 — Instal & konfigurasi ngrok / Cloudflare Tunnel untuk pengujian webhook lokal** · Est 0.5j · Dep: SET-017 · M.
 
 ### 8.5 Deployment Produksi & Maintenance (Fase 5 Waterfall)
 - [ ] **SET-025 — Provisioning server produksi (Nginx, PHP 8.2-FPM, MySQL/MariaDB, SSL HTTPS, firewall UFW)** · Est 3j · Dep: QA-030 · M.
