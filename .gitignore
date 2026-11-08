@@ -25,3 +25,7 @@ vite.config.ts.timestamp-*
 /.fleet
 /.idea
 /.vscode
+.phpactor.json
+/auth.json
+/.nova
+/.zed

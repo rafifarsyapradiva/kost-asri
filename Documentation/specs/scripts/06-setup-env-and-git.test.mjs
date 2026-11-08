@@ -46,3 +46,4 @@ test('SET-004: Git tracks authoritative folders, defines develop branch, and .gi
   assert.match(branches, /\bmain\b/);
   assert.match(branches, /\bdevelop\b/);
 });
+
