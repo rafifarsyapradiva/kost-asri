@@ -23,12 +23,12 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Public\AvailabilityController;
+use App\Http\Controllers\Public\LandingController;
 use App\Http\Controllers\Tenant\TestimonialController as TenantTestimonialController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('public.welcome-setup');
-})->name('public.home');
+Route::get('/', [LandingController::class, 'index'])->name('public.home');
+Route::get('/kamar/{slug}', [LandingController::class, 'roomType'])->name('public.room-type');
 
 // Public Room Availability Endpoint (FR-ROOM-04, SEC-003, BE-011)
 Route::get('/api/availability', [AvailabilityController::class, 'index'])
