@@ -105,43 +105,43 @@
   - Otomatis menyembunyikan section kosong dan menyuplai meta Open Graph/SEO (FR-CMS-10).
 
 ### 4.5 Mesin Kalkulasi Billing, Prorata & Denda
-- [ ] **BE-019 — Implementasi `ProrataCalculator` & `PriceCalculator` untuk Harian, Mingguan, dan Bulanan (Opsi 1 & Opsi 2)** · Est 4j · Dep: DB-025, BE-006 · M
+- [x] **BE-019 — Implementasi `ProrataCalculator` & `PriceCalculator` untuk Harian, Mingguan, dan Bulanan (Opsi 1 & Opsi 2)** · Est 4j · Dep: DB-025, BE-006 · M
   - Menangani rumus BR-05, BR-08, BR-13, BR-14 (Opsi 1 Gabung), BR-15 (Opsi 2 Penuh Dulu), serta kasus tepi masuk tanggal 1, tanggal 31 ke bulan pendek, dan Februari kabisat (PRD §10.6).
-- [ ] **BE-020 — Kalkulasi skema DP vs Lunas di `PriceCalculator`** · Est 1.5j · Dep: BE-019 · M
+- [x] **BE-020 — Kalkulasi skema DP vs Lunas di `PriceCalculator`** · Est 1.5j · Dep: BE-019 · M
   - Validasi nominal DP kustom ≥ `ceil(dp_percent% × total)` dan pemecahan nominal pelunasan (`settlement`) (FR-RSV-03, BR-02, BR-16).
-- [ ] **BE-021 — Implementasi `InvoiceGenerator` untuk invoice awal reservasi & pelunasan (`settlement`)** · Est 2.5j · Dep: BE-020, DB-022 · M.
-- [ ] **BE-022 — Implementasi `InvoiceGenerator::generateMonthly()`** · Est 3.5j · Dep: BE-019, DB-022 · M
+- [x] **BE-021 — Implementasi `InvoiceGenerator` untuk invoice awal reservasi & pelunasan (`settlement`)** · Est 2.5j · Dep: BE-020, DB-022 · M.
+- [x] **BE-022 — Implementasi `InvoiceGenerator::generateMonthly()`** · Est 3.5j · Dep: BE-019, DB-022 · M
   - Evaluasi `lease.billed_until`, lewati bulan yang sudah tertutup (Opsi 1 / bulan pertama Opsi 2), tambahkan baris kekurangan prorata bulan sebelumnya pada Opsi 2, naikkan `cycle_count`, set jatuh tempo tanggal 10 (FR-BILL-03..05, BR-12..17).
-- [ ] **BE-023 — Implementasi `InvoiceGenerator::generateWeekly()` (rolling 7 hari, terbit H-2, jatuh tempo H+1)** · Est 2.5j · Dep: BE-019, DB-022 · M (FR-BILL-02, BR-08, BR-10).
-- [ ] **BE-024 — Implementasi `PenaltyService` (eskalasi Bulanan 3 tahap & Mingguan H+1 + bebas denda Harian)** · Est 3.5j · Dep: DB-022, BE-006 · M
+- [x] **BE-023 — Implementasi `InvoiceGenerator::generateWeekly()` (rolling 7 hari, terbit H-2, jatuh tempo H+1)** · Est 2.5j · Dep: BE-019, DB-022 · M (FR-BILL-02, BR-08, BR-10).
+- [x] **BE-024 — Implementasi `PenaltyService` (eskalasi Bulanan 3 tahap & Mingguan H+1 + bebas denda Harian)** · Est 3.5j · Dep: DB-022, BE-006 · M
   - Siklus 1 → `reminder` penyewa tanpa denda; siklus 2 → `warning` penyewa + wali tanpa denda; siklus 3+ → tambah item `penalty` 10% pokok + notifikasi penyewa + wali; mingguan > H+1 → denda 10% + wali; idempoten per invoice; deteksi ≥ 2 invoice overdue untuk alert admin (FR-PEN-01..03, BR-11, BR-18..20, BR-31).
-- [ ] **BE-025 — Fitur Admin penyesuaian item/diskon invoice, `void` invoice, & `waive` denda ber-alasan wajib** · Est 2.5j · Dep: BE-024, BE-007 · S
+- [x] **BE-025 — Fitur Admin penyesuaian item/diskon invoice, `void` invoice, & `waive` denda ber-alasan wajib** · Est 2.5j · Dep: BE-024, BE-007 · S
   - Mencatat perubahan ke `penalty_logs` & `activity_logs` serta menghitung ulang total invoice (FR-BILL-07, FR-PEN-04).
 
 ### 4.6 Alur Reservasi Online (5 Langkah) & Manual Admin
-- [ ] **BE-026 — Implementasi `CreateReservationAction` transaksional dengan `lockForUpdate()`** · Est 3.5j · Dep: BE-011, BE-021 · M
+- [x] **BE-026 — Implementasi `CreateReservationAction` transaksional dengan `lockForUpdate()`** · Est 3.5j · Dep: BE-011, BE-021 · M
   - Tolak bila terjadi irisan tanggal pada kamar yang sama; set kamar `booked` (bila tanggal masuk dekat/aktif), set `expires_at = now() + 24 jam`, dispatch `ReservationCreated` (BR-01, BR-03, BR-04, BR-25).
-- [ ] **BE-027 — `ReservationWizardController` (Step 1 Kamar, Step 2 Sewa + endpoint JSON `/reservasi/hitung`, Step 3 Data Diri & Wali, Step 4 Pembayaran, Step 5 Selesai)** · Est 4.5j · Dep: BE-005, BE-026 · M
+- [x] **BE-027 — `ReservationWizardController` (Step 1 Kamar, Step 2 Sewa + endpoint JSON `/reservasi/hitung`, Step 3 Data Diri & Wali, Step 4 Pembayaran, Step 5 Selesai)** · Est 4.5j · Dep: BE-005, BE-026 · M
   - Menyimpan draft di session agar calon penyewa bebas mundur/maju antar step tanpa kehilangan isian (FR-RSV-01, FR-RSV-02).
-- [ ] **BE-028 — Halaman `Account\ReservationController` (daftar reservasi calon penyewa & aksi batalkan reservasi)** · Est 2j · Dep: BE-026 · M (FR-RSV-08, BR-27).
-- [ ] **BE-029 — Implementasi `CancelReservationAction` & `ExpireReservationAction`** · Est 2j · Dep: BE-026 · M
+- [x] **BE-028 — Halaman `Account\ReservationController` (daftar reservasi calon penyewa & aksi batalkan reservasi)** · Est 2j · Dep: BE-026 · M (FR-RSV-08, BR-27).
+- [x] **BE-029 — Implementasi `CancelReservationAction` & `ExpireReservationAction`** · Est 2j · Dep: BE-026 · M
   - Void invoice terkait yang belum lunas, pulihkan status kamar ke `available` secara aman, catat alasan (FR-RSV-04, FR-RSV-08).
-- [ ] **BE-030 — `Admin\ReservationController` untuk reservasi manual (walk-in / via telepon) + opsi langsung catat cash atau kirim link Midtrans** · Est 3j · Dep: BE-004, BE-026 · M (FR-RSV-05).
+- [x] **BE-030 — `Admin\ReservationController` untuk reservasi manual (walk-in / via telepon) + opsi langsung catat cash atau kirim link Midtrans** · Est 3j · Dep: BE-004, BE-026 · M (FR-RSV-05).
 
 ### 4.7 Operasional Check-In, Check-Out & Perpanjangan
-- [ ] **BE-031 — Implementasi `CheckInAction` & endpoint `POST /admin/reservations/{id}/check-in`** · Est 3j · Dep: BE-026, DB-021 · M
+- [x] **BE-031 — Implementasi `CheckInAction` & endpoint `POST /admin/reservations/{id}/check-in`** · Est 3j · Dep: BE-026, DB-021 · M
   - Blokir bila sisa tagihan reservasi/`settlement` > Rp 0 atau data wali belum lengkap (mingguan/bulanan); buat `Lease` aktif, set `billed_until` & `paid_until` ke `initial_billed_until`, set kamar `occupied`, ubah role user ke `penyewa`, kirim notifikasi check-in (FR-RSV-06, BR-06, BR-09, BR-25, BR-26, BR-28).
-- [ ] **BE-032 — Implementasi `CheckOutAction` & endpoint `POST /admin/leases/{id}/check-out`** · Est 2.5j · Dep: BE-031 · M
+- [x] **BE-032 — Implementasi `CheckOutAction` & endpoint `POST /admin/leases/{id}/check-out`** · Est 2.5j · Dep: BE-031 · M
   - Blokir default bila masih ada invoice `unpaid`/`overdue` kecuali admin mencentang override dengan catatan wajib (masuk `activity_logs`); akhiri lease, kamar → `available`, kembalikan role user ke `calon_penyewa` bila tak punya lease aktif lain (FR-RSV-07, BR-25, BR-26).
-- [ ] **BE-033 — Implementasi `ExtendDailyStayAction` (tambah hari sewa harian bayar di muka)** · Est 2.5j · Dep: BE-011, BE-031 · M
+- [x] **BE-033 — Implementasi `ExtendDailyStayAction` (tambah hari sewa harian bayar di muka)** · Est 2.5j · Dep: BE-011, BE-031 · M
   - Validasi kamar tidak dipesan pihak lain pada tanggal tambahan; buat invoice `daily_extension`; perpanjangan `paid_until` & `planned_checkout_date` baru berlaku otomatis saat invoice `daily_extension` lunas (FR-RSV-09, BR-07).
-- [ ] **BE-034 — Fitur "Tidak Perpanjang" sewa mingguan & "Ajukan Berhenti" sewa bulanan (min H-7 akhir bulan)** · Est 2.5j · Dep: BE-031 · S
+- [x] **BE-034 — Fitur "Tidak Perpanjang" sewa mingguan & "Ajukan Berhenti" sewa bulanan (min H-7 akhir bulan)** · Est 2.5j · Dep: BE-031 · S
   - Void invoice perpanjangan mingguan yang belum jatuh tempo bila dibatalkan sebelum H; proses persetujuan berhenti bulanan oleh admin (FR-RSV-09, FR-TNT-04, BR-10, BR-33).
 
 ### 4.8 Pembayaran, Kwitansi & Orkestrasi Notifikasi
-- [ ] **BE-035 — Implementasi `ApplyPaymentAction` (inti pemrosesan pembayaran lunas untuk Cash maupun Midtrans)** · Est 3.5j · Dep: DB-022 · M
+- [x] **BE-035 — Implementasi `ApplyPaymentAction` (inti pemrosesan pembayaran lunas untuk Cash maupun Midtrans)** · Est 3.5j · Dep: DB-022 · M
   - Kunci baris invoice (`lockForUpdate`), validasi aturan pembayaran sebagian hanya untuk `reservation` (BR-22), update `paid_amount` & status invoice/reservasi/lease (`paid_until`), terbitkan `Receipt` bernomor `KWT/ASRI/...`, dispatch `PaymentSucceeded` (FR-PAY-04, FR-PAY-05).
-- [ ] **BE-036 — Implementasi `RecordCashPaymentAction` & `Admin\PaymentController`** · Est 2j · Dep: BE-035 · M
+- [x] **BE-036 — Implementasi `RecordCashPaymentAction` & `Admin\PaymentController`** · Est 2j · Dep: BE-035 · M
   - Pencatatan pembayaran tunai oleh penjaga kost lengkap `received_by` & catatan (FR-PAY-03).
 - [ ] **BE-037 — Implementasi `TemplateRenderer` & manajemen template notifikasi di pengaturan admin** · Est 2j · Dep: DB-029 · M
   - Substitusi aman seluruh placeholder `{nama}`, `{kode_kamar}`, `{total}`, `{nominal_denda}`, `{nama_wali}`, dll (PRD §11.2, FR-DASH-04).

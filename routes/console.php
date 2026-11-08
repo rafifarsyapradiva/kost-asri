@@ -14,3 +14,7 @@ Artisan::command('inspire', function (): void {
 Schedule::call(static function (): void {
     Cache::put('kost_asri:cron_last_run', now()->toIso8601String(), now()->addDay());
 })->everyMinute()->name('kost-asri:scheduler-heartbeat');
+
+Schedule::command('privacy:prune-expired-ktp')
+    ->dailyAt('03:00')
+    ->name('privacy:prune-expired-ktp');

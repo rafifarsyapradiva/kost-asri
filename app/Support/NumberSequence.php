@@ -56,6 +56,21 @@ final class NumberSequence
         return self::format($docType, $period, $nextNumber);
     }
 
+    public static function nextReservationNumber(?Carbon $date = null): string
+    {
+        return self::next('RSV', $date?->format('Ymd'));
+    }
+
+    public static function nextInvoiceNumber(?Carbon $date = null): string
+    {
+        return self::next('INV', $date?->format('Ym'));
+    }
+
+    public static function nextReceiptNumber(?Carbon $date = null): string
+    {
+        return self::next('KWT', $date?->format('Ym'));
+    }
+
     private static function format(string $docType, string $period, int $number): string
     {
         $padded = sprintf('%04d', $number);

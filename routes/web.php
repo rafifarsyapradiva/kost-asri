@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Account\KtpPhotoController;
 use App\Http\Controllers\Account\ProfileCompletionController;
+use App\Http\Controllers\Account\ReservationController as AccountReservationController;
 use App\Http\Controllers\Account\TenantProfileController;
 use App\Http\Controllers\Admin\Cms\FacilityController;
 use App\Http\Controllers\Admin\Cms\FaqController;
@@ -14,6 +15,11 @@ use App\Http\Controllers\Admin\Cms\ReservationStepController;
 use App\Http\Controllers\Admin\Cms\SiteSettingController;
 use App\Http\Controllers\Admin\Cms\TestimonialController as AdminTestimonialController;
 use App\Http\Controllers\Admin\Cms\VideoController;
+use App\Http\Controllers\Admin\CheckInController;
+use App\Http\Controllers\Admin\InvoiceAdjustmentController;
+use App\Http\Controllers\Admin\LeaseController;
+use App\Http\Controllers\Admin\PaymentController as AdminPaymentController;
+use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\RoomMapController;
 use App\Http\Controllers\Admin\RoomTypeController;
@@ -24,6 +30,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Public\AvailabilityController;
 use App\Http\Controllers\Public\LandingController;
+use App\Http\Controllers\Public\ReservationWizardController;
 use App\Http\Controllers\Tenant\TestimonialController as TenantTestimonialController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,6 +41,15 @@ Route::get('/kamar/{slug}', [LandingController::class, 'roomType'])->name('publi
 Route::get('/api/availability', [AvailabilityController::class, 'index'])
     ->middleware('throttle:60,1')
     ->name('api.availability');
+
+// Reservation Wizard Steps 1 & 2 (Public / Auth) (BE-027, FR-RSV-01, FR-RSV-02, SEC-015)
+Route::get('/reservasi', [ReservationWizardController::class, 'step1'])->name('reservation.step1');
+Route::post('/reservasi/kamar', [ReservationWizardController::class, 'storeStep1'])->name('reservation.step1.store');
+Route::get('/reservasi/sewa', [ReservationWizardController::class, 'step2'])->name('reservation.step2');
+Route::post('/reservasi/sewa', [ReservationWizardController::class, 'storeStep2'])->name('reservation.step2.store');
+Route::post('/reservasi/hitung', [ReservationWizardController::class, 'calculate'])
+    ->middleware('throttle:60,1')
+    ->name('reservation.calculate');
 
 Route::middleware('guest')->group(function (): void {
     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
@@ -73,9 +89,26 @@ Route::middleware('auth')->group(function (): void {
         ->middleware('role:penyewa')
         ->name('tenant.dashboard');
 
-    Route::get('/akun/reservasi-saya', fn () => response()->json(['module' => 'prospect']))
+    // Account Reservations (FR-RSV-08, BR-27)
+    Route::get('/akun/reservasi-saya', [AccountReservationController::class, 'index'])
         ->middleware('role:calon_penyewa,penyewa')
         ->name('account.reservations');
+    Route::post('/akun/reservasi-saya/{reservation}/batal', [AccountReservationController::class, 'cancel'])
+        ->middleware('role:calon_penyewa,penyewa')
+        ->name('account.reservations.cancel');
+
+    // Reservation Wizard Steps 3, 4, 5 (Auth required) (FR-RSV-03, FR-PAY-01, FR-PDF-01)
+    Route::get('/reservasi/data-diri', [ReservationWizardController::class, 'step3'])->name('reservation.step3');
+    Route::post('/reservasi/data-diri', [ReservationWizardController::class, 'storeStep3'])->name('reservation.step3.store');
+    Route::get('/reservasi/pembayaran', [ReservationWizardController::class, 'step4'])
+        ->middleware('profile.complete')
+        ->name('reservation.step4');
+    Route::post('/reservasi/pembayaran', [ReservationWizardController::class, 'storeStep4'])
+        ->middleware('profile.complete')
+        ->name('reservation.step4.store');
+    Route::get('/reservasi/{reservation:code}/selesai', [ReservationWizardController::class, 'step5'])
+        ->middleware('can:view,reservation')
+        ->name('reservation.completed');
 
     // Profile & Private KTP Photo (BE-005, SEC-010, TST-017)
     Route::get('/akun/profil', [TenantProfileController::class, 'show'])->name('account.profile');
@@ -88,10 +121,6 @@ Route::middleware('auth')->group(function (): void {
         ->name('tenant.testimonial.store');
 
     // Anti-IDOR protected resource routes (BE-008, SEC-008, TST-017)
-    Route::get('/reservasi/{reservation:code}/selesai', fn () => response()->json(['status' => 'completed']))
-        ->middleware('can:view,reservation')
-        ->name('reservation.completed');
-
     Route::get('/invoices/{invoice}/pdf', fn () => response('%PDF-stub', 200, ['Content-Type' => 'application/pdf']))
         ->middleware('can:view,invoice')
         ->name('invoices.pdf');
@@ -106,6 +135,27 @@ Route::middleware('auth')->group(function (): void {
         Route::patch('/rooms/{room}/toggle-maintenance', [RoomController::class, 'toggleMaintenance'])->name('rooms.toggle-maintenance');
         Route::resource('rooms', RoomController::class)->except(['create', 'show', 'edit']);
         Route::resource('room-types', RoomTypeController::class)->except(['create', 'show', 'edit']);
+
+        // Admin Manual Reservations (BE-030, FR-RSV-05)
+        Route::get('/reservations', [AdminReservationController::class, 'index'])->name('reservations.index');
+        Route::post('/reservations', [AdminReservationController::class, 'store'])->name('reservations.store');
+
+        // Admin Payments & Front-Desk Cash Recording (BE-036, FR-PAY-03)
+        Route::get('/payments', [AdminPaymentController::class, 'index'])->name('payments.index');
+        Route::post('/invoices/{invoice}/cash', [AdminPaymentController::class, 'recordCash'])->name('invoices.cash');
+
+        // Invoice Adjustment, Void, & Waive Penalty (BE-025, FR-BILL-07, FR-PEN-04)
+        Route::post('/invoices/{invoice}/items', [InvoiceAdjustmentController::class, 'addItem'])->name('invoices.items.add');
+        Route::post('/invoices/{invoice}/waive-penalty', [InvoiceAdjustmentController::class, 'waivePenalty'])->name('invoices.waive-penalty');
+        Route::post('/invoices/{invoice}/void', [InvoiceAdjustmentController::class, 'voidInvoice'])->name('invoices.void');
+
+        // Check-In (BE-031, FR-RSV-06)
+        Route::post('/reservations/{reservation}/check-in', [CheckInController::class, 'store'])->name('reservations.check-in');
+
+        // Check-Out, Extension, & Lease Termination (BE-032..BE-034, FR-RSV-07, FR-RSV-09, FR-TNT-04)
+        Route::post('/leases/{lease}/check-out', [LeaseController::class, 'checkout'])->name('leases.checkout');
+        Route::post('/leases/{lease}/extend', [LeaseController::class, 'extend'])->name('leases.extend');
+        Route::post('/leases/{lease}/stop', [LeaseController::class, 'stop'])->name('leases.stop');
 
         // CMS Landing Page Modules
         Route::prefix('cms')->name('cms.')->group(function (): void {
@@ -123,9 +173,4 @@ Route::middleware('auth')->group(function (): void {
             Route::resource('nearby-places', NearbyPlaceController::class)->except(['create', 'show', 'edit']);
         });
     });
-
-    // Reservation payment step requiring completed profile
-    Route::get('/reservasi/pembayaran', fn () => response()->json(['step' => 'payment']))
-        ->middleware('profile.complete')
-        ->name('reservation.payment');
 });

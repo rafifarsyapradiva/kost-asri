@@ -147,25 +147,49 @@ class AvailabilityService
     }
 
     /**
+     * Check if a specific room is available between two dates (BR-01).
+     */
+    public function isRoomAvailable(
+        Room $room,
+        CarbonInterface|string $start,
+        CarbonInterface|string $end,
+        ?int $ignoreReservationId = null,
+        ?int $ignoreLeaseId = null
+    ): bool {
+        $startDate = $start instanceof CarbonInterface ? $start->toDateString() : Carbon::parse($start)->toDateString();
+        $endDate = $end instanceof CarbonInterface ? $end->toDateString() : Carbon::parse($end)->toDateString();
+
+        return $this->evaluateRoomStatusBetween($room, $startDate, $endDate, $ignoreReservationId, $ignoreLeaseId) === 'available';
+    }
+
+    /**
      * Evaluate room availability status between start and end dates (BR-01).
      */
-    protected function evaluateRoomStatusBetween(Room $room, string $start, string $end): string
-    {
+    protected function evaluateRoomStatusBetween(
+        Room $room,
+        string $start,
+        string $end,
+        ?int $ignoreReservationId = null,
+        ?int $ignoreLeaseId = null
+    ): string {
         if ($room->status === RoomStatus::Maintenance) {
             return 'maintenance';
         }
 
-        $hasLease = $room->leases()
+        $leaseQuery = $room->leases()
             ->whereIn('status', [LeaseStatus::Active->value, LeaseStatus::Ending->value])
             ->where('start_date', '<', $end)
-            ->whereRaw("COALESCE(planned_checkout_date, '9999-12-31') > ?", [$start])
-            ->exists();
+            ->whereRaw("COALESCE(planned_checkout_date, '9999-12-31') > ?", [$start]);
 
-        if ($hasLease) {
+        if ($ignoreLeaseId !== null) {
+            $leaseQuery->where('id', '!=', $ignoreLeaseId);
+        }
+
+        if ($leaseQuery->exists()) {
             return 'occupied';
         }
 
-        $hasReservation = $room->reservations()
+        $resQuery = $room->reservations()
             ->whereIn('status', [
                 ReservationStatus::PendingPayment->value,
                 ReservationStatus::DpPaid->value,
@@ -173,10 +197,13 @@ class AvailabilityService
                 ReservationStatus::CheckedIn->value,
             ])
             ->where('check_in_date', '<', $end)
-            ->whereRaw("COALESCE(check_out_date, '9999-12-31') > ?", [$start])
-            ->exists();
+            ->whereRaw("COALESCE(check_out_date, '9999-12-31') > ?", [$start]);
 
-        if ($hasReservation) {
+        if ($ignoreReservationId !== null) {
+            $resQuery->where('id', '!=', $ignoreReservationId);
+        }
+
+        if ($resQuery->exists()) {
             return 'booked';
         }
 

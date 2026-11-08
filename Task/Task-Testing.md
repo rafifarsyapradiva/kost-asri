@@ -131,13 +131,13 @@ it('menerapkan bebas denda di siklus 1, peringatan wali di siklus 2, dan denda 1
 - [x] **TST-003 — Unit test utilitas `Money` (pembulatan `BR-32`, format Rupiah, fungsi terbilang Bahasa Indonesia)** · Est 1j · Dep: DB-025 · M.
 - [x] **TST-004 — Unit test `NumberSequence` (format `RSV`, `INV`, `KWT`, reset nomor urut saat berganti bulan/hari, ketahanan transaksi `BR-30`)** · Est 1j · Dep: DB-025 · M.
 - [x] **TST-005 — Unit test normalisasi nomor WhatsApp (`08xx`, `+62 8xx`, `628xx` → `628xxx`)** · Est 0.5j · Dep: BE-001 · M.
-- [ ] **TST-006 — Unit test `PriceCalculator` Sewa Harian (`jumlah_malam × tarif_harian`, minimal 1 malam, `BR-05`)** · Est 1j · Dep: BE-019 · M.
-- [ ] **TST-007 — Unit test `PriceCalculator` Sewa Mingguan rolling 7 hari (`start_k`, `end_k`, multi-minggu, `BR-08`)** · Est 1j · Dep: BE-019 · M.
-- [ ] **TST-008 — Unit test `ProrataCalculator` & Bulanan **Opsi 1 (Gabung)** pada bulan 28, 29 (kabisat 2028), 30, dan 31 hari (`BR-13`, `BR-14`)** · Est 2j · Dep: BE-019 · M.
-- [ ] **TST-009 — Unit test Bulanan **Opsi 2 (Penuh Dulu)** termasuk edge case masuk 31 Januari → Februari non-kabisat & kabisat (`BR-15`, PRD §10.6)** · Est 2j · Dep: BE-019 · M.
-- [ ] **TST-010 — Unit test edge case Bulanan masuk tepat tanggal 1 (tanpa prorata, langsung 1 bulan penuh)** · Est 1j · Dep: BE-019 · M.
-- [ ] **TST-011 — Unit test kalkulasi DP minimal (`ceil(30% × total)`), DP kustom > 30%, dan tolak DP < 30% (`BR-02`, `BR-16`)** · Est 1j · Dep: BE-020 · M.
-- [ ] **TST-012 — Unit test `PenaltyService` dasar: denda 10% dihitung murni dari pokok (`rent` + `prorata`), satu kali per invoice, tidak berbunga (`BR-18`)** · Est 1.5j · Dep: BE-024 · M.
+- [x] **TST-006 — Unit test `PriceCalculator` Sewa Harian (`jumlah_malam × tarif_harian`, minimal 1 malam, `BR-05`)** · Est 1j · Dep: BE-019 · M.
+- [x] **TST-007 — Unit test `PriceCalculator` Sewa Mingguan rolling 7 hari (`start_k`, `end_k`, multi-minggu, `BR-08`)** · Est 1j · Dep: BE-019 · M.
+- [x] **TST-008 — Unit test `ProrataCalculator` & Bulanan **Opsi 1 (Gabung)** pada bulan 28, 29 (kabisat 2028), 30, dan 31 hari (`BR-13`, `BR-14`)** · Est 2j · Dep: BE-019 · M.
+- [x] **TST-009 — Unit test Bulanan **Opsi 2 (Penuh Dulu)** termasuk edge case masuk 31 Januari → Februari non-kabisat & kabisat (`BR-15`, PRD §10.6)** · Est 2j · Dep: BE-019 · M.
+- [x] **TST-010 — Unit test edge case Bulanan masuk tepat tanggal 1 (tanpa prorata, langsung 1 bulan penuh)** · Est 1j · Dep: BE-019 · M.
+- [x] **TST-011 — Unit test kalkulasi DP minimal (`ceil(30% × total)`), DP kustom > 30%, dan tolak DP < 30% (`BR-02`, `BR-16`)** · Est 1j · Dep: BE-020 · M.
+- [x] **TST-012 — Unit test `PenaltyService` dasar: denda 10% dihitung murni dari pokok (`rent` + `prorata`), satu kali per invoice, tidak berbunga (`BR-18`)** · Est 1.5j · Dep: BE-024 · M.
 - [ ] **TST-013 — Unit test `KeywordMatcher` Chatbot (pencocokan huruf tidak peka kapital, tanda baca, angka menu `1`–`7`, sinonim, dan fallback `MENU`)** · Est 1j · Dep: BE-040 · M.
 
 ### 4.3 Feature Test — Autentikasi, Otorisasi & Keamanan (`tests/Feature/Auth/`)
@@ -150,21 +150,21 @@ it('menerapkan bebas denda di siklus 1, peringatan wali di siklus 2, dan denda 1
 ### 4.4 Feature Test — Kamar, Ketersediaan & Reservasi (`tests/Feature/Reservation/`)
 - [x] **TST-018 — Feature test CRUD Tipe Kamar, 32 Kamar, aturan `maintenance`, dan penolakan hapus kamar bertransaksi (`FR-ROOM-01..03`, `BR-25`)** · Est 1.5j · Dep: BE-010 · M.
 - [x] **TST-019 — Feature test `AvailabilityService` & endpoint `/api/availability`: deteksi akurat irisan tanggal reservasi & lease aktif (`FR-ROOM-04`, `BR-01`)** · Est 2j · Dep: BE-011 · M.
-- [ ] **TST-020 — Feature test Wizard Reservasi Online 5 Langkah end-to-end untuk Harian, Mingguan, dan Bulanan (skema DP & Lunas, Midtrans & Cash) (`FR-RSV-01..03`)** · Est 3j · Dep: BE-027 · M.
-- [ ] **TST-021 — Feature test pencegahan double-booking pada kamar & tanggal yang sama (`BR-01`)** · Est 1.5j · Dep: BE-026 · M.
-- [ ] **TST-022 — Feature test Reservasi Manual oleh Admin + pembuatan akun walk-in hanya nomor WA (`FR-RSV-05`, `FR-AUTH-06`)** · Est 2j · Dep: BE-030 · M.
-- [ ] **TST-023 — Feature test kedaluwarsa reservasi otomatis lewat 24 jam (`reservation:expire-unpaid`) & pembatalan reservasi (DP hangus, kamar kembali `available`) (`FR-RSV-04`, `FR-RSV-08`, `BR-03`, `BR-27`)** · Est 2j · Dep: BE-029, BE-044 · M.
+- [x] **TST-020 — Feature test Wizard Reservasi Online 5 Langkah end-to-end untuk Harian, Mingguan, dan Bulanan (skema DP & Lunas, Midtrans & Cash) (`FR-RSV-01..03`)** · Est 3j · Dep: BE-027 · M.
+- [x] **TST-021 — Feature test pencegahan double-booking pada kamar & tanggal yang sama (`BR-01`)** · Est 1.5j · Dep: BE-026 · M.
+- [x] **TST-022 — Feature test Reservasi Manual oleh Admin + pembuatan akun walk-in hanya nomor WA (`FR-RSV-05`, `FR-AUTH-06`)** · Est 2j · Dep: BE-030 · M.
+- [x] **TST-023 — Feature test kedaluwarsa reservasi otomatis lewat 24 jam (`reservation:expire-unpaid`) & pembatalan reservasi (DP hangus, kamar kembali `available`) (`FR-RSV-04`, `FR-RSV-08`, `BR-03`, `BR-27`)** · Est 2j · Dep: BE-029, BE-044 · M.
 
 ### 4.5 Feature Test — Check-In, Check-Out, Perpanjangan & Siklus Billing (`tests/Feature/Stay/`)
-- [ ] **TST-024 — Feature test `CheckInAction`: blokir bila belum lunas 100% atau data wali kosong (mingguan/bulanan); sukses membuat `Lease`, ubah kamar `occupied` & role `penyewa` (`FR-RSV-06`, `BR-06`, `BR-09`, `BR-26`, `BR-28`)** · Est 2.5j · Dep: BE-031 · M.
-- [ ] **TST-025 — Feature test `CheckOutAction`: blokir bila ada tunggakan (kecuali override admin ber-alasan), kamar kembali `available`, role kembali `calon_penyewa` (`FR-RSV-07`, `BR-25`, `BR-26`)** · Est 2j · Dep: BE-032 · M.
-- [ ] **TST-026 — Feature test Tambah Hari Sewa Harian (`ExtendDailyStayAction`): wajib lunas di muka sebelum tanggal keluar berubah, bebas denda & tanpa notifikasi wali (`FR-RSV-09`, `FR-PEN-03`, `BR-07`)** · Est 2j · Dep: BE-033 · M.
-- [ ] **TST-027 — Feature test siklus Sewa Mingguan penuh dengan `travelTo()`: invoice terbit H-2 (`billing:generate-weekly`), opsi Tidak Perpanjang sebelum H, serta denda 10% + notifikasi wali saat lewat H+1 (`FR-BILL-02`, `FR-PEN-02`, `FR-CRON-02`, `BR-10`, `BR-11`)** · Est 2.5j · Dep: BE-023, BE-024, BE-042 · M.
-- [ ] **TST-028 — Feature test siklus Sewa Bulanan 4 bulan penuh dengan `travelTo()` (Opsi 1 & Opsi 2): terbit tanggal 1 (`billing:generate-monthly`), jatuh tempo tanggal 10, eskalasi siklus 1 → 2 → 3 → 4 (`FR-BILL-03..05`, `FR-PEN-01`, `FR-CRON-01`, `FR-CRON-03`, `BR-12..20`)** · Est 3j · Dep: BE-022, BE-024, BE-042, BE-043 · M.
-- [ ] **TST-029 — Feature test penyesuaian manual invoice, `void` invoice, `waive` denda oleh Admin, serta alert ≥ 2 invoice overdue (`FR-BILL-07`, `FR-PEN-04`, `BR-31`)** · Est 2j · Dep: BE-025 · S.
+- [x] **TST-024 — Feature test `CheckInAction`: blokir bila belum lunas 100% atau data wali kosong (mingguan/bulanan); sukses membuat `Lease`, ubah kamar `occupied` & role `penyewa` (`FR-RSV-06`, `BR-06`, `BR-09`, `BR-26`, `BR-28`)** · Est 2.5j · Dep: BE-031 · M.
+- [x] **TST-025 — Feature test `CheckOutAction`: blokir bila ada tunggakan (kecuali override admin ber-alasan), kamar kembali `available`, role kembali `calon_penyewa` (`FR-RSV-07`, `BR-25`, `BR-26`)** · Est 2j · Dep: BE-032 · M.
+- [x] **TST-026 — Feature test Tambah Hari Sewa Harian (`ExtendDailyStayAction`): wajib lunas di muka sebelum tanggal keluar berubah, bebas denda & tanpa notifikasi wali (`FR-RSV-09`, `FR-PEN-03`, `BR-07`)** · Est 2j · Dep: BE-033 · M.
+- [x] **TST-027 — Feature test siklus Sewa Mingguan penuh dengan `travelTo()`: invoice terbit H-2 (`billing:generate-weekly`), opsi Tidak Perpanjang sebelum H, serta denda 10% + notifikasi wali saat lewat H+1 (`FR-BILL-02`, `FR-PEN-02`, `FR-CRON-02`, `BR-10`, `BR-11`)** · Est 2.5j · Dep: BE-023, BE-024, BE-042 · M.
+- [x] **TST-028 — Feature test siklus Sewa Bulanan 4 bulan penuh dengan `travelTo()` (Opsi 1 & Opsi 2): terbit tanggal 1 (`billing:generate-monthly`), jatuh tempo tanggal 10, eskalasi siklus 1 → 2 → 3 → 4 (`FR-BILL-03..05`, `FR-PEN-01`, `FR-CRON-01`, `FR-CRON-03`, `BR-12..20`)** · Est 3j · Dep: BE-022, BE-024, BE-042, BE-043 · M.
+- [x] **TST-029 — Feature test penyesuaian manual invoice, `void` invoice, `waive` denda oleh Admin, serta alert ≥ 2 invoice overdue (`FR-BILL-07`, `FR-PEN-04`, `BR-31`)** · Est 2j · Dep: BE-025 · S.
 
 ### 4.6 Feature Test — Pembayaran, Webhook, Chatbot, PDF & CMS (`tests/Feature/Integration/`)
-- [ ] **TST-030 — Feature test Pembayaran Cash oleh Admin + penolakan pembayaran sebagian untuk invoice bulanan/mingguan + penerbitan `Receipt` (`FR-PAY-03..05`, `BR-22`)** · Est 2j · Dep: BE-036 · M.
+- [x] **TST-030 — Feature test Pembayaran Cash oleh Admin + penolakan pembayaran sebagian untuk invoice bulanan/mingguan + penerbitan `Receipt` (`FR-PAY-03..05`, `BR-22`)** · Est 2j · Dep: BE-036 · M.
 - [ ] **TST-031 — Feature test Webhook Midtrans (`POST /webhook/midtrans`): signature sah `settlement`/`capture`, penolakan signature palsu (403), idempotensi kiriman ganda, status `expire`/`cancel`, dan invoice `void` → `needs_review` (`FR-PAY-02`, `BR-24`)** · Est 3j · Dep: API-007, TST-002 · M.
 - [ ] **TST-032 — Feature test command `payment:reconcile-midtrans` menyinkronkan pembayaran `pending` menggunakan mock respons SDK Midtrans (`FR-CRON-06`)** · Est 1.5j · Dep: API-008 · M.
 - [ ] **TST-033 — Feature test jadwal pengingat `notify:reminders` (tgl 1, 5, 9, 10 & H-2, H-1, H) dan `stay:checkout-reminder` (`FR-CRON-04`, `FR-CRON-07`, `BR-21`)** · Est 2j · Dep: BE-043, BE-044 · M.

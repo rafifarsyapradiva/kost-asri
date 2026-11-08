@@ -126,13 +126,13 @@ Ditambah `Content-Security-Policy` terukur yang hanya mengizinkan script/frame d
 - [x] **SEC-010 — Pengamanan penuh foto KTP di `storage/app/private/ktp/`: nama UUID, stream via `KtpPhotoController` khusus `admin`/pemilik, header `Cache-Control: private, no-store`** · Est 1.5j · Dep: BE-005, API-029 · M (NFR-03).
 - [x] **SEC-011 — Hardening pipeline upload file (validasi MIME `finfo`, batas ukuran 2 MB, re-encode `Intervention Image` untuk buang EXIF/payload skrip)** · Est 2j · Dep: BE-009, BE-013 · M.
 - [ ] **SEC-012 — Implementasi halaman pembayaran publik terbatas dengan `URL::temporarySignedRoute` untuk `{link_bayar}` yang dikirim ke WA/Email Wali (data penyewa di-mask, hanya buka Snap Midtrans)** · Est 2.5j · Dep: API-005, BE-038 · M (FR-NTF-02).
-- [ ] **SEC-013 — Implementasi command terjadwal retensi privasi (`privacy:prune-expired-ktp`) untuk menghapus foto KTP alumni > 1 tahun pasca check-out tanpa tunggakan** · Est 1.5j · Dep: BE-032 · S.
+- [x] **SEC-013 — Implementasi command terjadwal retensi privasi (`privacy:prune-expired-ktp`) untuk menghapus foto KTP alumni > 1 tahun pasca check-out tanpa tunggakan** · Est 1.5j · Dep: BE-032 · S.
 - [x] **SEC-014 — Pasang HTML Sanitizer berbasis allowlist pada input rich-text CMS (`FAQ`, `Tentang Kami`) & escape ketat seluruh input penyewa/testimoni** · Est 1.5j · Dep: BE-016, BE-017 · M (NFR-01).
 
 ### 5.4 Pengamanan Transaksi Keuangan, Anti-Hoarding, Webhook & DomPDF (Fase 3)
-- [ ] **SEC-015 — Pastikan kalkulasi biaya reservasi, DP, prorata, dan nominal Snap Token 100% dihitung ulang di server (tolak manipulasi harga dari payload request)** · Est 1.5j · Dep: BE-026, API-005 · M (NFR-06).
-- [ ] **SEC-016 — Verifikasi penguncian baris `lockForUpdate()` pada pembuatan reservasi, pencatatan pembayaran, dan generator penomoran dokumen** · Est 1.5j · Dep: DB-025, BE-026, BE-035 · M (BR-01, NFR-06).
-- [ ] **SEC-017 — Terapkan proteksi *Anti-Room-Hoarding*: batasi maksimal 1 reservasi `pending_payment` aktif per pengguna + rate limit pembuatan reservasi per IP (`5/jam`)** · Est 1.5j · Dep: BE-026, API-030 · M.
+- [x] **SEC-015 — Pastikan kalkulasi biaya reservasi, DP, prorata, dan nominal Snap Token 100% dihitung ulang di server (tolak manipulasi harga dari payload request)** · Est 1.5j · Dep: BE-026, API-005 · M (NFR-06).
+- [x] **SEC-016 — Verifikasi penguncian baris `lockForUpdate()` pada pembuatan reservasi, pencatatan pembayaran, dan generator penomoran dokumen** · Est 1.5j · Dep: DB-025, BE-026, BE-035 · M (BR-01, NFR-06).
+- [x] **SEC-017 — Terapkan proteksi *Anti-Room-Hoarding*: batasi maksimal 1 reservasi `pending_payment` aktif per pengguna + rate limit pembuatan reservasi per IP (`5/jam`)** · Est 1.5j · Dep: BE-026, API-030 · M.
 - [ ] **SEC-018 — Hardening `MidtransWebhookController`: perbandingan `hash_equals` SHA-512, validasi silang `gross_amount` == `payment.amount`, idempotensi, & alert jika signature gagal berulang** · Est 1.5j · Dep: API-006 · M (BR-24, NFR-02).
 - [ ] **SEC-019 — Hardening `FonnteWebhookController`: validasi `hash_equals` token rahasia, abaikan grup/broadcast, & cegah kebocoran tagihan ke nomor WA yang tidak terdaftar di `users.phone`** · Est 1.5j · Dep: API-013, BE-040 · M (NFR-02).
 - [x] **SEC-020 — Hardening konfigurasi DomPDF (`enable_remote=false`, `enable_php=false`, `chroot` ke `base_path()`) untuk mencegah SSRF & LFI lewat teks PDF** · Est 1j · Dep: SET-016, API-020 · M.
