@@ -5,15 +5,25 @@ declare(strict_types=1);
 use App\Http\Controllers\Account\KtpPhotoController;
 use App\Http\Controllers\Account\ProfileCompletionController;
 use App\Http\Controllers\Account\TenantProfileController;
+use App\Http\Controllers\Admin\Cms\FacilityController;
+use App\Http\Controllers\Admin\Cms\FaqController;
+use App\Http\Controllers\Admin\Cms\GalleryController;
+use App\Http\Controllers\Admin\Cms\NearbyPlaceController;
+use App\Http\Controllers\Admin\Cms\ReorderController;
+use App\Http\Controllers\Admin\Cms\ReservationStepController;
+use App\Http\Controllers\Admin\Cms\SiteSettingController;
+use App\Http\Controllers\Admin\Cms\TestimonialController as AdminTestimonialController;
+use App\Http\Controllers\Admin\Cms\VideoController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\RoomMapController;
 use App\Http\Controllers\Admin\RoomTypeController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
-use App\Http\Controllers\Public\AvailabilityController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Public\AvailabilityController;
+use App\Http\Controllers\Tenant\TestimonialController as TenantTestimonialController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -72,6 +82,11 @@ Route::middleware('auth')->group(function (): void {
     Route::post('/akun/profil', [TenantProfileController::class, 'store']);
     Route::get('/private/ktp/{tenantProfile}', [KtpPhotoController::class, 'show'])->name('account.ktp.show');
 
+    // Tenant Testimonial Submission (FR-TNT-03, BE-016)
+    Route::post('/penyewa/testimoni', [TenantTestimonialController::class, 'store'])
+        ->middleware('role:penyewa')
+        ->name('tenant.testimonial.store');
+
     // Anti-IDOR protected resource routes (BE-008, SEC-008, TST-017)
     Route::get('/reservasi/{reservation:code}/selesai', fn () => response()->json(['status' => 'completed']))
         ->middleware('can:view,reservation')
@@ -85,12 +100,28 @@ Route::middleware('auth')->group(function (): void {
         ->middleware('can:view,receipt')
         ->name('receipts.pdf');
 
-    // Admin Room & Room Type Management (BE-009, BE-010, BE-012)
+    // Admin Room, Room Type & CMS Management (BE-009..BE-017)
     Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function (): void {
         Route::get('/rooms/map', [RoomMapController::class, 'index'])->name('rooms.map');
         Route::patch('/rooms/{room}/toggle-maintenance', [RoomController::class, 'toggleMaintenance'])->name('rooms.toggle-maintenance');
         Route::resource('rooms', RoomController::class)->except(['create', 'show', 'edit']);
         Route::resource('room-types', RoomTypeController::class)->except(['create', 'show', 'edit']);
+
+        // CMS Landing Page Modules
+        Route::prefix('cms')->name('cms.')->group(function (): void {
+            Route::post('/{type}/reorder', ReorderController::class)->name('reorder');
+            Route::patch('/testimonials/{testimonial}/publish', [AdminTestimonialController::class, 'publish'])->name('testimonials.publish');
+            Route::get('/site-settings', [SiteSettingController::class, 'show'])->name('site-settings.show');
+            Route::post('/site-settings', [SiteSettingController::class, 'update'])->name('site-settings.update');
+
+            Route::resource('facilities', FacilityController::class)->except(['create', 'show', 'edit']);
+            Route::resource('steps', ReservationStepController::class)->except(['create', 'show', 'edit']);
+            Route::resource('videos', VideoController::class)->except(['create', 'show', 'edit']);
+            Route::resource('galleries', GalleryController::class)->except(['create', 'show', 'edit']);
+            Route::resource('faqs', FaqController::class)->except(['create', 'show', 'edit']);
+            Route::resource('testimonials', AdminTestimonialController::class)->only(['index', 'destroy']);
+            Route::resource('nearby-places', NearbyPlaceController::class)->except(['create', 'show', 'edit']);
+        });
     });
 
     // Reservation payment step requiring completed profile
