@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UI Kit &amp; Interactive Prototype — Mini ERP Kost ASRI BOARDING HOUSE</title>
+  <link rel="stylesheet" href="./tokens.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background-color: var(--color-cream-50);
+      color: var(--color-ink-900);
+      line-height: 1.5;
+      min-width: 360px;
+    }
+
+    /* Skip Link (DSN-044) */
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0.75rem;
+      z-index: 100;
+      padding: 0.625rem 1rem;
+      background: var(--color-forest-900);
+      color: var(--color-white);
+      border-radius: 0.5rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .skip-link:focus {
+      left: 0.75rem;
+    }
+
+    /* Top Prototype Switcher Bar */
+    .proto-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--color-forest-900);
+      color: var(--color-white);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+      padding: 0.75rem 1rem;
+    }
+    .proto-topbar-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .brand-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.625rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--color-white);
+    }
+    .brand-mark img {
+      width: 32px;
+      height: 32px;
+      background: var(--color-cream-50);
+      border-radius: 8px;
+      padding: 2px;
+    }
+    .proto-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.375rem;
+    }
+    .proto-tab {
+      border: 1px solid rgba(216, 243, 220, 0.35);
+      background: transparent;
+      color: var(--color-sage-100);
+      padding: 0.45rem 0.8rem;
+      border-radius: 9999px;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+      min-height: 38px;
+    }
+    .proto-tab[aria-selected="true"] {
+      background: var(--color-terracotta-500);
+      border-color: var(--color-terracotta-500);
+      color: var(--color-ink-900);
+    }
+
+    /* Layout Containers & Responsive Breakpoints (DSN-043: 360px, 640px, 768px, 1024px, 1280px) */
+    .container-public {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
+    }
+    .container-erp {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
+      background: var(--color-slate-50);
+    }
+    .view-panel[hidden] {
+      display: none !important;
+    }
+
+    .grid-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+    .wizard-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    .erp-shell {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+
+    @media (min-width: 640px) {
+      .container-public, .container-erp { padding: 1.75rem 1.5rem; }
+      .grid-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (min-width: 768px) {
+      .bento-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .span-2 { grid-column: span 2 / span 2; }
+    }
+
+    @media (min-width: 1024px) {
+      .container-public, .container-erp { padding: 2rem; }
+      .grid-cards-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .wizard-layout { grid-template-columns: minmax(0, 2fr) minmax(320px, 1fr); align-items: start; }
+      .erp-shell { grid-template-columns: 260px minmax(0, 1fr); align-items: start; }
+      .sticky-summary { position: sticky; top: 5.25rem; }
+    }
+
+    @media (min-width: 1280px) {
+      .bento-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+
+    /* Typography Helpers (DSN-005) */
+    .h-display { font-size: 2.25rem; line-height: 2.75rem; font-weight: 800; letter-spacing: -0.02em; margin: 0 0 0.75rem; }
+    .h-section { font-size: 1.5rem; line-height: 2rem; font-weight: 700; margin: 0 0 0.5rem; }
+    .h-card { font-size: 1.125rem; line-height: 1.6rem; font-weight: 700; margin: 0 0 0.5rem; }
+    .kpi-value { font-size: 2rem; line-height: 2.5rem; font-weight: 700; }
+    .text-muted { color: var(--color-ink-600); font-size: 0.875rem; }
+    .text-right { text-align: right; }
+
+    /* Cards: Warm Biophilic vs Clean Bento */
+    .card-biophilic {
+      background: var(--color-white);
+      border: 1px solid var(--color-sand-100);
+      border-radius: var(--radius-biophilic-card);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-biophilic);
+    }
+    .card-sand {
+      background: var(--color-sand-100);
+      border-radius: var(--radius-biophilic-card);
+      padding: 1.25rem;
+      color: var(--color-ink-900);
+    }
+    .card-bento {
+      background: var(--color-white);
+      border: 1px solid var(--color-line-200);
+      border-radius: var(--radius-bento-card);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-bento);
+    }
+
+    /* Buttons (DSN-006 & DSN-010) */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      min-height: 44px;
+      padding: 0.625rem 1.25rem;
+      font-size: 0.875rem;
+      font-family: inherit;
+      font-weight: 600;
+      border: 1.5px solid transparent;
+      border-radius: var(--radius-erp-btn);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 180ms ease, transform 180ms ease;
+    }
+    .btn-pill { border-radius: 9999px; }
+    .btn-sm { min-height: 36px; padding: 0.375rem 0.875rem; font-size: 0.8125rem; }
+    .btn-lg { min-height: 48px; padding: 0.75rem 1.5rem; font-size: 1rem; }
+    .btn-outline {
+      background: transparent;
+      border-color: var(--color-forest-900);
+      color: var(--color-forest-900);
+    }
+    .btn-outline:hover:not(:disabled) { background: var(--color-sage-100); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--color-ink-900);
+    }
+    .btn-ghost:hover:not(:disabled) { background: rgba(27, 67, 50, 0.08); }
+    .btn-danger {
+      background: var(--color-danger-700);
+      color: var(--color-white);
+    }
+    .btn-danger:hover:not(:disabled) { background: var(--color-danger-800); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* Form Inputs (DSN-011) */
+    .field { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 0.875rem; }
+    .field label { font-size: 0.875rem; font-weight: 600; color: var(--color-ink-900); }
+    .input, select.input, textarea.input {
+      min-height: 44px;
+      padding: 0.55rem 0.75rem;
+      border: 1px solid #D1D5DB;
+      border-radius: 0.625rem;
+      background: var(--color-white);
+      color: var(--color-ink-900);
+      font-family: inherit;
+      font-size: 0.9375rem;
+    }
+    .input-error { border-color: var(--color-danger); background: #FFFBFB; }
+    .error-msg {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.8125rem;
+      color: var(--color-danger-text);
+      font-weight: 600;
+    }
+    .currency-wrap {
+      display: flex;
+      align-items: center;
+      border: 1px solid #D1D5DB;
+      border-radius: 0.625rem;
+      background: var(--color-white);
+      overflow: hidden;
+    }
+    .currency-prefix {
+      padding: 0.55rem 0.75rem;
+      background: var(--color-slate-50);
+      border-right: 1px solid var(--color-line-200);
+      font-weight: 700;
+      color: var(--color-ink-600);
+    }
+    .currency-wrap input { border: 0; flex: 1; min-height: 42px; padding: 0.5rem 0.75rem; font-size: 0.95rem; }
+    .dropzone {
+      border: 2px dashed var(--color-forest-500);
+      border-radius: 0.875rem;
+      padding: 1rem;
+      background: var(--color-cream-50);
+      text-align: center;
+    }
+
+    /* Semantic Status Badges & Class Pills (DSN-003, DSN-004, DSN-012, DSN-013, NFR-08) */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.2rem 0.625rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border: 1px solid transparent;
+      white-space: nowrap;
+    }
+    .badge-success { background: var(--color-success-bg); border-color: var(--color-success); color: var(--color-success-text); }
+    .badge-warning { background: var(--color-warning-bg); border-color: var(--color-warning); color: var(--color-warning-text); }
+    .badge-danger  { background: var(--color-danger-bg);  border-color: var(--color-danger);  color: var(--color-danger-text); }
+    .badge-neutral { background: var(--color-neutral-bg); border-color: var(--color-neutral); color: var(--color-neutral-text); }
+    .badge-brand   { background: var(--color-sage-100);   border-color: var(--color-forest-700); color: var(--color-forest-900); }
+
+    .class-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.125rem 0.45rem;
+      border-radius: 0.375rem;
+      font-size: 0.6875rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+    .class-pill-standard { background: var(--color-class-standard-bg); color: var(--color-class-standard-text); }
+    .class-pill-vip      { background: var(--color-class-vip-bg);      color: var(--color-class-vip-text); }
+    .class-pill-deluxe   { background: var(--color-class-deluxe-bg);   color: var(--color-class-deluxe-text); }
+
+    /* RoomCell & 2-Floor Corridor Map (DSN-014, DSN-025, DSN-032) */
+    .floor-scroll-wrap {
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+    .corridor-row {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(78px, 1fr));
+      gap: 0.625rem;
+      min-width: 680px;
+    }
+    .floor-scroll-wrap.grid-4x4 .corridor-row {
+      grid-template-columns: repeat(4, minmax(72px, 1fr));
+      min-width: 0;
+    }
+    .corridor-aisle {
+      margin: 0.625rem 0;
+      padding: 0.35rem 0.75rem;
+      border-radius: 0.5rem;
+      background: var(--color-neutral-bg);
+      color: var(--color-neutral-text);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.08em;
+      border: 1px dashed var(--color-neutral);
+    }
+    .room-cell {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 76px;
+      min-height: 82px;
+      padding: 0.45rem 0.5rem;
+      border-radius: 0.75rem;
+      border-width: 1px 1px 1px 4px;
+      border-style: solid;
+      cursor: pointer;
+      text-align: left;
+      font-family: inherit;
+      transition: transform 150ms ease, box-shadow 150ms ease;
+    }
+    .room-cell[data-room-status="available"]   { background: var(--color-success-bg); border-color: var(--color-success); color: var(--color-success-text); }
+    .room-cell[data-room-status="booked"]      { background: var(--color-warning-bg); border-color: var(--color-warning); color: var(--color-warning-text); }
+    .room-cell[data-room-status="occupied"]    { background: var(--color-danger-bg);  border-color: var(--color-danger);  color: var(--color-danger-text); }
+    .room-cell[data-room-status="maintenance"] { background: var(--color-neutral-bg); border-color: var(--color-neutral); color: var(--color-neutral-text); }
+
+    .room-cell[data-room-class="standard"] { border-left-color: var(--color-class-standard); }
+    .room-cell[data-room-class="vip"]      { border-left-color: var(--color-class-vip); }
+    .room-cell[data-room-class="deluxe"]   {
+      border-left-color: var(--color-class-deluxe);
+      background-image: linear-gradient(90deg, rgba(201, 162, 39, 0.14), transparent);
+    }
+    .room-cell[aria-pressed="true"] {
+      box-shadow: 0 0 0 2px var(--color-white), 0 0 0 4px var(--color-forest-900);
+      transform: scale(1.02);
+    }
+    .room-cell-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      font-size: 0.6875rem;
+      font-weight: 700;
+    }
+    .room-cell-code {
+      font-size: 1.125rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    /* DataTable (DSN-016) */
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--color-line-200);
+      border-radius: 1rem;
+      background: var(--color-white);
+    }
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+    table.data-table th {
+      background: var(--color-slate-50);
+      color: var(--color-ink-900);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--color-line-200);
+    }
+    table.data-table td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--color-line-200);
+    }
+    table.data-table tr.row-overdue { background: rgba(254, 226, 226, 0.35); }
+
+    /* Stepper (DSN-018) */
+    .stepper-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .step-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.45rem 0.85rem;
+      border-radius: 9999px;
+      border: 1px solid var(--color-line-200);
+      background: var(--color-white);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .step-chip[data-step-state="done"] { background: var(--color-forest-900); color: var(--color-white); border-color: var(--color-forest-900); }
+    .step-chip[data-step-state="active"] { background: var(--color-terracotta-500); color: var(--color-ink-900); border-color: var(--color-terracotta-500); font-weight: 700; }
+
+    /* Sidebar Dark (DSN-020) */
+    .sidebar-dark {
+      background: var(--color-forest-900);
+      color: var(--color-sage-100);
+      border-radius: 1rem;
+      padding: 1.25rem;
+    }
+    .sidebar-group-title {
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-sage-300);
+      margin: 1rem 0 0.4rem;
+      font-weight: 700;
+    }
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0.55rem 0.75rem;
+      border-radius: 0.5rem;
+      color: var(--color-sage-100);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border-left: 4px solid transparent;
+    }
+    .sidebar-link[aria-current="page"] {
+      background: var(--color-forest-700);
+      color: var(--color-white);
+      border-left-color: var(--color-terracotta-500);
+      font-weight: 700;
+    }
+
+    /* Overlays: Drawer, Modal, Toast (DSN-017) */
+    .overlay-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(17, 24, 39, 0.52);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .overlay-backdrop[hidden] { display: none !important; }
+    .modal-panel {
+      background: var(--color-white);
+      border-radius: 1.25rem;
+      max-width: 520px;
+      width: 100%;
+      padding: 1.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    .drawer-panel {
+      margin-left: auto;
+      background: var(--color-white);
+      max-width: 440px;
+      width: 100%;
+      height: 100%;
+      border-radius: 1rem 0 0 1rem;
+      padding: 1.5rem;
+      overflow-y: auto;
+    }
+    .toast-floating {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 70;
+      background: var(--color-forest-900);
+      color: var(--color-white);
+      padding: 0.75rem 1rem;
+      border-radius: 0.75rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    .hero-arch {
+      border-radius: 120px 120px 24px 24px;
+      background: linear-gradient(145deg, var(--color-forest-900), var(--color-forest-700));
+      color: var(--color-white);
+      padding: 2rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .mt-2 { margin-top: 0.5rem; }
+    .mt-3 { margin-top: 0.75rem; }
+    .mt-4 { margin-top: 1rem; }
+    .mt-6 { margin-top: 1.5rem; }
+    .flex-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.625rem; }
+    .flex-between { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; }
+  </style>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Lewati ke konten utama</a>
+
+  <header class="proto-topbar">
+    <div class="proto-topbar-inner">
+      <div class="brand-mark">
+        <img src="./assets/logo-asri.svg" alt="Logo ASRI Boarding House">
+        <span>ASRI BOARDING HOUSE · UI Kit &amp; Prototype Fase 2</span>
+      </div>
+      <nav aria-label="Pemilih tampilan prototipe" class="proto-tabs" role="tablist">
+        <button type="button" class="proto-tab" role="tab" aria-selected="true" data-switch-view="view-components">1. Pustaka Komponen</button>
+        <button type="button" class="proto-tab" role="tab" aria-selected="false" data-switch-view="view-landing">2. Landing Publik</button>
+        <button type="button" class="proto-tab" role="tab" aria-selected="false" data-switch-view="view-wizard">3. Alur 1: Wizard Reservasi</button>
+        <button type="button" class="proto-tab" role="tab" aria-selected="false" data-switch-view="view-admin">4. Alur 2: Admin &amp; 32 Kamar</button>
+        <button type="button" class="proto-tab" role="tab" aria-selected="false" data-switch-view="view-tenant">5. Alur 3: Penyewa &amp; Wali</button>
+        <button type="button" class="proto-tab" role="tab" aria-selected="false" data-switch-view="view-states">6. Error &amp; Empty States</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <!-- =================================================================== -->
+    <!-- VIEW 1: PUSTAKA KOMPONEN INTI & MATRIKS 12 ROOMCELL (DSN-010..020)  -->
+    <!-- =================================================================== -->
+    <section id="view-components" class="view-panel container-public" data-section="component-library">
+      <h1 class="h-display">Pustaka Komponen UI &amp; Design Token (`DSN-001` s/d `DSN-020`)</h1>
+      <p class="text-muted">Seluruh komponen mengunci kontras WCAG 2.1 AA, indikator ikon + teks Bahasa Indonesia (`NFR-08`), dan perataan angka `.num` (`tabular-nums`).</p>
+
+      <div class="grid-cards mt-4">
+        <!-- DSN-010 Button -->
+        <article class="card-bento" data-component="button">
+          <h2 class="h-card">DSN-010 · Button Variants &amp; Sizes</h2>
+          <p class="text-muted">Opsi A terkunci: CTA Primer `#E07A5F` memakai teks gelap `#1F2937` (`4,98:1`), hover `#E78F77` (`6,01:1`).</p>
+          <div class="flex-row mt-3">
+            <button type="button" class="btn btn-primary btn-pill">Reservasi Sekarang (Publik)</button>
+            <button type="button" class="btn btn-primary">Simpan Data (ERP)</button>
+            <button type="button" class="btn btn-secondary">Sekunder Forest</button>
+            <button type="button" class="btn btn-outline btn-sm">Outline Kecil</button>
+            <button type="button" class="btn btn-ghost">Ghost</button>
+            <button type="button" class="btn btn-danger">Batalkan / Void</button>
+            <button type="button" class="btn btn-primary btn-lg" disabled>Memproses...</button>
+          </div>
+        </article>
+
+        <!-- DSN-011 Form & Inputs -->
+        <article class="card-bento" data-component="form-inputs">
+          <h2 class="h-card">DSN-011 · Form, CurrencyInput `.num` &amp; Private KTP Dropzone</h2>
+          <div class="field">
+            <label for="demo-nik">NIK Sesuai KTP (16 Digit — Dienkripsi AES-256)</label>
+            <input id="demo-nik" class="input num" type="text" value="3374061511040001" maxlength="16">
+          </div>
+          <div class="field">
+            <label for="demo-dp">Nominal Pembayaran DP (Minimal 30%)</label>
+            <div class="currency-wrap">
+              <span class="currency-prefix">Rp</span>
+              <input id="demo-dp" class="num" type="text" value="414.000" aria-describedby="demo-dp-help">
+            </div>
+            <small id="demo-dp-help" class="text-muted">Otomatis memformat ribuan `.num` dan mengirim integer `BIGINT` murni.</small>
+          </div>
+          <div class="field">
+            <label for="demo-wa-wali">Nomor WhatsApp Wali (Contoh State Error)</label>
+            <input id="demo-wa-wali" class="input input-error num" type="tel" value="081234567890" aria-invalid="true">
+            <span class="error-msg" role="alert">⚠ Nomor WhatsApp Wali wajib berbeda dari nomor Penyewa (`BR-28`).</span>
+          </div>
+          <div class="dropzone">
+            <strong>Unggah Foto KTP Asli (Privat)</strong>
+            <p class="text-muted" style="margin:0.25rem 0 0;">JPG, PNG, atau WebP maks. 2 MB — disimpan di disk privat `storage/app/private/ktp/`.</p>
+          </div>
+        </article>
+
+        <!-- DSN-012 StatusBadge -->
+        <article class="card-bento" data-component="status-badge">
+          <h2 class="h-card">DSN-012 · Semantic StatusBadge (Ikon + Teks Wajib `NFR-08`)</h2>
+          <div class="flex-row mt-2">
+            <span class="badge badge-success">✓ Tersedia</span>
+            <span class="badge badge-warning">◷ Dipesan (DP)</span>
+            <span class="badge badge-danger">🚪 Terisi</span>
+            <span class="badge badge-neutral">🔧 Perbaikan</span>
+            <span class="badge badge-brand">🔑 Check-in</span>
+            <span class="badge badge-success">✓ Lunas</span>
+            <span class="badge badge-warning">◔ DP/Sebagian</span>
+            <span class="badge badge-danger">⚠ Menunggak</span>
+            <span class="badge badge-neutral">⊘ Dibatalkan</span>
+            <span class="badge badge-neutral">🔔 Reminder (Siklus 1)</span>
+            <span class="badge badge-warning">⚠ Peringatan Wali (Siklus 2)</span>
+            <span class="badge badge-danger">⚖ Denda 10%</span>
+          </div>
+        </article>
+
+        <!-- DSN-013 RoomClassBadge -->
+        <article class="card-bento" data-component="room-class-badge">
+          <h2 class="h-card">DSN-013 · RoomClassBadge (`STD` / `VIP` / `DLX`)</h2>
+          <p class="text-muted">Border kiri `4px` dipadukan dengan pill teks gelap kontras tinggi (`≥ 7,15:1`).</p>
+          <div class="flex-row mt-3">
+            <span class="class-pill class-pill-standard">🛏 STD · Standard (16 Kamar)</span>
+            <span class="class-pill class-pill-vip">★ VIP · VIP (10 Kamar)</span>
+            <span class="class-pill class-pill-deluxe">♛ DLX · Deluxe (6 Kamar)</span>
+          </div>
+        </article>
+      </div>
+
+      <!-- DSN-004 & DSN-014: 12-Combination RoomCell Matrix -->
+      <article class="card-bento mt-4" data-component="room-cell-matrix">
+        <h2 class="h-card">DSN-004 &amp; DSN-014 · Matriks 12 Kombinasi `RoomClass × RoomStatus`</h2>
+        <p class="text-muted">Memastikan pill kelas kamar (`STD`/`VIP`/`DLX`) dan border kiri `4px` tidak bertabrakan dengan warna status ketersediaan.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:0.75rem;" class="mt-3">
+          <div class="room-cell" data-matrix-combo="standard-available" data-room-class="standard" data-room-status="available"><div class="room-cell-top"><span>Tersedia</span><span>✓</span></div><div class="room-cell-code num">101</div><span class="class-pill class-pill-standard">🛏 STD</span></div>
+          <div class="room-cell" data-matrix-combo="standard-booked" data-room-class="standard" data-room-status="booked"><div class="room-cell-top"><span>Dipesan (DP)</span><span>◷</span></div><div class="room-cell-code num">102</div><span class="class-pill class-pill-standard">🛏 STD</span></div>
+          <div class="room-cell" data-matrix-combo="standard-occupied" data-room-class="standard" data-room-status="occupied"><div class="room-cell-top"><span>Terisi</span><span>🚪</span></div><div class="room-cell-code num">103</div><span class="class-pill class-pill-standard">🛏 STD</span></div>
+          <div class="room-cell" data-matrix-combo="standard-maintenance" data-room-class="standard" data-room-status="maintenance"><div class="room-cell-top"><span>Perbaikan</span><span>🔧</span></div><div class="room-cell-code num">104</div><span class="class-pill class-pill-standard">🛏 STD</span></div>
+
+          <div class="room-cell" data-matrix-combo="vip-available" data-room-class="vip" data-room-status="available"><div class="room-cell-top"><span>Tersedia</span><span>✓</span></div><div class="room-cell-code num">113</div><span class="class-pill class-pill-vip">★ VIP</span></div>
+          <div class="room-cell" data-matrix-combo="vip-booked" data-room-class="vip" data-room-status="booked"><div class="room-cell-top"><span>Dipesan (DP)</span><span>◷</span></div><div class="room-cell-code num">114</div><span class="class-pill class-pill-vip">★ VIP</span></div>
+          <div class="room-cell" data-matrix-combo="vip-occupied" data-room-class="vip" data-room-status="occupied"><div class="room-cell-top"><span>Terisi</span><span>🚪</span></div><div class="room-cell-code num">115</div><span class="class-pill class-pill-vip">★ VIP</span></div>
+          <div class="room-cell" data-matrix-combo="vip-maintenance" data-room-class="vip" data-room-status="maintenance"><div class="room-cell-top"><span>Perbaikan</span><span>🔧</span></div><div class="room-cell-code num">116</div><span class="class-pill class-pill-vip">★ VIP</span></div>
+
+          <div class="room-cell" data-matrix-combo="deluxe-available" data-room-class="deluxe" data-room-status="available"><div class="room-cell-top"><span>Tersedia</span><span>✓</span></div><div class="room-cell-code num">211</div><span class="class-pill class-pill-deluxe">♛ DLX</span></div>
+          <div class="room-cell" data-matrix-combo="deluxe-booked" data-room-class="deluxe" data-room-status="booked"><div class="room-cell-top"><span>Dipesan (DP)</span><span>◷</span></div><div class="room-cell-code num">212</div><span class="class-pill class-pill-deluxe">♛ DLX</span></div>
+          <div class="room-cell" data-matrix-combo="deluxe-occupied" data-room-class="deluxe" data-room-status="occupied"><div class="room-cell-top"><span>Terisi</span><span>🚪</span></div><div class="room-cell-code num">213</div><span class="class-pill class-pill-deluxe">♛ DLX</span></div>
+          <div class="room-cell" data-matrix-combo="deluxe-maintenance" data-room-class="deluxe" data-room-status="maintenance"><div class="room-cell-top"><span>Perbaikan</span><span>🔧</span></div><div class="room-cell-code num">214</div><span class="class-pill class-pill-deluxe">♛ DLX</span></div>
+        </div>
+      </article>
+
+      <div class="grid-cards mt-4">
+        <!-- DSN-015 BentoCard & KPI -->
+        <article class="card-bento" data-component="bento-card">
+          <div class="flex-between">
+            <span class="text-muted">DSN-015 · Bento KPI Stat Card</span>
+            <span class="badge badge-success">✓ Target ≥ 90%</span>
+          </div>
+          <div class="kpi-value num mt-2">90,6% <span class="text-muted">(29 / 32 Kamar)</span></div>
+          <p class="text-muted" style="margin:0.35rem 0 0;">Pendapatan Bulan Ini: <strong class="num">Rp 34.850.000</strong></p>
+        </article>
+
+        <!-- DSN-017 Overlays -->
+        <article class="card-bento" data-component="overlays">
+          <h2 class="h-card">DSN-017 · Modal, SlideOverDrawer, ConfirmDialog &amp; Toast</h2>
+          <p class="text-muted">Aksi sensitif (`void` invoice, `waive` denda, pembatalan) wajib alasan eksplisit untuk `activity_logs`.</p>
+          <div class="flex-row mt-3">
+            <button type="button" class="btn btn-outline btn-sm" id="btn-open-confirm">Buka ConfirmDialog (Waive Denda)</button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-trigger-toast">Tampilkan Toast</button>
+          </div>
+        </article>
+
+        <!-- DSN-018 Stepper -->
+        <article class="card-bento" data-component="stepper">
+          <h2 class="h-card">DSN-018 · Stepper 5 Langkah (Desktop &amp; Mobile Ringkas)</h2>
+          <div class="stepper-bar">
+            <span class="step-chip num" data-step-state="done">✓ 1. Pilih Kamar</span>
+            <span class="step-chip num" data-step-state="active">2. Tipe &amp; Durasi</span>
+            <span class="step-chip num">3. Data Diri &amp; Wali</span>
+            <span class="step-chip num">4. Pembayaran</span>
+            <span class="step-chip num">5. Selesai &amp; Nota</span>
+          </div>
+          <p class="text-muted" style="margin:0;">Mode Mobile (`&lt; 768px`): <strong>Langkah 2 dari 5 — Tipe &amp; Durasi Sewa</strong></p>
+        </article>
+
+        <!-- DSN-019 PriceSummaryCard -->
+        <article class="card-bento" data-component="price-summary">
+          <h2 class="h-card">DSN-019 · PriceSummaryCard Real-Time (`aria-live="polite"`)</h2>
+          <div class="flex-between"><span>Kamar <strong class="num">105</strong> · Standard</span><span class="num">15 Nov 2026</span></div>
+          <div class="flex-between mt-2"><span>Prorata 16 hari (15–30 Nov)</span><span class="num">Rp 480.000</span></div>
+          <div class="flex-between"><span>Sewa Penuh Desember 2026</span><span class="num">Rp 900.000</span></div>
+          <hr style="border:0;border-top:1px solid var(--color-line-200);margin:0.65rem 0;">
+          <div class="flex-between"><strong>Total Tagihan Awal</strong><strong class="num">Rp 1.380.000</strong></div>
+          <div class="flex-between text-muted"><span>Minimal DP (30%)</span><span class="num">Rp 414.000</span></div>
+        </article>
+      </div>
+
+      <!-- DSN-016 DataTable -->
+      <article class="card-bento mt-4" data-component="data-table">
+        <div class="flex-between">
+          <h2 class="h-card" style="margin:0;">DSN-016 · DataTable Responsif (Kolom Uang Rata Kanan `.num`)</h2>
+          <input class="input" style="min-height:38px;max-width:260px;" type="search" placeholder="Cari invoice / kamar...">
+        </div>
+        <div class="table-wrap mt-3">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>No. Invoice</th>
+                <th>Kamar</th>
+                <th>Siklus</th>
+                <th>Jatuh Tempo</th>
+                <th>Status</th>
+                <th class="text-right">Total Tagihan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-overdue">
+                <td class="num">INV/ASRI/2026/11/0014</td>
+                <td class="num">205 · VIP</td>
+                <td class="num">Siklus ke-3</td>
+                <td class="num">10 Nov 2026</td>
+                <td><span class="badge badge-danger">⚠ Menunggak (+Denda 10%)</span></td>
+                <td class="text-right num"><strong>Rp 1.430.000</strong></td>
+              </tr>
+              <tr>
+                <td class="num">INV/ASRI/2026/11/0021</td>
+                <td class="num">105 · STD</td>
+                <td class="num">Siklus ke-1</td>
+                <td class="num">15 Nov 2026</td>
+                <td><span class="badge badge-success">✓ Lunas</span></td>
+                <td class="text-right num"><strong>Rp 1.380.000</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+
+      <!-- DSN-020 & DSN-023 Navigation + Auth Card Preview -->
+      <article class="card-bento mt-4" data-component="navigation">
+        <h2 class="h-card">DSN-020 &amp; DSN-023 · Navigasi Publik, Sidebar Admin, Bottom Nav Penyewa &amp; Kartu Login OAuth</h2>
+        <div class="grid-cards mt-3">
+          <div class="card-biophilic">
+            <strong>Kartu Login &amp; Registrasi (`/login` · `/akun/lengkapi-profil`)</strong>
+            <p class="text-muted">Mendukung Google OAuth Socialite + pelengkapan nomor WhatsApp wajib pasca login pertama.</p>
+            <button type="button" class="btn btn-outline btn-pill" style="width:100%;">G · Masuk dengan Google</button>
+          </div>
+          <div class="card-sand">
+            <strong>Tenant Mobile Bottom Navigation (5 Tab)</strong>
+            <div class="flex-row mt-2">
+              <span class="badge badge-brand">🏠 Ringkasan</span>
+              <span class="badge badge-neutral">📄 Tagihan</span>
+              <span class="badge badge-neutral">📅 Perpanjang</span>
+              <span class="badge badge-neutral">💬 Testimoni</span>
+              <span class="badge badge-neutral">👤 Profil</span>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 2: LANDING PAGE PUBLIK WARM BIOPHILIC — 11 SECTION (FR-CMS-10) -->
+    <!-- =================================================================== -->
+    <section id="view-landing" class="view-panel container-public" data-section="public-landing" hidden>
+      <!-- 1. Hero Biophilic -->
+      <div class="card-biophilic" data-landing-section="1-hero" style="position:relative;overflow:hidden;">
+        <img src="./assets/leaf-ornament.svg" alt="" aria-hidden="true" style="position:absolute;right:0;top:0;width:160px;pointer-events:none;">
+        <div class="grid-cards">
+          <div>
+            <span class="badge badge-brand">🌿 Kost Eksklusif Dekat Kampus Tembalang</span>
+            <h1 class="h-display mt-2">Hunian Tenang, Bersih, &amp; Transparan di Tembalang Semarang</h1>
+            <p class="text-muted">Pilih kamar langsung dari denah 2 lantai real-time, hitung simulasi prorata transparan, dan terima kwitansi resmi otomatis.</p>
+            <div class="flex-row mt-3">
+              <button type="button" class="btn btn-primary btn-pill btn-lg" data-jump-flow="view-wizard">Reservasi Sekarang</button>
+              <a href="#section-room-types" class="btn btn-outline btn-pill btn-lg">Lihat Kamar &amp; Tarif</a>
+            </div>
+            <div class="flex-row mt-4">
+              <div><strong class="kpi-value num">32</strong><div class="text-muted">Kamar Siap Huni</div></div>
+              <div><strong class="kpi-value num">2</strong><div class="text-muted">Lantai Koridor</div></div>
+              <div><strong class="kpi-value num">3</strong><div class="text-muted">Kelas (STD/VIP/DLX)</div></div>
+            </div>
+          </div>
+          <div class="hero-arch">
+            <span class="badge badge-success">✓ Ketersediaan Live Hari Ini</span>
+            <h2 class="h-section mt-3">Quick Availability Search</h2>
+            <p style="color:var(--color-sage-100);font-size:0.9rem;">Pilih tanggal masuk &amp; tipe sewa untuk langsung memfilter denah kamar.</p>
+            <div class="mt-3">
+              <button type="button" class="btn btn-primary btn-pill" data-jump-flow="view-wizard">Cari Kamar Kosong →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Tentang Kami -->
+      <section class="card-sand mt-4" data-landing-section="2-about">
+        <h2 class="h-section">2. Tentang ASRI BOARDING HOUSE (`FR-CMS-09`)</h2>
+        <p style="margin:0;">Berlokasi strategis di kawasan pendidikan Tembalang, Kota Semarang, ASRI Boarding House menghadirkan 32 kamar terawat dengan penjaga siaga, keamanan CCTV 24 jam, dan manajemen tagihan digital yang tertib.</p>
+      </section>
+
+      <!-- 3. Fasilitas -->
+      <section class="card-biophilic mt-4" data-landing-section="3-facilities">
+        <h2 class="h-section">3. Fasilitas Kamar &amp; Umum (`FR-CMS-01`)</h2>
+        <div class="flex-row mt-2">
+          <span class="badge badge-brand">📶 Wi-Fi Cepat</span>
+          <span class="badge badge-brand">❄ AC Dingin</span>
+          <span class="badge badge-brand">🚿 K. Mandi Dalam</span>
+          <span class="badge badge-brand">📹 CCTV 24 Jam</span>
+          <span class="badge badge-brand">🍳 Dapur Bersama</span>
+          <span class="badge badge-brand">🛵 Parkir Luas</span>
+        </div>
+      </section>
+
+      <!-- 4. Tipe Kamar & Ketersediaan Live -->
+      <section id="section-room-types" class="mt-4" data-landing-section="4-room-types">
+        <h2 class="h-section">4. Tipe Kamar &amp; Ketersediaan Live (`FR-CMS-02` &amp; `/kamar/{slug}`)</h2>
+        <div class="grid-cards grid-cards-3 mt-3">
+          <article class="card-biophilic" style="border-left:4px solid var(--color-class-standard);">
+            <div class="flex-between"><span class="class-pill class-pill-standard">🛏 STD · Standard</span><span class="badge badge-success num">✓ 6 Kosong</span></div>
+            <h3 class="h-card mt-2">Kamar Standard (16 Unit)</h3>
+            <p class="kpi-value num" style="margin:0.25rem 0;">Rp 900.000 <span class="text-muted">/ bulan</span></p>
+            <p class="text-muted num">Harian Rp 75.000 · Mingguan Rp 300.000</p>
+            <button type="button" class="btn btn-primary btn-pill" data-jump-flow="view-wizard">Pilih Tipe Ini</button>
+          </article>
+          <article class="card-biophilic" style="border-left:4px solid var(--color-class-vip);">
+            <div class="flex-between"><span class="class-pill class-pill-vip">★ VIP · VIP</span><span class="badge badge-success num">✓ 3 Kosong</span></div>
+            <h3 class="h-card mt-2">Kamar VIP (10 Unit)</h3>
+            <p class="kpi-value num" style="margin:0.25rem 0;">Rp 1.300.000 <span class="text-muted">/ bulan</span></p>
+            <p class="text-muted num">Harian Rp 110.000 · Mingguan Rp 425.000</p>
+            <button type="button" class="btn btn-primary btn-pill" data-jump-flow="view-wizard">Pilih Tipe Ini</button>
+          </article>
+          <article class="card-biophilic" style="border-left:4px solid var(--color-class-deluxe);">
+            <div class="flex-between"><span class="class-pill class-pill-deluxe">♛ DLX · Deluxe</span><span class="badge badge-success num">✓ 2 Kosong</span></div>
+            <h3 class="h-card mt-2">Kamar Deluxe (6 Unit)</h3>
+            <p class="kpi-value num" style="margin:0.25rem 0;">Rp 1.800.000 <span class="text-muted">/ bulan</span></p>
+            <p class="text-muted num">Harian Rp 150.000 · Mingguan Rp 575.000</p>
+            <button type="button" class="btn btn-primary btn-pill" data-jump-flow="view-wizard">Pilih Tipe Ini</button>
+          </article>
+        </div>
+      </section>
+
+      <!-- 5..11 Remaining FR-CMS-10 Sections -->
+      <div class="grid-cards mt-4">
+        <section class="card-biophilic" data-landing-section="5-video">
+          <h2 class="h-card">5. Video Tur Kost (`FR-CMS-03` — Lazy Modal)</h2>
+          <p class="text-muted">Iframe `youtube-nocookie.com` baru dimuat saat tombol putar diklik agar LCP publik tetap `&lt; 2,5s`.</p>
+          <button type="button" class="btn btn-secondary btn-pill btn-sm">▶ Putar Tur Virtual</button>
+        </section>
+        <section class="card-biophilic" data-landing-section="6-gallery">
+          <h2 class="h-card">6. Galeri Kost WebP + Lightbox (`FR-CMS-04`)</h2>
+          <p class="text-muted">Filter kategori Kamar, Fasilitas, dan Lingkungan dengan navigasi keyboard `ArrowLeft`/`Escape`.</p>
+        </section>
+        <section class="card-biophilic" data-landing-section="7-how-to-book">
+          <h2 class="h-card">7. Alur Reservasi 5 Langkah (`FR-CMS-05`)</h2>
+          <p class="text-muted">1. Pilih Kamar → 2. Tipe &amp; Prorata → 3. Data Diri &amp; Wali → 4. Bayar DP 30% / Lunas → 5. Terima Nota PDF.</p>
+        </section>
+        <section class="card-biophilic" data-landing-section="8-testimonials">
+          <h2 class="h-card">8. Testimoni Penyewa Terverifikasi (`FR-CMS-06`)</h2>
+          <p class="text-muted">★★★★★ “Tagihan bulanan rapi, denah kamar jelas, dekat kampus UNDIP.” — Dimas, Mahasiswa FT</p>
+        </section>
+        <section class="card-biophilic" data-landing-section="9-faq">
+          <h2 class="h-card">9. Pertanyaan Umum / FAQ (`FR-CMS-07`)</h2>
+          <details>
+            <summary style="font-weight:600;cursor:pointer;">Bagaimana perhitungan masuk di tengah bulan (Prorata)?</summary>
+            <p class="text-muted mt-2">Tersedia Opsi 1 (Gabung sisa hari bulan masuk + bulan berikutnya) atau Opsi 2 (Bayar 1 bulan penuh dulu, selisih hari ditagih pada siklus bulan berikutnya).</p>
+          </details>
+        </section>
+        <section class="card-biophilic" data-landing-section="10-location">
+          <h2 class="h-card">10. Lokasi Strategis Tembalang (`FR-CMS-08`)</h2>
+          <p class="text-muted num">5 menit ke Kampus UNDIP Tembalang &amp; Polines · 7 menit ke RSND · Dekat pusat kuliner.</p>
+        </section>
+      </div>
+
+      <footer class="sidebar-dark mt-4" data-landing-section="11-cta-footer">
+        <div class="flex-between">
+          <div>
+            <h2 class="h-section" style="margin:0;color:var(--color-white);">Siap Memilih Kamar di ASRI BOARDING HOUSE?</h2>
+            <p style="margin:0.25rem 0 0;color:var(--color-sage-100);font-size:0.875rem;">Jl. Banjarsari Raya, Tembalang, Kota Semarang · Kepatuhan Penuh UU PDP No. 27 Tahun 2022</p>
+          </div>
+          <button type="button" class="btn btn-primary btn-pill btn-lg" data-jump-flow="view-wizard">Mulai Reservasi Online</button>
+        </div>
+      </footer>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 3 / FLOW 1: WIZARD RESERVASI ONLINE 5 LANGKAH (DSN-022, 030)   -->
+    <!-- =================================================================== -->
+    <section id="view-wizard" class="view-panel container-public" data-flow="online-reservation" hidden>
+      <div class="flex-between">
+        <div>
+          <h1 class="h-section" style="margin:0;">Alur 1 · Wizard Reservasi Online 5 Langkah (`/reservasi/*`)</h1>
+          <p class="text-muted" style="margin:0.2rem 0 0;">Klik langkah 1–5 atau ubah tanggal masuk untuk menguji kalkulator Prorata Opsi 1 vs Opsi 2 &amp; auto-hide tanggal 1.</p>
+        </div>
+      </div>
+
+      <div class="stepper-bar mt-3" role="tablist" aria-label="Langkah reservasi">
+        <button type="button" class="step-chip num" data-wiz-step="1" data-step-state="done">✓ 1. Pilih Kamar</button>
+        <button type="button" class="step-chip num" data-wiz-step="2" data-step-state="active">2. Tipe &amp; Durasi</button>
+        <button type="button" class="step-chip num" data-wiz-step="3">3. Data Diri &amp; Wali</button>
+        <button type="button" class="step-chip num" data-wiz-step="4">4. Pembayaran</button>
+        <button type="button" class="step-chip num" data-wiz-step="5">5. Selesai &amp; Nota</button>
+      </div>
+
+      <div class="wizard-layout">
+        <div class="card-biophilic">
+          <!-- Step 1 -->
+          <div class="wiz-pane" data-wiz-pane="1" hidden>
+            <h2 class="h-card">Langkah 1 — Pilih Kamar Tersedia</h2>
+            <p class="text-muted">Kamar terpilih saat ini: <strong class="num">Kamar 105 (Lantai 1 · Standard · Rp 900.000/bln)</strong>.</p>
+            <button type="button" class="btn btn-primary btn-pill" data-wiz-next="2">Lanjut ke Tipe &amp; Durasi →</button>
+          </div>
+
+          <!-- Step 2 (Default open to showcase Prorata Option 1 vs 2) -->
+          <div class="wiz-pane" data-wiz-pane="2">
+            <h2 class="h-card">Langkah 2 — Tipe Sewa &amp; Simulasi Prorata Bulanan (`BR-12`..`BR-15`)</h2>
+            <div class="grid-cards">
+              <div class="field">
+                <label for="wiz-checkin">Tanggal Masuk (`check_in`)</label>
+                <input id="wiz-checkin" class="input num" type="date" value="2026-11-15">
+              </div>
+              <div class="field">
+                <label for="wiz-rent-type">Tipe Siklus Sewa</label>
+                <select id="wiz-rent-type" class="input">
+                  <option value="monthly" selected>Bulanan (Siklus Tanggal 1)</option>
+                  <option value="weekly">Mingguan (Rolling 7 Hari)</option>
+                  <option value="daily">Harian (Bayar di Muka, Tanpa Denda)</option>
+                </select>
+              </div>
+            </div>
+
+            <div id="prorata-options-box" class="mt-3">
+              <strong>Pilih Skema Pembayaran Awal Bulanan (Masuk Setelah Tanggal 1):</strong>
+              <div class="grid-cards mt-2">
+                <label class="card-bento" style="cursor:pointer;">
+                  <input type="radio" name="prorata_option" value="combined" checked>
+                  <strong>Opsi 1 — Gabung di Awal (`combined`)</strong>
+                  <p class="text-muted" style="margin:0.35rem 0;">Bayar sisa hari bulan masuk + 1 bulan penuh berikutnya sekarang. Tanggal 1 bulan depan bebas tagihan.</p>
+                  <div class="num" style="font-weight:700;color:var(--color-forest-900);">Simulasi 15 Nov STD: Rp 480.000 + Rp 900.000 = Rp 1.380.000</div>
+                </label>
+                <label class="card-bento" style="cursor:pointer;">
+                  <input type="radio" name="prorata_option" value="full_first">
+                  <strong>Opsi 2 — 1 Bulan Penuh Dulu (`full_first`)</strong>
+                  <p class="text-muted" style="margin:0.35rem 0;">Bayar 1 bulan penuh dulu (`15 Nov – 14 Des = Rp 900.000`), lalu tagihan `1 Januari` menggabungkan kekurangan `15–31 Des` (`Rp 493.548`) + Januari (`Rp 900.000`).</p>
+                  <div class="num" style="font-weight:700;color:var(--color-terracotta-700);">Tagihan 1 Januari: Rp 1.393.548</div>
+                </label>
+              </div>
+            </div>
+            <p id="prorata-day1-notice" class="badge badge-success mt-2" hidden>✓ Masuk tepat tanggal 1 — perhitungan 1 bulan penuh normal tanpa prorata (`PRD §10.6`).</p>
+
+            <div class="flex-row mt-4">
+              <button type="button" class="btn btn-outline btn-pill" data-wiz-next="1">← Kembali</button>
+              <button type="button" class="btn btn-primary btn-pill" data-wiz-next="3">Lanjut ke Data Diri &amp; Wali →</button>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="wiz-pane" data-wiz-pane="3" hidden>
+            <h2 class="h-card">Langkah 3 — Identitas, KTP Privat, Data Wali &amp; Persetujuan UU PDP (`SEC-002`)</h2>
+            <div class="grid-cards">
+              <div class="field"><label for="s3-name">Nama Lengkap Penyewa</label><input id="s3-name" class="input" type="text" value="Rafif Arsya"></div>
+              <div class="field"><label for="s3-wali">Nama Wali (`Wajib` untuk Mingguan/Bulanan)</label><input id="s3-wali" class="input" type="text" value="Bapak Hendra"></div>
+            </div>
+            <div class="card-sand mt-2">
+              <label style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.85rem;">
+                <input type="checkbox" id="chk-pdp-ktp">
+                <span><strong>Persetujuan Data Identitas &amp; KTP (UU PDP):</strong> Saya menyetujui penyimpanan NIK terenkripsi dan Foto KTP privat untuk verifikasi hunian (retensi 1 tahun pasca sewa berakhir).</span>
+              </label>
+              <label style="display:flex;gap:0.6rem;align-items:flex-start;font-size:0.85rem;" class="mt-2">
+                <input type="checkbox" id="chk-pdp-guardian">
+                <span><strong>Persetujuan Kontak &amp; Pemberitahuan Wali:</strong> Saya memberi wewenang kepada pengelola ASRI BOARDING HOUSE untuk menghubungi Wali melalui WhatsApp &amp; Email saat terjadi keterlambatan pembayaran sesuai aturan kost.</span>
+              </label>
+            </div>
+            <div class="flex-row mt-4">
+              <button type="button" class="btn btn-outline btn-pill" data-wiz-next="2">← Kembali</button>
+              <button type="button" class="btn btn-primary btn-pill" data-wiz-next="4">Lanjut ke Pembayaran →</button>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="wiz-pane" data-wiz-pane="4" hidden>
+            <h2 class="h-card">Langkah 4 — Skema DP 30% / Lunas &amp; Penanganan Konflik Kamar (`DSN-030`)</h2>
+            <div class="card-bento" style="border-color:var(--color-warning);background:var(--color-warning-bg);">
+              <strong style="color:var(--color-warning-text);">Kebijakan DP (`BR-27`):</strong>
+              <span style="color:var(--color-warning-text);font-size:0.875rem;">Sisa pelunasan wajib 100% saat Check-in. Pembayaran DP tidak dapat dikembalikan apabila reservasi dibatalkan.</span>
+            </div>
+
+            <!-- Simulated 409 Conflict Banner -->
+            <div class="card-bento mt-3" data-state="room-conflict-409" style="border-color:var(--color-danger);background:var(--color-danger-bg);">
+              <strong style="color:var(--color-danger-text);">⚠ Simulasi Konflik Konkurensi (`HTTP 409`): Kamar Baru Saja Dikunci Pemesan Lain</strong>
+              <p style="margin:0.25rem 0 0.5rem;color:var(--color-danger-text);font-size:0.85rem;">Data diri Anda tetap tersimpan aman. Silakan pilih kamar lain yang masih Tersedia di kelas yang sama.</p>
+              <button type="button" class="btn btn-danger btn-sm" data-wiz-next="1">Pilih Kamar Lain yang Tersedia di Kelas Sama</button>
+            </div>
+
+            <div class="flex-row mt-4">
+              <button type="button" class="btn btn-outline btn-pill" data-wiz-next="3">← Kembali</button>
+              <button type="button" class="btn btn-primary btn-pill" data-wiz-next="5">Bayar via Midtrans Snap / Konfirmasi →</button>
+            </div>
+          </div>
+
+          <!-- Step 5 -->
+          <div class="wiz-pane" data-wiz-pane="5" hidden>
+            <span class="badge badge-warning">◷ DP Dibayar — Menunggu Pelunasan saat Check-in</span>
+            <h2 class="h-card mt-2">Langkah 5 — Reservasi Terkonfirmasi (`RSV-20261115-0001`)</h2>
+            <p class="text-muted">Batas tahan pembayaran awal: <strong class="num">23:59:42</strong> · Jadwal Check-in mulai pukul <strong class="num">14:00 WIB</strong> dengan membawa KTP asli.</p>
+            <div class="flex-row mt-3">
+              <button type="button" class="btn btn-primary btn-pill">Unduh Nota Reservasi (PDF)</button>
+              <button type="button" class="btn btn-outline btn-pill" data-wiz-next="2">Ulangi Simulasi</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sticky Live Region Price Summary -->
+        <aside class="card-bento sticky-summary" aria-live="polite" id="wizard-live-summary">
+          <div class="flex-between">
+            <strong>Ringkasan Biaya Server</strong>
+            <span class="class-pill class-pill-standard">🛏 STD · 105</span>
+          </div>
+          <p class="text-muted num" id="sum-period" style="margin:0.35rem 0;">Masuk 2026-11-15 · Opsi 1 (Gabung di Awal)</p>
+          <hr style="border:0;border-top:1px solid var(--color-line-200);margin:0.65rem 0;">
+          <div class="flex-between"><span>Total Tagihan Awal</span><strong class="kpi-value num" id="sum-total" style="font-size:1.4rem;">Rp 1.380.000</strong></div>
+          <div class="flex-between text-muted mt-2"><span>Minimal DP (30%)</span><strong class="num" id="sum-dp">Rp 414.000</strong></div>
+          <div class="flex-between text-muted"><span>Tagihan Berikutnya</span><span class="num" id="sum-next">1 Jan 2027 (Rp 900.000)</span></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 4 / FLOW 2: ADMIN CLEAN BENTO & DENAH 32 KAMAR (DSN-024..033)  -->
+    <!-- =================================================================== -->
+    <section id="view-admin" class="view-panel container-erp" data-flow="admin-walkin-checkin" hidden>
+      <div class="erp-shell">
+        <aside class="sidebar-dark" aria-label="Menu Admin ERP">
+          <strong>Panel Admin ERP</strong>
+          <div class="sidebar-group-title">Operasional</div>
+          <a href="#view-admin" class="sidebar-link" aria-current="page"><span>Dashboard &amp; Denah</span><span class="num">32</span></a>
+          <a href="#view-admin" class="sidebar-link"><span>Reservasi &amp; Check-in</span><span class="badge badge-warning num">3</span></a>
+          <a href="#view-admin" class="sidebar-link"><span>Kontrak &amp; Penyewa</span></a>
+          <div class="sidebar-group-title">Keuangan</div>
+          <a href="#view-admin" class="sidebar-link"><span>Invoice &amp; Denda</span></a>
+          <a href="#view-admin" class="sidebar-link"><span>Pembayaran &amp; Kasir</span></a>
+          <a href="#view-admin" class="sidebar-link"><span>Laporan PDF/CSV</span></a>
+          <div class="sidebar-group-title">Sistem &amp; Konten</div>
+          <a href="#view-admin" class="sidebar-link"><span>CMS 9 Modul &amp; Chatbot</span></a>
+          <a href="#view-admin" class="sidebar-link"><span>Pengaturan (`****abcd`)</span></a>
+        </aside>
+
+        <div>
+          <h1 class="h-section" style="margin:0 0 1rem;">Alur 2 · Dashboard Operasional Clean Bento &amp; Denah Koridor 32 Kamar</h1>
+
+          <!-- 8 Bento Cards (DSN-024) -->
+          <div class="bento-grid">
+            <article class="card-bento"><span class="text-muted">1. Tingkat Okupansi</span><div class="kpi-value num mt-2">62,5%</div><small class="text-muted num">20 Terisi · 3 DP · 8 Tersedia · 1 Perbaikan</small></article>
+            <article class="card-bento"><span class="text-muted">2. Pendapatan Bulan Ini</span><div class="kpi-value num mt-2">Rp 28.400.000</div><small class="text-muted num">Midtrans 72% · Cash 28%</small></article>
+            <article class="card-bento"><span class="text-muted">3. Tunggakan Aktif</span><div class="kpi-value num mt-2" style="color:var(--color-danger-text);">Rp 2.730.000</div><span class="badge badge-danger num">⚠ 1 Penyewa ≥ 2 Overdue (`BR-31`)</span></article>
+            <article class="card-bento"><span class="text-muted">4. Ringkasan 32 Kamar</span><div class="mt-2 flex-row"><span class="badge badge-success num">✓ 8 Kosong</span><span class="badge badge-warning num">◷ 3 DP</span><span class="badge badge-danger num">🚪 20 Terisi</span><span class="badge badge-neutral num">🔧 1 Perbaikan</span></div></article>
+            <article class="card-bento span-2"><h2 class="h-card">5. Jadwal Check-in &amp; Check-out Hari Ini</h2><p class="text-muted num" style="margin:0;">Check-in 14:00 WIB: <strong>Kamar 114 (VIP · Sisa Pelunasan Rp 910.000)</strong> — Klik sel Kamar 114 di bawah untuk simulasi Terima Cash &amp; Check-in.</p></article>
+            <article class="card-bento span-2"><h2 class="h-card">6. Kesehatan Sistem &amp; Cronjob (`7 Jadwal`)</h2><div class="flex-row"><span class="badge badge-success num">✓ Invoice 00:05 WIB</span><span class="badge badge-success num">✓ Denda 00:15 WIB</span><span class="badge badge-success num">✓ Expire 15m</span><span class="badge badge-neutral num">Queue Failed: 0</span></div></article>
+            <article class="card-bento span-2"><h2 class="h-card">7. Tagihan Mendekati Jatuh Tempo &amp; Menunggak</h2><p class="text-muted num" style="margin:0;">INV/ASRI/2026/11/0014 · Kamar 205 · Siklus ke-3 · Denda 10% (`Rp 130.000`) · Total `Rp 1.430.000`.</p></article>
+            <article class="card-bento span-2"><h2 class="h-card">8. Reservasi Terbaru &amp; Privasi Direktori</h2><p class="text-muted num" style="margin:0;">RSV-20261115-0001 (Hold 24j) · Direktori NIK tampil masked default: `3374**********01`.</p></article>
+          </div>
+
+          <!-- 32-Room 2-Floor Corridor Map (DSN-025, DSN-032, DSN-044) -->
+          <section class="card-bento mt-4" aria-label="Denah Kamar 2 Lantai">
+            <div class="flex-between">
+              <div>
+                <h2 class="h-card" style="margin:0;">Denah Interaktif 32 Kamar — 2 Lantai (`PRD §4.1`: 16 STD · 10 VIP · 6 DLX)</h2>
+                <p class="text-muted" style="margin:0.2rem 0 0;">Klik sel kamar mana pun untuk membuka `SlideOverDrawer` inspeksi penghuni, pelunasan tunai, &amp; Check-in.</p>
+              </div>
+              <div class="flex-row">
+                <button type="button" class="btn btn-secondary btn-sm" data-floor-tab="1">Lantai 1 (101–116)</button>
+                <button type="button" class="btn btn-outline btn-sm" data-floor-tab="2">Lantai 2 (201–216)</button>
+                <button type="button" class="btn btn-ghost btn-sm" data-action="toggle-mobile-floor-grid">Tampilan Grid 4×4 / Koridor 8×2</button>
+              </div>
+            </div>
+
+            <!-- LANTAI 1: 101-112 Standard (12), 113-116 VIP (4) -->
+            <div id="floor-panel-1" class="floor-scroll-wrap mt-3">
+              <div class="flex-row" style="margin-bottom:0.5rem;">
+                <span class="badge badge-success num">✓ 4 Tersedia</span>
+                <span class="badge badge-warning num">◷ 2 Dipesan (DP)</span>
+                <span class="badge badge-danger num">🚪 9 Terisi</span>
+                <span class="badge badge-neutral num">🔧 1 Perbaikan</span>
+              </div>
+              <div class="corridor-row">
+                <button type="button" class="room-cell" data-room-code="101" data-room-floor="1" data-room-class="standard" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 101, lantai 1, kelas Standard, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">101</span><span class="class-pill class-pill-standard">STD</span></button>
+                <button type="button" class="room-cell" data-room-code="102" data-room-floor="1" data-room-class="standard" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 102, lantai 1, kelas Standard, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">102</span><span class="class-pill class-pill-standard">STD</span></button>
+                <button type="button" class="room-cell" data-room-code="103" data-room-floor="1" data-room-class="standard" data-room-status="available" aria-pressed="false" aria-label="Kamar 103, lantai 1, kelas Standard, status Tersedia"><span class="room-cell-top"><span>Tersedia</span><span>✓</span></span><span class="room-cell-code num">103</span><span class="class-pill class-pill-standard">STD</span></button>
+                <button type="button" class="room-cell" data-room-code="104" data-room-floor="1" data-room-class="standard" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 104, lantai 1, kelas Standard, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">104</span><span class="class-pill class-pill-standard">STD</span></button>
+                <button type="button" class="room-cell" data-room-code="105" data-room-floor="1" data-room-class="standard" data-room-status="available" aria-pressed="false" aria-label="Kamar 105, lantai 1, kelas Standard, status Tersedia"><span class="room-cell-top"><span>Tersedia</span><span>✓</span></span><span class="room-cell-code num">105</span><span class="class-pill class-pill-standard">STD</span></button>
+                <button type="button" class="room-cell" data-room-code="106" data-room-floor="1" data-room-class="standard" data-room-status="booked" aria-pressed="false" aria-label="Kamar 106, lantai 1, kelas Standard, status Dipesan (DP)"><span class="room-cell-top"><span>DP</span><span>◷</span></span><span class="room-cell-code num">106</span><span class="class-pill class-pill-standard">STD</span></button>
+                <button type="button" class="room-cell" data-room-code="107" data-room-floor="1" data-room-class="standard" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 107, lantai 1, kelas Standard, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">107</span><span class="class-pill class-pill-standard">STD</span></button>
+                <button type="button" class="room-cell" data-room-code="108" data-room-floor="1" data-room-class="standard" data-room-status="maintenance" aria-pressed="false" aria-label="Kamar 108, lantai 1, kelas Standard, status Perbaikan"><span class="room-cell-top"><span>Perbaikan</span><span>🔧</span></span><span class="room-cell-code num">108</span><span class="class-pill class-pill-standard">STD</span></button>
+              </div>
+              <div class="corridor-aisle">KORIDOR LANTAI 1</div>
+              <div class="corridor-row">
+                <button type="button" class="room-cell" data-room-code="109" data-room-floor="1" data-room-class="standard" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 109, lantai 1, kelas Standard, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">109</span><span class="class-pill class-pill-standard">STD</span></button>
+                <button type="button" class="room-cell" data-room-code="110" data-room-floor="1" data-room-class="standard" data-room-status="available" aria-pressed="false" aria-label="Kamar 110, lantai 1, kelas Standard, status Tersedia"><span class="room-cell-top"><span>Tersedia</span><span>✓</span></span><span class="room-cell-code num">110</span><span class="class-pill class-pill-standard">STD</span></button>
+                <button type="button" class="room-cell" data-room-code="111" data-room-floor="1" data-room-class="standard" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 111, lantai 1, kelas Standard, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">111</span><span class="class-pill class-pill-standard">STD</span></button>
+                <button type="button" class="room-cell" data-room-code="112" data-room-floor="1" data-room-class="standard" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 112, lantai 1, kelas Standard, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">112</span><span class="class-pill class-pill-standard">STD</span></button>
+                <button type="button" class="room-cell" data-room-code="113" data-room-floor="1" data-room-class="vip" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 113, lantai 1, kelas VIP, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">113</span><span class="class-pill class-pill-vip">VIP</span></button>
+                <button type="button" class="room-cell" data-room-code="114" data-room-floor="1" data-room-class="vip" data-room-status="booked" aria-pressed="false" aria-label="Kamar 114, lantai 1, kelas VIP, status Dipesan (DP)"><span class="room-cell-top"><span>DP</span><span>◷</span></span><span class="room-cell-code num">114</span><span class="class-pill class-pill-vip">VIP</span></button>
+                <button type="button" class="room-cell" data-room-code="115" data-room-floor="1" data-room-class="vip" data-room-status="available" aria-pressed="false" aria-label="Kamar 115, lantai 1, kelas VIP, status Tersedia"><span class="room-cell-top"><span>Tersedia</span><span>✓</span></span><span class="room-cell-code num">115</span><span class="class-pill class-pill-vip">VIP</span></button>
+                <button type="button" class="room-cell" data-room-code="116" data-room-floor="1" data-room-class="vip" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 116, lantai 1, kelas VIP, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">116</span><span class="class-pill class-pill-vip">VIP</span></button>
+              </div>
+            </div>
+
+            <!-- LANTAI 2: 201-204 Standard (4), 205-210 VIP (6), 211-216 Deluxe (6) -->
+            <div id="floor-panel-2" class="floor-scroll-wrap mt-3" hidden>
+              <div class="flex-row" style="margin-bottom:0.5rem;">
+                <span class="badge badge-success num">✓ 4 Tersedia</span>
+                <span class="badge badge-warning num">◷ 1 Dipesan (DP)</span>
+                <span class="badge badge-danger num">🚪 11 Terisi</span>
+                <span class="badge badge-neutral num">🔧 0 Perbaikan</span>
+              </div>
+              <div class="corridor-row">
+                <button type="button" class="room-cell" data-room-code="201" data-room-floor="2" data-room-class="standard" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 201, lantai 2, kelas Standard, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">201</span><span class="class-pill class-pill-standard">STD</span></button>
+                <button type="button" class="room-cell" data-room-code="202" data-room-floor="2" data-room-class="standard" data-room-status="available" aria-pressed="false" aria-label="Kamar 202, lantai 2, kelas Standard, status Tersedia"><span class="room-cell-top"><span>Tersedia</span><span>✓</span></span><span class="room-cell-code num">202</span><span class="class-pill class-pill-standard">STD</span></button>
+                <button type="button" class="room-cell" data-room-code="203" data-room-floor="2" data-room-class="standard" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 203, lantai 2, kelas Standard, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">203</span><span class="class-pill class-pill-standard">STD</span></button>
+                <button type="button" class="room-cell" data-room-code="204" data-room-floor="2" data-room-class="standard" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 204, lantai 2, kelas Standard, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">204</span><span class="class-pill class-pill-standard">STD</span></button>
+                <button type="button" class="room-cell" data-room-code="205" data-room-floor="2" data-room-class="vip" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 205, lantai 2, kelas VIP, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">205</span><span class="class-pill class-pill-vip">VIP</span></button>
+                <button type="button" class="room-cell" data-room-code="206" data-room-floor="2" data-room-class="vip" data-room-status="available" aria-pressed="false" aria-label="Kamar 206, lantai 2, kelas VIP, status Tersedia"><span class="room-cell-top"><span>Tersedia</span><span>✓</span></span><span class="room-cell-code num">206</span><span class="class-pill class-pill-vip">VIP</span></button>
+                <button type="button" class="room-cell" data-room-code="207" data-room-floor="2" data-room-class="vip" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 207, lantai 2, kelas VIP, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">207</span><span class="class-pill class-pill-vip">VIP</span></button>
+                <button type="button" class="room-cell" data-room-code="208" data-room-floor="2" data-room-class="vip" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 208, lantai 2, kelas VIP, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">208</span><span class="class-pill class-pill-vip">VIP</span></button>
+              </div>
+              <div class="corridor-aisle">KORIDOR LANTAI 2</div>
+              <div class="corridor-row">
+                <button type="button" class="room-cell" data-room-code="209" data-room-floor="2" data-room-class="vip" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 209, lantai 2, kelas VIP, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">209</span><span class="class-pill class-pill-vip">VIP</span></button>
+                <button type="button" class="room-cell" data-room-code="210" data-room-floor="2" data-room-class="vip" data-room-status="available" aria-pressed="false" aria-label="Kamar 210, lantai 2, kelas VIP, status Tersedia"><span class="room-cell-top"><span>Tersedia</span><span>✓</span></span><span class="room-cell-code num">210</span><span class="class-pill class-pill-vip">VIP</span></button>
+                <button type="button" class="room-cell" data-room-code="211" data-room-floor="2" data-room-class="deluxe" data-room-status="available" aria-pressed="false" aria-label="Kamar 211, lantai 2, kelas Deluxe, status Tersedia"><span class="room-cell-top"><span>Tersedia</span><span>✓</span></span><span class="room-cell-code num">211</span><span class="class-pill class-pill-deluxe">DLX</span></button>
+                <button type="button" class="room-cell" data-room-code="212" data-room-floor="2" data-room-class="deluxe" data-room-status="booked" aria-pressed="false" aria-label="Kamar 212, lantai 2, kelas Deluxe, status Dipesan (DP)"><span class="room-cell-top"><span>DP</span><span>◷</span></span><span class="room-cell-code num">212</span><span class="class-pill class-pill-deluxe">DLX</span></button>
+                <button type="button" class="room-cell" data-room-code="213" data-room-floor="2" data-room-class="deluxe" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 213, lantai 2, kelas Deluxe, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">213</span><span class="class-pill class-pill-deluxe">DLX</span></button>
+                <button type="button" class="room-cell" data-room-code="214" data-room-floor="2" data-room-class="deluxe" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 214, lantai 2, kelas Deluxe, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">214</span><span class="class-pill class-pill-deluxe">DLX</span></button>
+                <button type="button" class="room-cell" data-room-code="215" data-room-floor="2" data-room-class="deluxe" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 215, lantai 2, kelas Deluxe, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">215</span><span class="class-pill class-pill-deluxe">DLX</span></button>
+                <button type="button" class="room-cell" data-room-code="216" data-room-floor="2" data-room-class="deluxe" data-room-status="occupied" aria-pressed="false" aria-label="Kamar 216, lantai 2, kelas Deluxe, status Terisi"><span class="room-cell-top"><span>Terisi</span><span>🚪</span></span><span class="room-cell-code num">216</span><span class="class-pill class-pill-deluxe">DLX</span></button>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 5 / FLOW 3: DASHBOARD PENYEWA AKTIF & LINK WALI (DSN-027, 034) -->
+    <!-- =================================================================== -->
+    <section id="view-tenant" class="view-panel container-erp" data-flow="tenant-monthly-payment" hidden>
+      <h1 class="h-section">Alur 3 · Dashboard Penyewa Aktif (`/penyewa/*`) &amp; Tautan Pembayaran Wali Terbatas (`SEC-012`)</h1>
+      <div class="grid-cards mt-3">
+        <article class="card-bento">
+          <div class="flex-between">
+            <span class="class-pill class-pill-vip">★ VIP · Lantai 2</span>
+            <span class="badge badge-success">✓ Kontrak Aktif</span>
+          </div>
+          <h2 class="kpi-value num mt-2">Kamar 205</h2>
+          <p class="text-muted num">Mulai Huni: 01 Sep 2026 · <strong>Dibayar s/d: 31 Okt 2026</strong></p>
+          <div class="flex-row mt-3">
+            <span class="badge badge-neutral">Perpanjang Otomatis Bulanan (Ajukan Berhenti min. H-7 `BR-33`)</span>
+          </div>
+        </article>
+
+        <article class="card-bento" id="tenant-invoice-card">
+          <div class="flex-between">
+            <strong class="num">INV/ASRI/2026/11/0014</strong>
+            <span class="badge badge-danger" id="tenant-inv-badge">⚠ Menunggak (Siklus ke-3)</span>
+          </div>
+          <div class="flex-between mt-3"><span>Sewa November 2026</span><span class="num">Rp 1.300.000</span></div>
+          <div class="flex-between" style="color:var(--color-danger-text);"><span>Denda Keterlambatan 10% (`BR-19`)</span><span class="num">Rp 130.000</span></div>
+          <hr style="border:0;border-top:1px solid var(--color-line-200);margin:0.65rem 0;">
+          <div class="flex-between"><strong>Total Harus Dibayar</strong><strong class="kpi-value num" style="font-size:1.5rem;">Rp 1.430.000</strong></div>
+          <div class="flex-row mt-3">
+            <button type="button" class="btn btn-primary" id="btn-pay-tenant-invoice">Bayar Sekarang (Midtrans Snap)</button>
+          </div>
+        </article>
+      </div>
+
+      <!-- Masked Guardian Signed URL Payment View (SEC-012) -->
+      <article class="card-biophilic mt-6" data-view="guardian-masked-payment" style="max-width:560px;margin-left:auto;margin-right:auto;">
+        <span class="badge badge-warning">🔒 Tautan Pembayaran Terbatas Wali (`Signed URL` — Tanpa Login)</span>
+        <h2 class="h-card mt-2">Tagihan Hunian ASRI BOARDING HOUSE</h2>
+        <p class="text-muted">Demi pelindungan data pribadi (UU PDP), halaman ini hanya menampilkan inisial penyewa dan rincian tagihan kamar.</p>
+        <div class="card-sand mt-3">
+          <div class="flex-between"><span>Inisial Penyewa</span><strong>R*** A***</strong></div>
+          <div class="flex-between mt-2"><span>Kamar &amp; Kelas</span><strong class="num">Kamar 205 · VIP</strong></div>
+          <div class="flex-between mt-2"><span>Nomor Tagihan</span><span class="num">INV/ASRI/2026/11/0014 (Nov 2026)</span></div>
+          <div class="flex-between mt-2"><span>Total Tagihan + Denda 10%</span><strong class="num">Rp 1.430.000</strong></div>
+        </div>
+        <button type="button" class="btn btn-primary btn-pill btn-lg mt-4" style="width:100%;">Bayar Tagihan Sekarang (Midtrans Snap)</button>
+      </article>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- VIEW 6: EMPTY, SHIMMER LOADING & ERROR STATES (DSN-035)             -->
+    <!-- =================================================================== -->
+    <section id="view-states" class="view-panel container-public" data-section="error-and-empty-states" hidden>
+      <h1 class="h-section">State Kosong, Loading Skeleton &amp; Halaman Error Kontekstual (`DSN-035`)</h1>
+      <div class="grid-cards mt-3">
+        <article class="card-biophilic" data-error-code="403">
+          <span class="badge badge-danger num">HTTP 403</span>
+          <h2 class="h-card mt-2">Akses Ditolak</h2>
+          <p class="text-muted">Anda tidak memiliki izin untuk membuka dokumen atau halaman milik pengguna lain (`Policy` anti-IDOR).</p>
+          <button type="button" class="btn btn-outline btn-pill btn-sm" data-jump-flow="view-landing">Kembali ke Beranda</button>
+        </article>
+        <article class="card-biophilic" data-error-code="404">
+          <span class="badge badge-neutral num">HTTP 404</span>
+          <h2 class="h-card mt-2">Halaman Tidak Ditemukan</h2>
+          <p class="text-muted">Tautan kamar atau nomor reservasi yang Anda cari tidak tersedia atau sudah dipindahkan.</p>
+          <button type="button" class="btn btn-outline btn-pill btn-sm" data-jump-flow="view-landing">Lihat Kamar Tersedia</button>
+        </article>
+        <article class="card-biophilic" data-error-code="419">
+          <span class="badge badge-warning num">HTTP 419</span>
+          <h2 class="h-card mt-2">Sesi Formulir Kedaluwarsa</h2>
+          <p class="text-muted">Demi keamanan CSRF, silakan muat ulang halaman dan lanjutkan langkah Anda.</p>
+          <button type="button" class="btn btn-primary btn-pill btn-sm">Muat Ulang Aman</button>
+        </article>
+        <article class="card-biophilic" data-error-code="500">
+          <span class="badge badge-danger num">HTTP 500</span>
+          <h2 class="h-card mt-2">Gangguan Sistem Sementara</h2>
+          <p class="text-muted">Tim pengelola ASRI Boarding House telah menerima laporan otomatis. Silakan coba beberapa saat lagi.</p>
+          <button type="button" class="btn btn-outline btn-pill btn-sm" data-jump-flow="view-landing">Ke Halaman Utama</button>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- SlideOverDrawer Inspeksi Kamar Admin -->
+  <div class="overlay-backdrop" id="room-drawer-backdrop" hidden>
+    <div class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="drawer-room-title">
+      <div class="flex-between">
+        <h2 class="h-card num" id="drawer-room-title" style="margin:0;">Inspeksi Kamar 114</h2>
+        <button type="button" class="btn btn-ghost btn-sm" id="btn-close-drawer">Tutup ✕</button>
+      </div>
+      <p class="text-muted mt-2" id="drawer-room-meta">Lantai 1 · Kelas VIP · Status Dipesan (DP)</p>
+      <div class="card-bento mt-3">
+        <div class="flex-between"><span>Sisa Pelunasan Check-in</span><strong class="num" id="drawer-remaining">Rp 910.000</strong></div>
+        <div class="flex-between mt-2"><span>Data Wali (`BR-28`)</span><span class="badge badge-success">✓ Lengkap</span></div>
+      </div>
+      <div class="flex-row mt-4">
+        <button type="button" class="btn btn-outline" id="btn-settle-cash">1. Terima Pelunasan Cash</button>
+        <button type="button" class="btn btn-primary" id="btn-confirm-checkin" disabled>2. Konfirmasi Check-in</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ConfirmDialog Wajib Alasan (DSN-017) -->
+  <div class="overlay-backdrop" id="confirm-dialog-backdrop" hidden>
+    <form class="modal-panel" id="confirm-dialog-form" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+      <h2 class="h-card" id="confirm-title">Konfirmasi Pembebasan Denda (`Waive Penalty`)</h2>
+      <p class="text-muted">Tindakan sensitif ini dicatat permanen di `penalty_logs` dan `activity_logs`.</p>
+      <div class="field mt-3">
+        <label for="confirm-reason">Alasan Pembebasan Denda (Wajib Diisi)</label>
+        <textarea id="confirm-reason" class="input" rows="3" required placeholder="Contoh: Dispensasi keterlambatan pencairan beasiswa dengan bukti surat fakultas."></textarea>
+      </div>
+      <div class="flex-row mt-3">
+        <button type="button" class="btn btn-ghost" id="btn-close-confirm">Batal</button>
+        <button type="submit" class="btn btn-danger">Simpan &amp; Bebaskan Denda</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="toast-floating" id="proto-toast" role="status" aria-live="polite" hidden>Aksi berhasil disimulasikan.</div>
+
+  <script>
+    (function () {
+      const tabs = document.querySelectorAll('[data-switch-view]');
+      const panels = document.querySelectorAll('.view-panel');
+      function openView(id) {
+        panels.forEach((p) => { p.hidden = p.id !== id; });
+        tabs.forEach((t) => { t.setAttribute('aria-selected', String(t.dataset.switchView === id)); });
+      }
+      tabs.forEach((t) => t.addEventListener('click', () => openView(t.dataset.switchView)));
+      document.querySelectorAll('[data-jump-flow]').forEach((btn) => {
+        btn.addEventListener('click', () => openView(btn.dataset.jumpFlow));
+      });
+
+      // Wizard Steps & Prorata Simulation (PRD §9.4 & §10.3-10.6)
+      const wizSteps = document.querySelectorAll('[data-wiz-step]');
+      const wizPanes = document.querySelectorAll('[data-wiz-pane]');
+      function setWizStep(step) {
+        wizPanes.forEach((p) => { p.hidden = p.dataset.wizPane !== String(step); });
+        wizSteps.forEach((s) => {
+          const n = Number(s.dataset.wizStep);
+          s.dataset.stepState = n < Number(step) ? 'done' : (n === Number(step) ? 'active' : 'upcoming');
+        });
+      }
+      wizSteps.forEach((s) => s.addEventListener('click', () => setWizStep(s.dataset.wizStep)));
+      document.querySelectorAll('[data-wiz-next]').forEach((b) => b.addEventListener('click', () => setWizStep(b.dataset.wizNext)));
+
+      const checkInInput = document.getElementById('wiz-checkin');
+      const rentTypeInput = document.getElementById('wiz-rent-type');
+      const prorataBox = document.getElementById('prorata-options-box');
+      const day1Notice = document.getElementById('prorata-day1-notice');
+      const sumPeriod = document.getElementById('sum-period');
+      const sumTotal = document.getElementById('sum-total');
+      const sumDp = document.getElementById('sum-dp');
+      const sumNext = document.getElementById('sum-next');
+      const fmtRp = (n) => 'Rp ' + Math.round(n).toLocaleString('id-ID');
+
+      function recalcWizard() {
+        const parts = (checkInInput.value || '2026-11-15').split('-').map(Number);
+        const year = parts[0] || 2026;
+        const month = parts[1] || 11;
+        const checkInDay = parts[2] || 15;
+        const rentType = rentTypeInput.value;
+        const monthlyRate = 900000;
+
+        if (rentType !== 'monthly') {
+          prorataBox.hidden = true;
+          day1Notice.hidden = true;
+          const total = rentType === 'weekly' ? 300000 : 75000 * 3;
+          sumPeriod.textContent = rentType === 'weekly' ? 'Sewa Mingguan (1 Minggu)' : 'Sewa Harian (3 Malam · Tanpa Denda)';
+          sumTotal.textContent = fmtRp(total);
+          sumDp.textContent = fmtRp(Math.ceil(total * 0.3));
+          sumNext.textContent = rentType === 'weekly' ? 'Invoice H-2 Rolling 7 Hari' : 'Bayar di Muka per Tambah Hari';
+          return;
+        }
+
+        if (checkInDay === 1) {
+          prorataBox.hidden = true;
+          day1Notice.hidden = false;
+          sumPeriod.textContent = `Masuk ${checkInInput.value} · Bulanan Penuh (Tanpa Prorata)`;
+          sumTotal.textContent = fmtRp(monthlyRate);
+          sumDp.textContent = fmtRp(Math.round(monthlyRate * 0.3));
+          sumNext.textContent = 'Tanggal 1 Bulan Depan (Rp 900.000)';
+          return;
+        }
+
+        prorataBox.hidden = false;
+        day1Notice.hidden = true;
+        const daysInMonth = new Date(year, month, 0).getDate();
+        const remainingDays = daysInMonth - checkInDay + 1;
+        const prorataNow = Math.round((remainingDays / daysInMonth) * monthlyRate);
+        const opt = document.querySelector('input[name="prorata_option"]:checked')?.value || 'combined';
+
+        if (opt === 'combined') {
+          const total = prorataNow + monthlyRate;
+          sumPeriod.textContent = `Masuk ${checkInInput.value} · Opsi 1 (${remainingDays} hari + 1 bln penuh)`;
+          sumTotal.textContent = fmtRp(total);
+          sumDp.textContent = fmtRp(Math.round(total * 0.3));
+          sumNext.textContent = '1 Jan 2027 (Rp 900.000)';
+        } else {
+          sumPeriod.textContent = `Masuk ${checkInInput.value} · Opsi 2 (1 bln penuh dulu)`;
+          sumTotal.textContent = fmtRp(monthlyRate);
+          sumDp.textContent = fmtRp(Math.round(monthlyRate * 0.3));
+          sumNext.textContent = '1 Jan 2027 (Rp 1.393.548)';
+        }
+      }
+      checkInInput.addEventListener('change', recalcWizard);
+      rentTypeInput.addEventListener('change', recalcWizard);
+      document.querySelectorAll('input[name="prorata_option"]').forEach((r) => r.addEventListener('change', recalcWizard));
+
+      // Floor Switcher, 4x4 Mobile Toggle, & Room Drawer Inspector
+      const floor1 = document.getElementById('floor-panel-1');
+      const floor2 = document.getElementById('floor-panel-2');
+      document.querySelectorAll('[data-floor-tab]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const isF1 = btn.dataset.floorTab === '1';
+          floor1.hidden = !isF1;
+          floor2.hidden = isF1;
+        });
+      });
+      document.querySelector('[data-action="toggle-mobile-floor-grid"]').addEventListener('click', () => {
+        floor1.classList.toggle('grid-4x4');
+        floor2.classList.toggle('grid-4x4');
+      });
+
+      const drawerBackdrop = document.getElementById('room-drawer-backdrop');
+      const drawerTitle = document.getElementById('drawer-room-title');
+      const drawerMeta = document.getElementById('drawer-room-meta');
+      const drawerRemaining = document.getElementById('drawer-remaining');
+      const btnSettle = document.getElementById('btn-settle-cash');
+      const btnCheckin = document.getElementById('btn-confirm-checkin');
+      let activeRoomBtn = null;
+
+      document.querySelectorAll('[data-room-code]').forEach((cell) => {
+        cell.addEventListener('click', () => {
+          if (activeRoomBtn) activeRoomBtn.setAttribute('aria-pressed', 'false');
+          activeRoomBtn = cell;
+          cell.setAttribute('aria-pressed', 'true');
+          drawerTitle.textContent = 'Inspeksi Kamar ' + cell.dataset.roomCode;
+          drawerMeta.textContent = cell.getAttribute('aria-label');
+          drawerRemaining.textContent = cell.dataset.roomStatus === 'booked' ? 'Rp 910.000' : 'Rp 0';
+          btnCheckin.disabled = cell.dataset.roomStatus === 'booked';
+          drawerBackdrop.hidden = false;
+        });
+      });
+      btnSettle.addEventListener('click', () => {
+        drawerRemaining.textContent = 'Rp 0 (Lunas Tunai)';
+        btnCheckin.disabled = false;
+        showToast('Pelunasan tunai berhasil dicatat. Tombol Check-in aktif.');
+      });
+      btnCheckin.addEventListener('click', () => {
+        if (activeRoomBtn) activeRoomBtn.dataset.roomStatus = 'occupied';
+        drawerBackdrop.hidden = true;
+        showToast('Check-in berhasil! Status kamar diperbarui menjadi Terisi.');
+      });
+      document.getElementById('btn-close-drawer').addEventListener('click', () => { drawerBackdrop.hidden = true; });
+
+      // ConfirmDialog & Toast & Tenant Payment
+      const confirmBackdrop = document.getElementById('confirm-dialog-backdrop');
+      const toastEl = document.getElementById('proto-toast');
+      function showToast(msg) {
+        toastEl.textContent = msg;
+        toastEl.hidden = false;
+        setTimeout(() => { toastEl.hidden = true; }, 3500);
+      }
+      document.getElementById('btn-open-confirm').addEventListener('click', () => { confirmBackdrop.hidden = false; });
+      document.getElementById('btn-close-confirm').addEventListener('click', () => { confirmBackdrop.hidden = true; });
+      document.getElementById('confirm-dialog-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        confirmBackdrop.hidden = true;
+        showToast('Alasan audit tersimpan & denda dibebaskan.');
+      });
+      document.getElementById('btn-trigger-toast').addEventListener('click', () => showToast('Notifikasi Toast berstandar WCAG aktif.'));
+      document.getElementById('btn-pay-tenant-invoice').addEventListener('click', () => {
+        const badge = document.getElementById('tenant-inv-badge');
+        badge.className = 'badge badge-success';
+        badge.textContent = '✓ Lunas (Kwitansi PDF Siap)';
+        showToast('Pembayaran Midtrans Snap disimulasikan menjadi Lunas.');
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          drawerBackdrop.hidden = true;
+          confirmBackdrop.hidden = true;
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
