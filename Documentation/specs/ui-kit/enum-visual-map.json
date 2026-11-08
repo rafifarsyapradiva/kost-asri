@@ -1,0 +1,69 @@
+{
+  "statuses": {
+    "RoomStatus": {
+      "available": { "semantic": "success", "bg": "#DCFCE7", "border": "#16A34A", "text": "#14532D", "icon": "CheckCircle2", "label": "Tersedia" },
+      "booked": { "semantic": "warning", "bg": "#FEF9C3", "border": "#EAB308", "text": "#713F12", "icon": "Clock", "label": "Dipesan (DP)" },
+      "occupied": { "semantic": "danger", "bg": "#FEE2E2", "border": "#DC2626", "text": "#7F1D1D", "icon": "DoorClosed", "label": "Terisi" },
+      "maintenance": { "semantic": "neutral", "bg": "#F1F5F9", "border": "#64748B", "text": "#334155", "icon": "Wrench", "label": "Perbaikan" }
+    },
+    "ReservationStatus": {
+      "pending_payment": { "semantic": "neutral", "bg": "#F1F5F9", "border": "#64748B", "text": "#334155", "icon": "Hourglass", "label": "Menunggu Bayar" },
+      "dp_paid": { "semantic": "warning", "bg": "#FEF9C3", "border": "#EAB308", "text": "#713F12", "icon": "Coins", "label": "DP Dibayar" },
+      "paid": { "semantic": "success", "bg": "#DCFCE7", "border": "#16A34A", "text": "#14532D", "icon": "CheckCircle2", "label": "Lunas" },
+      "checked_in": { "semantic": "brand-active", "bg": "#D8F3DC", "border": "#2D6A4F", "text": "#1B4332", "icon": "KeyRound", "label": "Check-in" },
+      "completed": { "semantic": "neutral", "bg": "#F1F5F9", "border": "#64748B", "text": "#334155", "icon": "Archive", "label": "Selesai" },
+      "cancelled": { "semantic": "danger", "bg": "#FEE2E2", "border": "#DC2626", "text": "#7F1D1D", "icon": "XCircle", "label": "Batal" },
+      "expired": { "semantic": "neutral", "bg": "#F1F5F9", "border": "#64748B", "text": "#334155", "icon": "TimerOff", "label": "Kedaluwarsa" }
+    },
+    "LeaseStatus": {
+      "active": { "semantic": "success", "bg": "#DCFCE7", "border": "#16A34A", "text": "#14532D", "icon": "Home", "label": "Aktif" },
+      "ending": { "semantic": "warning", "bg": "#FEF9C3", "border": "#EAB308", "text": "#713F12", "icon": "CalendarClock", "label": "Akan Berakhir" },
+      "ended": { "semantic": "neutral", "bg": "#F1F5F9", "border": "#64748B", "text": "#334155", "icon": "LogOut", "label": "Selesai" }
+    },
+    "InvoiceStatus": {
+      "unpaid": { "semantic": "neutral", "bg": "#F1F5F9", "border": "#64748B", "text": "#334155", "icon": "FileText", "label": "Belum Bayar" },
+      "partial": { "semantic": "warning", "bg": "#FEF9C3", "border": "#EAB308", "text": "#713F12", "icon": "PieChart", "label": "DP/Sebagian" },
+      "paid": { "semantic": "success", "bg": "#DCFCE7", "border": "#16A34A", "text": "#14532D", "icon": "CheckCircle2", "label": "Lunas" },
+      "overdue": { "semantic": "danger", "bg": "#FEE2E2", "border": "#DC2626", "text": "#7F1D1D", "icon": "AlertTriangle", "label": "Menunggak" },
+      "void": { "semantic": "neutral", "bg": "#F1F5F9", "border": "#64748B", "text": "#334155", "icon": "Ban", "label": "Dibatalkan" }
+    },
+    "PaymentStatus": {
+      "pending": { "semantic": "warning", "bg": "#FEF9C3", "border": "#EAB308", "text": "#713F12", "icon": "Clock", "label": "Menunggu" },
+      "paid": { "semantic": "success", "bg": "#DCFCE7", "border": "#16A34A", "text": "#14532D", "icon": "CheckCircle2", "label": "Berhasil" },
+      "failed": { "semantic": "danger", "bg": "#FEE2E2", "border": "#DC2626", "text": "#7F1D1D", "icon": "XOctagon", "label": "Gagal" },
+      "needs_review": { "semantic": "warning", "bg": "#FEF9C3", "border": "#EAB308", "text": "#713F12", "icon": "ShieldAlert", "label": "Perlu Ditinjau" }
+    },
+    "PenaltyAction": {
+      "reminder": { "semantic": "neutral", "bg": "#F1F5F9", "border": "#64748B", "text": "#334155", "icon": "Bell", "label": "Reminder (Siklus 1)" },
+      "warning": { "semantic": "warning", "bg": "#FEF9C3", "border": "#EAB308", "text": "#713F12", "icon": "AlertCircle", "label": "Peringatan Wali (Siklus 2)" },
+      "penalty": { "semantic": "danger", "bg": "#FEE2E2", "border": "#DC2626", "text": "#7F1D1D", "icon": "Gavel", "label": "Denda 10%" },
+      "waived": { "semantic": "success", "bg": "#DCFCE7", "border": "#16A34A", "text": "#14532D", "icon": "CheckCheck", "label": "Dibebaskan" }
+    }
+  },
+  "roomClasses": {
+    "standard": {
+      "code": "STD",
+      "label": "Standard",
+      "borderLeft": "#6B7280",
+      "badgeBg": "#F3F4F6",
+      "badgeText": "#374151",
+      "icon": "BedSingle"
+    },
+    "vip": {
+      "code": "VIP",
+      "label": "VIP",
+      "borderLeft": "#2563EB",
+      "badgeBg": "#DBEAFE",
+      "badgeText": "#1E40AF",
+      "icon": "Star"
+    },
+    "deluxe": {
+      "code": "DLX",
+      "label": "Deluxe",
+      "borderLeft": "#C9A227",
+      "badgeBg": "#FBF3D5",
+      "badgeText": "#713F12",
+      "icon": "Crown"
+    }
+  }
+}

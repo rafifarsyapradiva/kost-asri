@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 48" width="180" height="48" role="img" aria-labelledby="asriLogoTitle">
+  <title id="asriLogoTitle">ASRI Boarding House</title>
+  <rect x="2" y="4" width="40" height="40" rx="12" fill="#1B4332"/>
+  <path d="M12 25L22 15L32 25" fill="none" stroke="#FAF7F0" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M22 35C22 27 29 22 33 21C32 28 28 33 22 35Z" fill="#95D5B2"/>
+  <circle cx="17" cy="30" r="3" fill="#E07A5F"/>
+  <text x="52" y="24" font-family="Plus Jakarta Sans, sans-serif" font-size="18" font-weight="800" fill="#1B4332" letter-spacing="0.8">ASRI</text>
+  <text x="52" y="38" font-family="Plus Jakarta Sans, sans-serif" font-size="9.5" font-weight="600" fill="#2D6A4F" letter-spacing="1.4">BOARDING HOUSE</text>
+</svg>

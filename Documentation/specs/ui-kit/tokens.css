@@ -1,0 +1,178 @@
+/**
+ * Design Tokens — Mini ERP Kost ASRI BOARDING HOUSE
+ * Starter reference for Fase 3 (`resources/css/tokens.css`, imported by `public.css` & `app.css`).
+ * Locked per DSN-002..DSN-009 & WCAG 2.1 AA audit (Option A CTA).
+ */
+
+@theme {
+  /* Typography */
+  --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  /* Brand — Deep Forest Green & Sage */
+  --color-forest-900: #1B4332;
+  --color-forest-700: #2D6A4F;
+  --color-forest-500: #40916C;
+  --color-sage-300: #95D5B2;
+  --color-sage-100: #D8F3DC;
+
+  /* Accent CTA — Warm Terracotta (Option A WCAG AA locked) */
+  --color-terracotta-400: #E78F77;
+  --color-terracotta-500: #E07A5F;
+  --color-terracotta-600: #C8553D;
+  --color-terracotta-700: #B5482F;
+  --color-terracotta-800: #9A3B26;
+  --color-terracotta-100: #FBE3DC;
+
+  /* Surfaces & Neutrals */
+  --color-cream-50: #FAF7F0;
+  --color-sand-100: #F2EBDD;
+  --color-slate-50: #F8FAFC;
+  --color-white: #FFFFFF;
+  --color-ink-950: #111827;
+  --color-ink-900: #1F2937;
+  --color-ink-600: #4B5563;
+  --color-ink-500: #6B7280;
+  --color-line-200: #E5E7EB;
+
+  /* Semantic Statuses (always paired with icon + Indonesian label per NFR-08) */
+  --color-success: #16A34A;
+  --color-success-bg: #DCFCE7;
+  --color-success-text: #14532D;
+
+  --color-warning: #EAB308;
+  --color-warning-bg: #FEF9C3;
+  --color-warning-text: #713F12;
+
+  --color-danger: #DC2626;
+  --color-danger-700: #B91C1C;
+  --color-danger-800: #991B1B;
+  --color-danger-bg: #FEE2E2;
+  --color-danger-text: #7F1D1D;
+
+  --color-neutral: #64748B;
+  --color-neutral-bg: #F1F5F9;
+  --color-neutral-text: #334155;
+
+  /* Room Classes (4px left border + dark-text pill badge) */
+  --color-class-standard: #6B7280;
+  --color-class-standard-bg: #F3F4F6;
+  --color-class-standard-text: #374151;
+
+  --color-class-vip: #2563EB;
+  --color-class-vip-bg: #DBEAFE;
+  --color-class-vip-text: #1E40AF;
+
+  --color-class-deluxe: #C9A227;
+  --color-class-deluxe-bg: #FBF3D5;
+  --color-class-deluxe-text: #713F12;
+
+  /* Radii & Shadows */
+  --radius-biophilic-card: 1.5rem;
+  --radius-bento-card: 1rem;
+  --radius-erp-btn: 0.625rem;
+  --shadow-biophilic: 0 10px 30px -10px rgba(27, 67, 50, 0.18);
+  --shadow-bento: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+/* Native CSS custom property mirror for standalone HTML preview & Blade templates */
+:root {
+  --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --color-forest-900: #1B4332;
+  --color-forest-700: #2D6A4F;
+  --color-forest-500: #40916C;
+  --color-sage-300: #95D5B2;
+  --color-sage-100: #D8F3DC;
+  --color-terracotta-400: #E78F77;
+  --color-terracotta-500: #E07A5F;
+  --color-terracotta-600: #C8553D;
+  --color-terracotta-700: #B5482F;
+  --color-terracotta-800: #9A3B26;
+  --color-terracotta-100: #FBE3DC;
+  --color-cream-50: #FAF7F0;
+  --color-sand-100: #F2EBDD;
+  --color-slate-50: #F8FAFC;
+  --color-white: #FFFFFF;
+  --color-ink-950: #111827;
+  --color-ink-900: #1F2937;
+  --color-ink-600: #4B5563;
+  --color-ink-500: #6B7280;
+  --color-line-200: #E5E7EB;
+  --color-success: #16A34A;
+  --color-success-bg: #DCFCE7;
+  --color-success-text: #14532D;
+  --color-warning: #EAB308;
+  --color-warning-bg: #FEF9C3;
+  --color-warning-text: #713F12;
+  --color-danger: #DC2626;
+  --color-danger-700: #B91C1C;
+  --color-danger-800: #991B1B;
+  --color-danger-bg: #FEE2E2;
+  --color-danger-text: #7F1D1D;
+  --color-neutral: #64748B;
+  --color-neutral-bg: #F1F5F9;
+  --color-neutral-text: #334155;
+  --color-class-standard: #6B7280;
+  --color-class-standard-bg: #F3F4F6;
+  --color-class-standard-text: #374151;
+  --color-class-vip: #2563EB;
+  --color-class-vip-bg: #DBEAFE;
+  --color-class-vip-text: #1E40AF;
+  --color-class-deluxe: #C9A227;
+  --color-class-deluxe-bg: #FBF3D5;
+  --color-class-deluxe-text: #713F12;
+}
+
+/* Mandatory tabular numerals for Rupiah, room numbers 101-216, KPIs, dates, countdowns */
+.num {
+  font-variant-numeric: tabular-nums lining-nums;
+  font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+/* Primary CTA Button (Option A: #E07A5F + #1F2937 => 4.98:1, hover #E78F77 => 6.01:1) */
+.btn-primary {
+  background-color: var(--color-terracotta-500);
+  color: var(--color-ink-900);
+  font-weight: 600;
+}
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--color-terracotta-400);
+}
+
+/* Secondary Brand Button (#1B4332 + #FFFFFF => 11.08:1) */
+.btn-secondary {
+  background-color: var(--color-forest-900);
+  color: var(--color-white);
+  font-weight: 600;
+}
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--color-forest-700);
+}
+
+/* Keyboard focus visibility (DSN-044: >= 3:1 non-text contrast) */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible {
+  outline: 2px solid var(--color-forest-500);
+  outline-offset: 2px;
+}
+
+.sidebar-dark a:focus-visible,
+.sidebar-dark button:focus-visible {
+  outline: 2px solid var(--color-sage-300);
+  outline-offset: 2px;
+}
+
+/* Motion accessibility (DSN-009) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
