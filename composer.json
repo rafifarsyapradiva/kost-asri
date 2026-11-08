@@ -2,8 +2,8 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "laravel/laravel",
     "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "description": "Mini ERP Kost ASRI BOARDING HOUSE — Tembalang, Semarang.",
+    "keywords": ["laravel", "kost-asri", "erp"],
     "license": "MIT",
     "require": {
         "php": "^8.2",
@@ -52,13 +52,13 @@
         ],
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi",
-            "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
         ],
         "dev": [
             "Composer\\Config::disableProcessTimeout",
-            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite"
-        ]
+            "npx.cmd concurrently -c \"#1B4332,#E07A5F,#2563EB,#CA8A04\" \"php artisan serve\" \"npm.cmd run dev\" \"php artisan queue:listen --tries=3\" \"php artisan schedule:work\" --names=server,vite,queue,schedule"
+        ],
+        "tunnel": "ngrok http 8000"
     },
     "extra": {
         "branch-alias": {

@@ -26,4 +26,3 @@ it('renders Inertia responses with app.blade.php and Ziggy @routes when requeste
 
     expect(class_exists(HandleInertiaRequests::class))->toBeTrue();
 });
-

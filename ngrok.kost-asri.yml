@@ -1,0 +1,5 @@
+version: "2"
+tunnels:
+  kost-asri-web:
+    proto: http
+    addr: 8000
