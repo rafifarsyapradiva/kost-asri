@@ -28,3 +28,4 @@ Route::prefix('webhook')
             'message' => 'Fonnte webhook endpoint registered (pending API-013).',
         ], 501))->name('webhook.fonnte');
     });
+

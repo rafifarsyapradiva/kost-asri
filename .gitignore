@@ -5,6 +5,9 @@
 /storage/*.key
 /storage/app/private/*
 !/storage/app/private/.gitignore
+!/storage/app/private/*/
+/storage/app/private/*/*
+!/storage/app/private/*/.gitignore
 /storage/pail
 /vendor
 .env

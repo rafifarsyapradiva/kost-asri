@@ -1,0 +1,9 @@
+@import '@fontsource-variable/plus-jakarta-sans';
+@import 'tailwindcss';
+@import './tokens.css';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../views/public/**/*.blade.php';
+@source '../views/components/**/*.blade.php';
+@source '../js/public.js';
+
