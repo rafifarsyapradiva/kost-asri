@@ -98,4 +98,3 @@ class GoogleController extends Controller
         return redirect()->intended(AuthenticatedSessionController::getDashboardUrl($user));
     }
 }
-

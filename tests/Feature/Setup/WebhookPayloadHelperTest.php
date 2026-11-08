@@ -33,4 +33,3 @@ it('generates standard Fonnte incoming message payloads (TST-002)', function () 
     expect($groupPayload['isgroup'])->toBeTrue()
         ->and($groupPayload['member'])->toBe('08987654321');
 });
-

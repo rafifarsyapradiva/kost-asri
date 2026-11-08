@@ -158,21 +158,21 @@
   - Setiap command menyimpan timestamp ke `settings` (`cron_last_run.*`) untuk pemantauan kesehatan cron di dashboard.
 
 ### 4.10 Dashboard Admin, Dashboard Penyewa & Laporan
-- [ ] **BE-045 — `Admin\DashboardController` (agregasi KPI Bento Grid)** · Est 3j · Dep: BE-012, BE-035 · M
+- [x] **BE-045 — `Admin\DashboardController` (agregasi KPI Bento Grid)** · Est 3j · Dep: BE-012, BE-035 · M
   - Okupansi %, hitungan kamar per status, pendapatan bulan berjalan (cash vs Midtrans), total tunggakan, daftar check-in/out hari ini, invoice mendekati jatuh tempo, reservasi baru, serta indikator kesehatan cron (FR-DASH-01).
-- [ ] **BE-046 — `Admin\TenantController` & `Admin\LeaseController` (daftar penyewa aktif/alumni, detail profil & wali, riwayat kontrak & tagihan)** · Est 2.5j · Dep: BE-005, BE-031 · M (FR-DASH-06).
-- [ ] **BE-047 — `Admin\InvoiceController` (filter status/tipe/periode/pencarian, detail invoice, cetak PDF)** · Est 2.5j · Dep: BE-025 · M (FR-BILL-06).
-- [ ] **BE-048 — `Admin\ReportController` — Laporan Pendapatan, Laporan Tunggakan & Denda, Laporan Okupansi + Export CSV & PDF** · Est 4j · Dep: BE-035, BE-024 · M
+- [x] **BE-046 — `Admin\TenantController` & `Admin\LeaseController` (daftar penyewa aktif/alumni, detail profil & wali, riwayat kontrak & tagihan)** · Est 2.5j · Dep: BE-005, BE-031 · M (FR-DASH-06).
+- [x] **BE-047 — `Admin\InvoiceController` (filter status/tipe/periode/pencarian, detail invoice, cetak PDF)** · Est 2.5j · Dep: BE-025 · M (FR-BILL-06).
+- [x] **BE-048 — `Admin\ReportController` — Laporan Pendapatan, Laporan Tunggakan & Denda, Laporan Okupansi + Export CSV & PDF** · Est 4j · Dep: BE-035, BE-024 · M
   - Filter rentang tanggal, metode bayar, dan kelas kamar (FR-DASH-02).
-- [ ] **BE-049 — `Admin\SettingController` & `Admin\ActivityLogController`** · Est 2.5j · Dep: BE-006, BE-007 · M
+- [x] **BE-049 — `Admin\SettingController` & `Admin\ActivityLogController`** · Est 2.5j · Dep: BE-006, BE-007 · M
   - Ubah parameter operasional §4.3, tampilkan status kredensial integrasi secara masked, lihat jejak audit (FR-DASH-04, FR-DASH-05).
-- [ ] **BE-050 — `Tenant\DashboardController` & `Tenant\InvoiceController`** · Est 2.5j · Dep: BE-008, BE-035 · M
+- [x] **BE-050 — `Tenant\DashboardController` & `Tenant\InvoiceController`** · Est 2.5j · Dep: BE-008, BE-035 · M
   - Ringkasan kamar dihuni, status `paid_until`, tagihan aktif siap bayar, riwayat pembayaran & unduh kwitansi/invoice PDF (FR-DASH-03, FR-TNT-02).
-- [ ] **BE-051 — `Tenant\ExtensionController` (form tambah hari harian, toggle perpanjangan mingguan, form ajukan berhenti bulanan)** · Est 2j · Dep: BE-033, BE-034 · M (FR-RSV-09, FR-TNT-04).
-- [ ] **BE-052 — Endpoint notifikasi in-app (`GET /notifications`, `POST /notifications/read-all`) untuk Admin & Penyewa** · Est 1.5j · Dep: BE-038 · S (FR-NTF-05).
-- [ ] **BE-053 — Shared Inertia data di `HandleInertiaRequests` (auth user, role, jumlah lonceng belum dibaca, flash toast)** · Est 1j · Dep: BE-002, BE-052 · M.
-- [ ] **BE-054 — Kustomisasi halaman error Inertia/Blade (403, 404, 419, 500, 503) sesuai konteks modul** · Est 1j · Dep: SET-008 · S.
-- [ ] **BE-055 — Pemeriksaan kerapian kode (`./vendor/bin/pint --test`) & audit N+1 query (`Model::preventLazyLoading(! app()->isProduction())`)** · Est 1.5j · Dep: BE-001..BE-054 · M (NFR-04, NFR-10).
+- [x] **BE-051 — `Tenant\ExtensionController` (form tambah hari harian, toggle perpanjangan mingguan, form ajukan berhenti bulanan)** · Est 2j · Dep: BE-033, BE-034 · M (FR-RSV-09, FR-TNT-04).
+- [x] **BE-052 — Endpoint notifikasi in-app (`GET /notifications`, `POST /notifications/read-all`) untuk Admin & Penyewa** · Est 1.5j · Dep: BE-038 · S (FR-NTF-05).
+- [x] **BE-053 — Shared Inertia data di `HandleInertiaRequests` (auth user, role, jumlah lonceng belum dibaca, flash toast)** · Est 1j · Dep: BE-002, BE-052 · M.
+- [x] **BE-054 — Kustomisasi halaman error Inertia/Blade (403, 404, 419, 500, 503) sesuai konteks modul** · Est 1j · Dep: SET-008 · S.
+- [x] **BE-055 — Pemeriksaan kerapian kode (`./vendor/bin/pint --test`) & audit N+1 query (`Model::preventLazyLoading(! app()->isProduction())`)** · Est 1.5j · Dep: BE-001..BE-054 · M (NFR-04, NFR-10).
 
 ---
 
@@ -193,7 +193,7 @@
 | **Total** | **55 task** | **135.0 j** |
 
 ### Phase Gate Backend (Definition of Done)
-- [ ] Seluruh 55 task selesai tanpa N+1 query (`preventLazyLoading` aktif di lokal/testing) dan lulus `./vendor/bin/pint --test`.
-- [ ] Seluruh aturan bisnis `BR-01` s/d `BR-33` terimplementasi di service/action dan siap diuji otomatis di `Task-Testing.md`.
-- [ ] Seluruh endpoint terproteksi `EnsureRole` dan `Policy` masing-masing resource.
+- [x] Seluruh 55 task selesai tanpa N+1 query (`preventLazyLoading` aktif di lokal/testing) dan lulus `./vendor/bin/pint --test`.
+- [x] Seluruh aturan bisnis `BR-01` s/d `BR-33` terimplementasi di service/action dan siap diuji otomatis di `Task-Testing.md`.
+- [x] Seluruh endpoint terproteksi `EnsureRole` dan `Policy` masing-masing resource.
 

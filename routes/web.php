@@ -20,6 +20,12 @@ use App\Http\Controllers\Admin\Cms\SiteSettingController;
 use App\Http\Controllers\Admin\Cms\TestimonialController as AdminTestimonialController;
 use App\Http\Controllers\Admin\Cms\VideoController;
 use App\Http\Controllers\Admin\ChatbotController as AdminChatbotController;
+use App\Http\Controllers\Admin\ActivityLogController as AdminActivityLogController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\InvoiceController as AdminInvoiceController;
+use App\Http\Controllers\Admin\ReportController as AdminReportController;
+use App\Http\Controllers\Admin\SettingController as AdminSettingController;
+use App\Http\Controllers\Admin\TenantController as AdminTenantController;
 use App\Http\Controllers\Admin\CheckInController;
 use App\Http\Controllers\Admin\InvoiceAdjustmentController;
 use App\Http\Controllers\Admin\LeaseController;
@@ -36,10 +42,14 @@ use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\Notification\InAppNotificationController;
 use App\Http\Controllers\Public\AvailabilityController;
 use App\Http\Controllers\Public\GuardianPaymentController;
 use App\Http\Controllers\Public\LandingController;
 use App\Http\Controllers\Public\ReservationWizardController;
+use App\Http\Controllers\Tenant\DashboardController as TenantDashboardController;
+use App\Http\Controllers\Tenant\ExtensionController as TenantExtensionController;
+use App\Http\Controllers\Tenant\InvoiceController as TenantInvoiceController;
 use App\Http\Controllers\Tenant\TestimonialController as TenantTestimonialController;
 use Illuminate\Support\Facades\Route;
 
@@ -97,18 +107,30 @@ Route::middleware('auth')->group(function (): void {
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
+    // In-App Notifications (BE-052, FR-NTF-05)
+    Route::get('/notifications', [InAppNotificationController::class, 'index'])->name('notifications.index');
+    Route::post('/notifications/read-all', [InAppNotificationController::class, 'readAll'])->name('notifications.read-all');
+    Route::post('/notifications/{id}/read', [InAppNotificationController::class, 'markAsRead'])->name('notifications.read');
+
     // Profile Completion (FR-AUTH-07, BE-003)
     Route::get('/akun/lengkapi-profil', [ProfileCompletionController::class, 'show'])->name('account.profile.complete');
     Route::post('/akun/lengkapi-profil', [ProfileCompletionController::class, 'update']);
 
     // Role-protected dashboards
-    Route::get('/admin/dashboard', fn () => response()->json(['module' => 'admin']))
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])
         ->middleware('role:admin')
         ->name('admin.dashboard');
 
-    Route::get('/penyewa/dashboard', fn () => response()->json(['module' => 'tenant']))
-        ->middleware('role:penyewa')
-        ->name('tenant.dashboard');
+    // Tenant Dashboard, Invoices & Extensions (BE-050, BE-051, FR-DASH-03, FR-TNT-02, FR-TNT-04)
+    Route::middleware('role:penyewa')->prefix('penyewa')->name('tenant.')->group(function (): void {
+        Route::get('/dashboard', [TenantDashboardController::class, 'index'])->name('dashboard');
+        Route::get('/invoices', [TenantInvoiceController::class, 'index'])->name('invoices.index');
+        Route::get('/invoices/{invoice}', [TenantInvoiceController::class, 'show'])->name('invoices.show');
+        Route::get('/extension', [TenantExtensionController::class, 'index'])->name('extension.index');
+        Route::post('/extension/daily', [TenantExtensionController::class, 'daily'])->name('extension.daily');
+        Route::post('/extension/weekly-toggle', [TenantExtensionController::class, 'weeklyToggle'])->name('extension.weekly');
+        Route::post('/extension/monthly-stop', [TenantExtensionController::class, 'monthlyStop'])->name('extension.monthly');
+    });
 
     // Account Reservations (FR-RSV-08, BR-27)
     Route::get('/akun/reservasi-saya', [AccountReservationController::class, 'index'])
@@ -172,13 +194,23 @@ Route::middleware('auth')->group(function (): void {
         // Admin Payments & Front-Desk Cash Recording (BE-036, FR-PAY-03)
         Route::get('/payments', [AdminPaymentController::class, 'index'])->name('payments.index');
         Route::post('/invoices/{invoice}/cash', [AdminPaymentController::class, 'recordCash'])->name('invoices.cash');
+        Route::get('/reports', [AdminReportController::class, 'index'])->name('reports.index');
+        Route::get('/reports/export-csv', [AdminReportController::class, 'exportCsv'])->name('reports.export-csv');
         Route::get('/reports/pdf', ReportPdfController::class)->name('reports.pdf');
         Route::get('/tenants/{tenantProfile}/ktp', [KtpPhotoController::class, 'show'])->name('tenants.ktp');
 
-        // Invoice Adjustment, Void, & Waive Penalty (BE-025, FR-BILL-07, FR-PEN-04)
+        // Invoice Adjustment, Void, & Waive Penalty (BE-025, BE-047, FR-BILL-06, FR-BILL-07, FR-PEN-04)
+        Route::get('/invoices', [AdminInvoiceController::class, 'index'])->name('invoices.index');
+        Route::get('/invoices/{invoice}', [AdminInvoiceController::class, 'show'])->name('invoices.show');
         Route::post('/invoices/{invoice}/items', [InvoiceAdjustmentController::class, 'addItem'])->name('invoices.items.add');
         Route::post('/invoices/{invoice}/waive-penalty', [InvoiceAdjustmentController::class, 'waivePenalty'])->name('invoices.waive-penalty');
         Route::post('/invoices/{invoice}/void', [InvoiceAdjustmentController::class, 'voidInvoice'])->name('invoices.void');
+
+        // Tenants & Leases (BE-046, FR-DASH-06)
+        Route::get('/tenants', [AdminTenantController::class, 'index'])->name('tenants.index');
+        Route::get('/tenants/{tenant}', [AdminTenantController::class, 'show'])->name('tenants.show');
+        Route::get('/leases', [LeaseController::class, 'index'])->name('leases.index');
+        Route::get('/leases/{lease}', [LeaseController::class, 'show'])->name('leases.show');
 
         // Check-In (BE-031, FR-RSV-06)
         Route::post('/reservations/{reservation}/check-in', [CheckInController::class, 'store'])->name('reservations.check-in');
@@ -198,6 +230,11 @@ Route::middleware('auth')->group(function (): void {
         Route::put('/chatbot/keywords/{keyword}', [AdminChatbotController::class, 'updateKeyword'])->name('chatbot.keywords.update');
         Route::delete('/chatbot/keywords/{keyword}', [AdminChatbotController::class, 'destroyKeyword'])->name('chatbot.keywords.destroy');
         Route::post('/chatbot/sessions/{session}/release-handover', [AdminChatbotController::class, 'releaseHandover'])->name('chatbot.sessions.release-handover');
+
+        // System Settings & Activity Logs (BE-049, SEC-024, FR-DASH-04, FR-DASH-05)
+        Route::get('/settings', [AdminSettingController::class, 'index'])->name('settings.index');
+        Route::post('/settings', [AdminSettingController::class, 'update'])->name('settings.update');
+        Route::get('/activity-logs', [AdminActivityLogController::class, 'index'])->name('activity-logs.index');
 
         // CMS Landing Page Modules
         Route::prefix('cms')->name('cms.')->group(function (): void {

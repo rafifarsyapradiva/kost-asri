@@ -156,4 +156,3 @@ it('marks payment failed on deny, cancel, or expire status (API-007)', function 
     $response->assertOk();
     expect($this->payment->fresh()->status)->toBe(PaymentStatus::Failed);
 });
-

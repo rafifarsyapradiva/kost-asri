@@ -66,23 +66,23 @@ Seluruh komponen wajib memetakan nilai Enum dari backend ke token desain di `res
 ## 4. Checklist Task (`FE-001` – `FE-050`)
 
 ### 4.1 Fondasi Token, Layout & Komponen Dasar
-- [ ] **FE-001 — Implementasi `resources/css/tokens.css`, `public.css`, dan `app.css` sesuai Design System** · Est 2j · Dep: SET-009, DSN-009 · M
+- [x] **FE-001 — Implementasi `resources/css/tokens.css`, `public.css`, dan `app.css` sesuai Design System** · Est 2j · Dep: SET-009, DSN-009 · M
   - Daftarkan Plus Jakarta Sans Variable, palet Forest Green `#1B4332` & Terracotta `#E07A5F`, warna semantik, aksen kelas kamar, class `.num` (`tabular-nums`), dan aturan `prefers-reduced-motion`.
-- [ ] **FE-002 — Buat composables `useRupiah`, `useDateId`, `useTableFilters`, dan `useSnap`** · Est 2.5j · Dep: SET-008 · M.
-- [ ] **FE-003 — Komponen primitif tombol, form input, `CurrencyInput`, `FileDropzone` (preview gambar/KTP)** · Est 3j · Dep: FE-001, DSN-010, DSN-011 · M.
-- [ ] **FE-004 — Komponen `RupiahText`, `StatusBadge`, dan `RoomClassBadge` (12 kombinasi status × kelas teruji kontras)** · Est 2j · Dep: FE-001, DSN-012, DSN-013 · M.
-- [ ] **FE-005 — Komponen `BentoCard`, `KpiStatCard`, `DataTable` (angka rata kanan `tabular-nums`, empty/loading skeleton), `Modal`, `SlideOverDrawer`, `ConfirmDialog`, `ToastContainer`** · Est 4j · Dep: FE-003, DSN-015..017 · M.
-- [ ] **FE-006 — Komponen `RoomCell` & `RoomFloorMap` (denah interaktif 32 kamar 2 lantai + legenda status & kelas + aksesibilitas keyboard/ARIA)** · Est 4j · Dep: FE-004, DSN-014, DSN-025 · M (FR-ROOM-03).
-- [ ] **FE-007 — Layout utama: `PublicLayout` (Blade), `AuthLayout`, `ReservationLayout`, `AdminLayout` (sidebar Forest `#1B4332` + topbar `NotificationBell`), dan `TenantLayout` (responsive bottom-nav di mobile)** · Est 4j · Dep: FE-005, DSN-020 · M.
+- [x] **FE-002 — Buat composables `useRupiah`, `useDateId`, `useTableFilters`, dan `useSnap`** · Est 2.5j · Dep: SET-008 · M.
+- [x] **FE-003 — Komponen primitif tombol, form input, `CurrencyInput`, `FileDropzone` (preview gambar/KTP)** · Est 3j · Dep: FE-001, DSN-010, DSN-011 · M.
+- [x] **FE-004 — Komponen `RupiahText`, `StatusBadge`, dan `RoomClassBadge` (12 kombinasi status × kelas teruji kontras)** · Est 2j · Dep: FE-001, DSN-012, DSN-013 · M.
+- [x] **FE-005 — Komponen `BentoCard`, `KpiStatCard`, `DataTable` (angka rata kanan `tabular-nums`, empty/loading skeleton), `Modal`, `SlideOverDrawer`, `ConfirmDialog`, `ToastContainer`** · Est 4j · Dep: FE-003, DSN-015..017 · M.
+- [x] **FE-006 — Komponen `RoomCell` & `RoomFloorMap` (denah interaktif 32 kamar 2 lantai + legenda status & kelas + aksesibilitas keyboard/ARIA)** · Est 4j · Dep: FE-004, DSN-014, DSN-025 · M (FR-ROOM-03).
+- [x] **FE-007 — Layout utama: `PublicLayout` (Blade), `AuthLayout`, `ReservationLayout`, `AdminLayout` (sidebar Forest `#1B4332` + topbar `NotificationBell`), dan `TenantLayout` (responsive bottom-nav di mobile)** · Est 4j · Dep: FE-005, DSN-020 · M.
 
 ### 4.2 Landing Page Publik — Blade + Alpine.js (*Warm Biophilic*)
-- [ ] **FE-008 — Bootstrap `public.js` (Alpine + `intersect` + `collapse`) & komponen Navbar sticky + Footer + Floating WhatsApp CTA** · Est 2.5j · Dep: FE-001, DSN-020 · M.
-- [ ] **FE-009 — Section Hero Biophilic + widget cek cepat ketersediaan kamar (tanggal masuk & tipe sewa → arahkan ke Step 1 reservasi) + counter animasi `tabular-nums`** · Est 3j · Dep: FE-008, BE-018, DSN-029 · M (FR-CMS-10).
-- [ ] **FE-010 — Section **Tentang Kami** & Section **Fasilitas** (tab filter fasilitas kamar vs umum + reveal stagger)** · Est 2.5j · Dep: FE-008, BE-018 · M (FR-CMS-01, FR-CMS-09).
-- [ ] **FE-011 — Section **Tipe Kamar** (kartu Standard abu-abu, VIP biru, Deluxe emas + tarif Harian/Mingguan/Bulanan + badge sisa kamar kosong real-time) & halaman detail `/kamar/{slug}`** · Est 3.5j · Dep: FE-008, BE-018 · M (FR-CMS-02).
-- [ ] **FE-012 — Section **Video YouTube** (lazy-load iframe saat modal dibuka) & Section **Galeri** (filter kategori + lightbox Alpine navigasi keyboard)** · Est 3j · Dep: FE-008, BE-018 · M (FR-CMS-03, FR-CMS-04).
-- [ ] **FE-013 — Section **Alur 5 Langkah Reservasi**, Section **Testimoni Penyewa** (slider otomatis pause-on-hover), & Section **FAQ** (accordion `x-collapse`)** · Est 3j · Dep: FE-008, BE-018 · M (FR-CMS-05..07).
-- [ ] **FE-014 — Section **Lokasi Tembalang** (embed Google Maps lazy + kartu jarak tempat terdekat seperti kampus/minimarket) & verifikasi meta SEO / Open Graph** · Est 2j · Dep: FE-008, BE-018 · M (FR-CMS-08, FR-CMS-10).
+- [x] **FE-008 — Bootstrap `public.js` (Alpine + `intersect` + `collapse`) & komponen Navbar sticky + Footer + Floating WhatsApp CTA** · Est 2.5j · Dep: FE-001, DSN-020 · M.
+- [x] **FE-009 — Section Hero Biophilic + widget cek cepat ketersediaan kamar (tanggal masuk & tipe sewa → arahkan ke Step 1 reservasi) + counter animasi `tabular-nums`** · Est 3j · Dep: FE-008, BE-018, DSN-029 · M (FR-CMS-10).
+- [x] **FE-010 — Section **Tentang Kami** & Section **Fasilitas** (tab filter fasilitas kamar vs umum + reveal stagger)** · Est 2.5j · Dep: FE-008, BE-018 · M (FR-CMS-01, FR-CMS-09).
+- [x] **FE-011 — Section **Tipe Kamar** (kartu Standard abu-abu, VIP biru, Deluxe emas + tarif Harian/Mingguan/Bulanan + badge sisa kamar kosong real-time) & halaman detail `/kamar/{slug}`** · Est 3.5j · Dep: FE-008, BE-018 · M (FR-CMS-02).
+- [x] **FE-012 — Section **Video YouTube** (lazy-load iframe saat modal dibuka) & Section **Galeri** (filter kategori + lightbox Alpine navigasi keyboard)** · Est 3j · Dep: FE-008, BE-018 · M (FR-CMS-03, FR-CMS-04).
+- [x] **FE-013 — Section **Alur 5 Langkah Reservasi**, Section **Testimoni Penyewa** (slider otomatis pause-on-hover), & Section **FAQ** (accordion `x-collapse`)** · Est 3j · Dep: FE-008, BE-018 · M (FR-CMS-05..07).
+- [x] **FE-014 — Section **Lokasi Tembalang** (embed Google Maps lazy + kartu jarak tempat terdekat seperti kampus/minimarket) & verifikasi meta SEO / Open Graph** · Est 2j · Dep: FE-008, BE-018 · M (FR-CMS-08, FR-CMS-10).
 
 ### 4.3 Autentikasi & Area Akun Calon Penyewa (Vue + Inertia)
 - [ ] **FE-015 — Halaman Login, Register, Lupa/Reset Password, & Verifikasi Email bergaya Warm Biophilic + tombol "Masuk dengan Google"** · Est 3.5j · Dep: FE-007, BE-001, API-002, DSN-023 · M (FR-AUTH-01..04).

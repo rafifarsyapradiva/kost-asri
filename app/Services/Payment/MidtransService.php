@@ -125,4 +125,3 @@ class MidtransService
         return Snap::getSnapToken($params);
     }
 }
-

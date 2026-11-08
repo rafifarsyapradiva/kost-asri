@@ -74,4 +74,3 @@ class GuardianPaymentController extends Controller
         return "{$first} {$secondInitial}***";
     }
 }
-

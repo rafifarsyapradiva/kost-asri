@@ -76,6 +76,11 @@ class Lease extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function tenant(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function room(): BelongsTo
     {
         return $this->belongsTo(Room::class);

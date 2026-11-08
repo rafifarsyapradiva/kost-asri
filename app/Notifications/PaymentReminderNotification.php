@@ -68,4 +68,3 @@ Bayar online: {$payUrl}
         ];
     }
 }
-

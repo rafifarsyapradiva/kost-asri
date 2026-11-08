@@ -86,4 +86,3 @@ class ReconcileMidtransPaymentsCommand extends Command
         return self::SUCCESS;
     }
 }
-

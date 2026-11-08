@@ -14,9 +14,57 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class LeaseController extends Controller
 {
+    /**
+     * Display a listing of leases (BE-046, FR-DASH-06).
+     */
+    public function index(Request $request): Response
+    {
+        $query = Lease::with(['tenant.tenantProfile', 'room.roomType']);
+
+        if ($search = $request->input('search')) {
+            $query->where(function ($q) use ($search): void {
+                $q->whereHas('tenant', fn ($t) => $t->where('name', 'like', "%{$search}%")->orWhere('phone', 'like', "%{$search}%"))
+                    ->orWhereHas('room', fn ($r) => $r->where('code', 'like', "%{$search}%"));
+            });
+        }
+
+        if ($status = $request->input('status')) {
+            $query->where('status', $status);
+        }
+
+        if ($rentType = $request->input('rent_type')) {
+            $query->where('rent_type', $rentType);
+        }
+
+        $leases = $query->latest()->paginate(15)->withQueryString();
+
+        return Inertia::render('Admin/Leases/Index', [
+            'leases' => $leases,
+            'filters' => $request->only(['search', 'status', 'rent_type']),
+        ]);
+    }
+
+    /**
+     * Display lease details (BE-046).
+     */
+    public function show(Lease $lease): Response
+    {
+        $lease->load([
+            'tenant.tenantProfile',
+            'room.roomType',
+            'invoices.items',
+            'invoices.payments.receipt',
+        ]);
+
+        return Inertia::render('Admin/Leases/Show', [
+            'lease' => $lease,
+        ]);
+    }
     /**
      * Process tenant check-out (BE-032, FR-RSV-07).
      */

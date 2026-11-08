@@ -141,7 +141,7 @@ Ditambah `Content-Security-Policy` terukur yang hanya mengizinkan script/frame d
 - [x] **SEC-021 — Buat & daftarkan middleware `SetSecurityHeaders` (CSP Midtrans/YouTube/Maps, HSTS, `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`)** · Est 2j · Dep: SET-017 · M.
 - [x] **SEC-022 — Pastikan pengecualian CSRF di `bootstrap/app.php` **hanya** berlaku spesifik untuk `webhook/midtrans` dan `webhook/fonnte`** · Est 0.5j · Dep: SET-017 · M (NFR-01).
 - [x] **SEC-023 — Kunci integritas `activity_logs`, `penalty_logs`, dan `webhook_logs` (larang route/method update & delete pada model audit)** · Est 1j · Dep: BE-007 · M (NFR-09).
-- [ ] **SEC-024 — Masking seluruh kunci API di halaman Pengaturan Admin & larang pengiriman secret mentah ke props Inertia frontend** · Est 1j · Dep: BE-049, FE-038 · M (NFR-02).
+- [x] **SEC-024 — Masking seluruh kunci API di halaman Pengaturan Admin & larang pengiriman secret mentah ke props Inertia frontend** · Est 1j · Dep: BE-049, FE-038 · M (NFR-02).
 - [ ] **SEC-025 — Konfigurasi Apache VirtualHost lokal & Nginx produksi agar DocumentRoot menunjuk ke `/public` serta blokir akses URL ke `/.env`, `/.git`, `/Blueprint`, `/Documentation`, `/Task`** · Est 1.5j · Dep: SET-003, SET-025 · M.
 - [ ] **SEC-026 — Buat user database MySQL produksi minimal-privilege (`kost_asri_app`) & nonaktifkan login MySQL remote dari luar localhost** · Est 1j · Dep: SET-025 · M.
 - [ ] **SEC-027 — Tambahkan enkripsi AES-256 pada file hasil `backup:database` harian** · Est 1j · Dep: DB-039, SET-029 · S (NFR-11).

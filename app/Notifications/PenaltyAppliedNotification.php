@@ -84,4 +84,3 @@ Mohon segera diselesaikan melalui {$payUrl} atau tunai ke penjaga kost.
         ];
     }
 }
-

@@ -19,4 +19,3 @@ class InvoicePdfController extends Controller
         return $pdfService->streamInvoice($invoice);
     }
 }
-

@@ -16,6 +16,7 @@ use App\Policies\ReceiptPolicy;
 use App\Policies\ReservationPolicy;
 use App\Policies\TenantProfilePolicy;
 use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Notification;
@@ -39,6 +40,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Model::preventLazyLoading(! $this->app->isProduction());
+
         Gate::policy(Reservation::class, ReservationPolicy::class);
         Gate::policy(Invoice::class, InvoicePolicy::class);
         Gate::policy(Lease::class, LeasePolicy::class);

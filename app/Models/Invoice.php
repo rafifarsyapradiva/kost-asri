@@ -103,6 +103,16 @@ class Invoice extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function tenant(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function getRoomAttribute(): ?Room
+    {
+        return $this->lease?->room ?? $this->reservation?->room;
+    }
+
     public function items(): HasMany
     {
         return $this->hasMany(InvoiceItem::class);

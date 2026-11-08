@@ -68,4 +68,3 @@ Silakan selesaikan pembayaran sebelum batas waktu holding 24 jam.
         ];
     }
 }
-

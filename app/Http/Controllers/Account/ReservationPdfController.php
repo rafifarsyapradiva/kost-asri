@@ -19,4 +19,3 @@ class ReservationPdfController extends Controller
         return $pdfService->streamReservationNote($reservation);
     }
 }
-
