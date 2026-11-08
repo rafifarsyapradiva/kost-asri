@@ -1,0 +1,20 @@
+{
+  "transaction_time": "2026-11-08 21:00:00",
+  "transaction_status": "settlement",
+  "transaction_id": "8fbb8913-9a3d-4c3e-8f92-5b9e078a1234",
+  "status_message": "midtrans payment notification",
+  "status_code": "200",
+  "signature_key": "SHA512_OF_ORDER_ID_STATUS_CODE_GROSS_AMOUNT_SERVER_KEY",
+  "payment_type": "bank_transfer",
+  "order_id": "INV-ASRI-202611-0001-1762610400",
+  "merchant_id": "G123456789",
+  "gross_amount": "1500000.00",
+  "fraud_status": "accept",
+  "currency": "IDR",
+  "va_numbers": [
+    {
+      "bank": "bca",
+      "va_number": "91012345678"
+    }
+  ]
+}

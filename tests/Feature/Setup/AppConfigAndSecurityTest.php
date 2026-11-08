@@ -80,7 +80,7 @@ it('exempts ONLY webhook/midtrans and webhook/fonnte from CSRF, keeping other /w
     $fonnteResponse = $this->postJson('/webhook/fonnte', []);
     $probeResponse = $this->postJson('/webhook/unlisted-security-probe', []);
 
-    expect($midtransResponse->getStatusCode())->toBe(501)
-        ->and($fonnteResponse->getStatusCode())->toBe(501)
+    expect($midtransResponse->getStatusCode())->toBe(403)
+        ->and($fonnteResponse->getStatusCode())->toBe(403)
         ->and($probeResponse->getStatusCode())->toBe(419);
 });

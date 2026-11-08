@@ -216,12 +216,12 @@ Selain route halaman Inertia/Blade pada Blueprint §7, berikut kontrak endpoint 
 - [x] **API-030 — Konfigurasi Named Rate Limiters di `AppServiceProvider` (`login`, `webhook`, `public-calc`, `snap-token`)** · Est 1j · Dep: SET-017 · M (NFR-01, NFR-02).
 
 ### 5.7 Verifikasi Sandbox & Dokumentasi Kontrak
-- [ ] **API-031 — Uji integrasi login Google di browser lokal (akun baru & akun email existing)** · Est 0.5j · Dep: API-003 · M.
-- [ ] **API-032 — Uji integrasi pengiriman WA nyata via Fonnte ke nomor uji penyewa & nomor uji wali** · Est 1j · Dep: API-011 · M.
-- [ ] **API-033 — Uji percakapan Chatbot WA via ngrok untuk seluruh keyword `MENU` & `1`–`7` termasuk handover `ADMIN`** · Est 1.5j · Dep: API-014 · M.
-- [ ] **API-034 — Uji pengiriman Email SMTP + buka seluruh 4 jenis lampiran PDF di Adobe Reader / browser tanpa font pecah** · Est 1j · Dep: API-019, API-025 · M.
-- [ ] **API-035 — Uji eksekusi `php artisan schedule:list` & `php artisan schedule:run` memastikan tidak ada command bentrok** · Est 0.5j · Dep: API-026 · M.
-- [ ] **API-036 — Simpan koleksi contoh request/webhook (`storage/app/private/postman_or_http_samples/` atau dokumentasi cURL) untuk keperluan regresi tim QA** · Est 1j · Dep: API-006, API-013 · S.
+- [x] **API-031 — Uji integrasi login Google di browser lokal (akun baru & akun email existing)** · Est 0.5j · Dep: API-003 · M.
+- [x] **API-032 — Uji integrasi pengiriman WA nyata via Fonnte ke nomor uji penyewa & nomor uji wali** · Est 1j · Dep: API-011 · M.
+- [x] **API-033 — Uji percakapan Chatbot WA via ngrok untuk seluruh keyword `MENU` & `1`–`7` termasuk handover `ADMIN`** · Est 1.5j · Dep: API-014 · M.
+- [x] **API-034 — Uji pengiriman Email SMTP + buka seluruh 4 jenis lampiran PDF di Adobe Reader / browser tanpa font pecah** · Est 1j · Dep: API-019, API-025 · M.
+- [x] **API-035 — Uji eksekusi `php artisan schedule:list` & `php artisan schedule:run` memastikan tidak ada command bentrok** · Est 0.5j · Dep: API-026 · M.
+- [x] **API-036 — Simpan koleksi contoh request/webhook (`storage/app/private/postman_or_http_samples/` atau dokumentasi cURL) untuk keperluan regresi tim QA** · Est 1j · Dep: API-006, API-013 · S.
 
 ---
 
@@ -239,7 +239,7 @@ Selain route halaman Inertia/Blade pada Blueprint §7, berikut kontrak endpoint 
 | **Total** | **36 task** | **54.0 j** |
 
 ### Phase Gate Integrasi API (Definition of Done)
-- [ ] Keenam integrasi (Google OAuth, Midtrans Sandbox, Fonnte WA + Chatbot, Email SMTP, DomPDF, Scheduler) terbukti berjalan end-to-end di lingkungan sandbox.
-- [ ] Verifikasi signature Midtrans & secret token Fonnte menolak request palsu dengan HTTP 403 dan mencatat ke `webhook_logs`.
-- [ ] Seluruh notifikasi & lampiran PDF berjalan non-blocking melalui antrean (`jobs`) tanpa memperlambat respons halaman pengguna.
+- [x] Keenam integrasi (Google OAuth, Midtrans Sandbox, Fonnte WA + Chatbot, Email SMTP, DomPDF, Scheduler) terbukti berjalan end-to-end di lingkungan sandbox.
+- [x] Verifikasi signature Midtrans & secret token Fonnte menolak request palsu dengan HTTP 403 dan mencatat ke `webhook_logs`.
+- [x] Seluruh notifikasi & lampiran PDF berjalan non-blocking melalui antrean (`jobs`) tanpa memperlambat respons halaman pengguna.
 
