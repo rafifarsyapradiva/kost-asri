@@ -1,0 +1,125 @@
+{
+  "allowedPlaceholders": [
+    "{nama}",
+    "{kode_kamar}",
+    "{kelas}",
+    "{periode}",
+    "{nomor_invoice}",
+    "{nomor_kwitansi}",
+    "{total}",
+    "{nominal_bayar}",
+    "{sisa_tagihan}",
+    "{nominal_denda}",
+    "{tanggal_jatuh_tempo}",
+    "{link_bayar}",
+    "{nama_wali}",
+    "{kode_reservasi}",
+    "{tanggal_checkin}",
+    "{tanggal_checkout}",
+    "{batas_bayar}"
+  ],
+  "notifications": {
+    "reservation_created": {
+      "event": "ReservationCreated",
+      "recipient": "tenant",
+      "body": "Halo *{nama}*, reservasi kamar Anda di *ASRI BOARDING HOUSE* telah tercatat.\n\nKode Reservasi: *{kode_reservasi}*\nKamar: *{kode_kamar}* ({kelas})\nRencana Masuk: *{tanggal_checkin}*\nTotal Tagihan Awal: *{total}*\nBatas Pembayaran: *{batas_bayar}*\n\nSilakan selesaikan pembayaran melalui tautan resmi berikut:\n{link_bayar}\n\nTerima kasih."
+    },
+    "payment_succeeded": {
+      "event": "PaymentSucceeded",
+      "recipient": "tenant",
+      "body": "✅ *PEMBAYARAN DITERIMA — ASRI BOARDING HOUSE*\n\nHalo *{nama}*, pembayaran Anda telah terverifikasi:\nNo. Kwitansi: *{nomor_kwitansi}*\nNo. Tagihan: *{nomor_invoice}*\nKamar: *{kode_kamar}* ({kelas})\nNominal Dibayar: *{nominal_bayar}*\nSisa Tagihan: *{sisa_tagihan}*\n\nKwitansi resmi PDF juga telah dikirim ke email Anda."
+    },
+    "reservation_expired": {
+      "event": "ReservationExpired",
+      "recipient": "tenant",
+      "body": "Halo *{nama}*, masa tunggu pembayaran 24 jam untuk reservasi *{kode_reservasi}* (Kamar *{kode_kamar}* - {kelas}) telah berakhir pada *{batas_bayar}*.\n\nStatus kamar kini kembali dibuka untuk umum. Apabila Anda masih berminat, silakan membuat reservasi baru melalui website resmi ASRI BOARDING HOUSE."
+    },
+    "checkin_welcome": {
+      "event": "TenantCheckedIn",
+      "recipient": "tenant",
+      "body": "🏠 *SELAMAT DATANG DI ASRI BOARDING HOUSE*\n\nHalo *{nama}*, proses Check-in Anda untuk Kamar *{kode_kamar}* ({kelas}) pada *{tanggal_checkin}* telah aktif.\n\nAnda kini dapat mengakses dashboard penyewa untuk memantau kontrak, tagihan, dan kwitansi resmi. Ketik *MENU* kapan saja untuk bantuan otomatis."
+    },
+    "checkout_completed": {
+      "event": "TenantCheckedOut",
+      "recipient": "tenant",
+      "body": "Halo *{nama}*, proses Check-out Anda dari Kamar *{kode_kamar}* ({kelas}) pada *{tanggal_checkout}* telah selesai dicatat.\n\nTerima kasih telah memilih *ASRI BOARDING HOUSE* sebagai tempat hunian Anda di Tembalang, Semarang. Semoga sukses selalu!"
+    },
+    "invoice_issued": {
+      "event": "InvoiceIssued",
+      "recipient": "tenant",
+      "body": "📄 *TAGIHAN SEWA BARU — ASRI BOARDING HOUSE*\n\nHalo *{nama}*, tagihan sewa kamar Anda telah terbit:\nNo. Invoice: *{nomor_invoice}*\nKamar: *{kode_kamar}* ({kelas})\nPeriode: *{periode}*\nTotal Tagihan: *{total}*\nJatuh Tempo: *{tanggal_jatuh_tempo}*\n\nBayar praktis secara online melalui:\n{link_bayar}"
+    },
+    "invoice_reminder": {
+      "event": "InvoiceReminderDue",
+      "recipient": "tenant",
+      "body": "⏰ *PENGINGAT TAGIHAN SEWA*\n\nHalo *{nama}*, mengingatkan kembali tagihan *{nomor_invoice}* untuk Kamar *{kode_kamar}* ({periode}) sebesar *{sisa_tagihan}* dengan batas jatuh tempo *{tanggal_jatuh_tempo}*.\n\nSilakan lakukan pembayaran melalui:\n{link_bayar}\nAbaikan pesan ini apabila Anda baru saja membayar."
+    },
+    "monthly_warning_tenant": {
+      "event": "MonthlyWarningEscalated",
+      "recipient": "tenant",
+      "body": "⚠️ *PERINGATAN KETERLAMBATAN PEMBAYARAN (SIKLUS KE-2)*\n\nHalo *{nama}*, tagihan *{nomor_invoice}* Kamar *{kode_kamar}* ({periode}) sebesar *{sisa_tagihan}* telah melewati jatuh tempo *{tanggal_jatuh_tempo}*.\n\nSesuai ketentuan kost, pemberitahuan keterlambatan ini juga ditembuskan kepada Wali Anda (*{nama_wali}*). Mohon segera lunasi melalui:\n{link_bayar}"
+    },
+    "monthly_warning_guardian": {
+      "event": "MonthlyWarningEscalated",
+      "recipient": "guardian",
+      "body": "⚠️ *PEMBERITAHUAN KEPADA WALI PENGHUNI — ASRI BOARDING HOUSE*\n\nYth. *{nama_wali}*, kami menginformasikan bahwa pembayaran sewa Kamar *{kode_kamar}* ({kelas}) atas nama *{nama}* untuk periode *{periode}* (Invoice *{nomor_invoice}*, tagihan *{sisa_tagihan}*) telah melewati jatuh tempo *{tanggal_jatuh_tempo}*.\n\nPada siklus ini belum dikenakan denda. Pembayaran dapat dilakukan melalui tautan resmi:\n{link_bayar}"
+    },
+    "penalty_applied_tenant": {
+      "event": "PenaltyApplied",
+      "recipient": "tenant",
+      "body": "⚠️ *PEMBERITAHUAN DENDA KETERLAMBATAN 10%*\n\nHalo *{nama}*, karena tagihan *{nomor_invoice}* Kamar *{kode_kamar}* ({periode}) melewati batas toleransi jatuh tempo *{tanggal_jatuh_tempo}*, sistem menerapkan denda 10% sebesar *{nominal_denda}*.\n\nTotal harus dibayar saat ini: *{sisa_tagihan}*\nTembusan informasi juga dikirimkan kepada Wali (*{nama_wali}*). Lunasi melalui:\n{link_bayar}"
+    },
+    "penalty_applied_guardian": {
+      "event": "PenaltyApplied",
+      "recipient": "guardian",
+      "body": "⚠️ *TEMBUSAN DENDA KETERLAMBATAN SEWA — ASRI BOARDING HOUSE*\n\nYth. *{nama_wali}*, kami menginformasikan bahwa tagihan Kamar *{kode_kamar}* ({kelas}) atas nama *{nama}* (Invoice *{nomor_invoice}*, periode *{periode}*) telah dikenakan denda keterlambatan 10% sebesar *{nominal_denda}* setelah melewati jatuh tempo *{tanggal_jatuh_tempo}*.\n\nTotal tagihan saat ini: *{sisa_tagihan}*\nTautan pembayaran resmi Wali:\n{link_bayar}"
+    },
+    "checkout_reminder": {
+      "event": "LeaseEndingSoon",
+      "recipient": "tenant",
+      "body": "⏰ *PENGINGAT AKHIR MASA SEWA*\n\nHalo *{nama}*, masa sewa Kamar *{kode_kamar}* ({kelas}) Anda terjadwal berakhir pada *{tanggal_checkout}*.\n\nApabila Anda ingin memperpanjang masa tinggal atau menjadwalkan pemeriksaan kamar saat Check-out, silakan akses dashboard penyewa atau hubungi penjaga kost."
+    }
+  },
+  "chatbot": {
+    "MENU": {
+      "keyword": "MENU",
+      "synonyms": ["INFO", "HALO", "PING", "MULAI", "BANTUAN"],
+      "body": "Halo! Selamat datang di layanan informasi otomatis *ASRI BOARDING HOUSE* (Tembalang, Semarang).\n\nSilakan balas dengan *angka 1 s/d 7* sesuai informasi yang dibutuhkan:\n*1* - Info Kelas Kamar & Tarif\n*2* - Ketersediaan Kamar Hari Ini\n*3* - Cara Reservasi Online & Ketentuan DP 30%\n*4* - Cek Tagihan Aktif Saya\n*5* - Metode Pembayaran Resmi\n*6* - Lokasi Kost & Jam Operasional\n*7* - Hubungi Penjaga / Admin Kost"
+    },
+    "1": {
+      "keyword": "1",
+      "synonyms": ["TARIF", "HARGA", "KELAS"],
+      "body": "🏠 *INFO KELAS KAMAR & TARIF ASRI BOARDING HOUSE*\n\n1. *Standard* (16 Kamar): Harian *Rp 75.000* | Mingguan *Rp 300.000* | Bulanan *Rp 900.000*\n2. *VIP* (10 Kamar): Harian *Rp 110.000* | Mingguan *Rp 425.000* | Bulanan *Rp 1.300.000*\n3. *Deluxe* (6 Kamar): Harian *Rp 150.000* | Mingguan *Rp 575.000* | Bulanan *Rp 1.800.000*\n\nBalas *2* untuk cek kamar kosong atau *MENU* untuk kembali."
+    },
+    "2": {
+      "keyword": "2",
+      "synonyms": ["KOSONG", "TERSEDIA", "KAMAR"],
+      "body": "✅ *KETERSEDIAAN KAMAR HARI INI*\n\nStatus kamar kosong real-time pada denah 2 lantai (*32 kamar*) diperbarui otomatis setiap saat.\n\nSilakan pilih kamar langsung dari denah interaktif kami di:\n{link_bayar}\n\nBalas *3* untuk panduan reservasi atau *MENU* untuk menu utama."
+    },
+    "3": {
+      "keyword": "3",
+      "synonyms": ["RESERVASI", "BOOKING", "DP"],
+      "body": "📝 *CARA RESERVASI ONLINE & KETENTUAN DP*\n\n1. Buka website resmi & pilih kamar hijau (*Tersedia*) di Lantai 1 atau 2.\n2. Pilih tipe sewa (*Harian/Mingguan/Bulanan*) & opsi prorata.\n3. Isi data diri, foto KTP, & kontak Wali (wajib untuk Mingguan/Bulanan).\n4. Bayar *Lunas 100%* atau *DP minimal 30%* dalam 24 jam (DP tidak dapat dikembalikan bila batal, pelunasan wajib saat Check-in).\n5. Unduh *Nota Reservasi PDF*."
+    },
+    "4": {
+      "keyword": "4",
+      "synonyms": ["TAGIHAN", "INVOICE", "BAYAR"],
+      "body": "📄 *RINGKASAN TAGIHAN AKTIF ANDA*\n\nPenyewa: *{nama}* (Kamar *{kode_kamar}*)\nNo. Invoice: *{nomor_invoice}* ({periode})\nSisa Tagihan: *{sisa_tagihan}*\nJatuh Tempo: *{tanggal_jatuh_tempo}*\n\nTautan pembayaran resmi:\n{link_bayar}"
+    },
+    "5": {
+      "keyword": "5",
+      "synonyms": ["METODE", "REKENING", "QRIS"],
+      "body": "💳 *METODE PEMBAYARAN RESMI*\n\n1. *Online Otomatis (Midtrans)*: Virtual Account (BCA, BNI, BRI, Mandiri), QRIS, GoPay, ShopeePay — terverifikasi otomatis & langsung menerbitkan Kwitansi PDF.\n2. *Tunai (Cash)*: Dibayarkan langsung kepada Penjaga / Admin di lokasi kost dan wajib dicatat ke sistem untuk menerbitkan Kwitansi Resmi."
+    },
+    "6": {
+      "keyword": "6",
+      "synonyms": ["LOKASI", "ALAMAT", "JAM"],
+      "body": "📍 *LOKASI & JAM OPERASIONAL*\n\n*ASRI BOARDING HOUSE*\nKawasan Kampus Tembalang, Kota Semarang (dekat UNDIP & Polines).\n\nJam Layanan Check-in: *14:00 - 21:00 WIB*\nBatas Check-out: *12:00 WIB*\nPenjaga kost & CCTV aktif memantau keamanan lingkungan."
+    },
+    "7": {
+      "keyword": "7",
+      "synonyms": ["ADMIN", "PENJAGA", "KOMPLAIN", "CS"],
+      "body": "👤 *HUBUNGI PENJAGA / ADMIN KOST*\n\nPermintaan bantuan Anda telah ditandai untuk ditindaklanjuti oleh *Admin / Penjaga ASRI BOARDING HOUSE*.\n\nSilakan tuliskan pesan atau kendala Anda beserta *Nomor Kamar* pada chat ini, petugas kami akan segera membalas pada jam operasional."
+    }
+  }
+}
