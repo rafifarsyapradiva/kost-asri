@@ -7,10 +7,9 @@ return [
     | Third Party Services
     |--------------------------------------------------------------------------
     |
-    | This file is for storing the credentials for third party services such
-    | as Mailgun, Postmark, AWS and more. This file provides the de facto
-    | location for this type of information, allowing packages to have
-    | a conventional file to locate the various service credentials.
+    | All external credentials for Mini ERP Kost ASRI BOARDING HOUSE are read
+    | from environment variables exclusively here in config/services.php so
+    | php artisan config:cache remains 100% deterministic (Task-API.md §1).
     |
     */
 
@@ -33,6 +32,27 @@ return [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
+    ],
+
+    'google' => [
+        'client_id' => env('GOOGLE_CLIENT_ID'),
+        'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+        'redirect' => env('GOOGLE_REDIRECT_URI'),
+    ],
+
+    'midtrans' => [
+        'server_key' => env('MIDTRANS_SERVER_KEY'),
+        'client_key' => env('MIDTRANS_CLIENT_KEY'),
+        'is_production' => (bool) env('MIDTRANS_IS_PRODUCTION', false),
+        'is_sanitized' => (bool) env('MIDTRANS_IS_SANITIZED', true),
+        'is_3ds' => (bool) env('MIDTRANS_IS_3DS', true),
+    ],
+
+    'fonnte' => [
+        'base_url' => env('FONNTE_BASE_URL', 'https://api.fonnte.com'),
+        'token' => env('FONNTE_TOKEN'),
+        'webhook_secret' => env('FONNTE_WEBHOOK_SECRET'),
+        'country_code' => env('FONNTE_COUNTRY_CODE', '62'),
     ],
 
 ];
