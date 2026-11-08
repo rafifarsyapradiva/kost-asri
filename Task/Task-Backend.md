@@ -147,7 +147,7 @@
   - Substitusi aman seluruh placeholder `{nama}`, `{kode_kamar}`, `{total}`, `{nominal_denda}`, `{nama_wali}`, dll (PRD §11.2, FR-DASH-04).
 - [ ] **BE-038 — Implementasi Events & Queued Listeners untuk seluruh matriks pemicu PRD §11.1** · Est 3.5j · Dep: BE-037 · M
   - Mencakup pengiriman ke penyewa, `AnonymousNotifiable` untuk wali (siklus 2 & 3+ / mingguan), dan database notification lonceng in-app admin/penyewa (FR-NTF-01..03, FR-NTF-05).
-- [ ] **BE-039 — `Admin\NotificationLogController` (daftar log status WA/Email + tombol kirim ulang manual)** · Est 2j · Dep: BE-038 · M (FR-NTF-04).
+- [x] **BE-039 — `Admin\NotificationLogController` (daftar log status WA/Email + tombol kirim ulang manual)** · Est 2j · Dep: BE-038 · M (FR-NTF-04).
 
 ### 4.9 Chatbot Engine & Artisan Commands
 - [ ] **BE-040 — Implementasi `KeywordMatcher` & `ChatbotEngine` rule-based (menu, ketersediaan live, tarif, cek tagihan by nomor WA, cara bayar, lokasi, FAQ, handover 60 menit)** · Est 3.5j · Dep: DB-030, BE-011 · M (FR-BOT-02..04).

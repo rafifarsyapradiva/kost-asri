@@ -9,12 +9,14 @@ use App\Models\Lease;
 use App\Models\Receipt;
 use App\Models\Reservation;
 use App\Models\TenantProfile;
+use App\Notifications\Channels\FonnteChannel;
 use App\Policies\InvoicePolicy;
 use App\Policies\LeasePolicy;
 use App\Policies\ReceiptPolicy;
 use App\Policies\ReservationPolicy;
 use App\Policies\TenantProfilePolicy;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -39,5 +41,7 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(Lease::class, LeasePolicy::class);
         Gate::policy(Receipt::class, ReceiptPolicy::class);
         Gate::policy(TenantProfile::class, TenantProfilePolicy::class);
+
+        Notification::extend('fonnte', fn ($app) => $app->make(FonnteChannel::class));
     }
 }

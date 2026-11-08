@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\Cms\VideoController;
 use App\Http\Controllers\Admin\CheckInController;
 use App\Http\Controllers\Admin\InvoiceAdjustmentController;
 use App\Http\Controllers\Admin\LeaseController;
+use App\Http\Controllers\Admin\NotificationLogController as AdminNotificationLogController;
 use App\Http\Controllers\Admin\PaymentController as AdminPaymentController;
 use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
 use App\Http\Controllers\Admin\RoomController;
@@ -175,6 +176,10 @@ Route::middleware('auth')->group(function (): void {
         Route::post('/leases/{lease}/check-out', [LeaseController::class, 'checkout'])->name('leases.checkout');
         Route::post('/leases/{lease}/extend', [LeaseController::class, 'extend'])->name('leases.extend');
         Route::post('/leases/{lease}/stop', [LeaseController::class, 'stop'])->name('leases.stop');
+
+        // Notification Logs & Manual Resend (BE-039, FR-NTF-04)
+        Route::get('/notification-logs', [AdminNotificationLogController::class, 'index'])->name('notification-logs.index');
+        Route::post('/notification-logs/{notificationLog}/resend', [AdminNotificationLogController::class, 'resend'])->name('notification-logs.resend');
 
         // CMS Landing Page Modules
         Route::prefix('cms')->name('cms.')->group(function (): void {
