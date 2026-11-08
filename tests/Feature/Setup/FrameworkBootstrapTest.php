@@ -33,3 +33,20 @@ it('resolves all mandatory Phase 3 Composer packages and preserves authoritative
         ->and(is_file(base_path('Blueprint/Blueprint-Kost-Asri.md')))->toBeTrue()
         ->and(is_file(base_path('Task/Task-Setup.md')))->toBeTrue();
 });
+
+it('enforces mysql default fallback in config/database.php and strict_types across app/ and TestCase', function () {
+    $dbConfig = (string) file_get_contents(config_path('database.php'));
+    expect($dbConfig)->toContain("'default' => env('DB_CONNECTION', 'mysql')");
+
+    $files = [base_path('tests/TestCase.php')];
+    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator(app_path()));
+    foreach ($iterator as $file) {
+        if ($file->isFile() && $file->getExtension() === 'php') {
+            $files[] = $file->getPathname();
+        }
+    }
+
+    foreach ($files as $phpFile) {
+        expect((string) file_get_contents($phpFile))->toContain('declare(strict_types=1);');
+    }
+});
