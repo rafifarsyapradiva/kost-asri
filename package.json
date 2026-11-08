@@ -3,7 +3,8 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "test:specs": "node --test Documentation/specs/scripts/01-tokens-and-wcag.test.mjs Documentation/specs/scripts/02-prototype-and-a11y.test.mjs Documentation/specs/scripts/03-templates-pdf-email-wa.test.mjs Documentation/specs/scripts/04-security-stride-uupdp-contracts.test.mjs Documentation/specs/scripts/06-setup-env-and-git.test.mjs Documentation/specs/scripts/07-vite-dual-bundle.test.mjs Documentation/specs/scripts/08-phase3-setup-gate.test.mjs"
     },
     "devDependencies": {
         "@tailwindcss/vite": "^4.3.5",

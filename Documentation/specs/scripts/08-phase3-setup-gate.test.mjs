@@ -61,5 +61,12 @@ test('Phase 2 & Phase 3 Regression Gate: all ui-kit deliverables, DSN-001..045, 
     const id = `DSN-${String(i).padStart(3, '0')}`;
     assert.match(dsnText, new RegExp(`- \\[x\\] \\*\\*${id}\\b`), `${id} must remain checked [x]`);
   }
+
+  const pkg = JSON.parse(fs.readFileSync(path.resolve('package.json'), 'utf8'));
+  assert.equal(typeof pkg.scripts?.['test:specs'], 'string', 'package.json must define scripts["test:specs"]');
+  for (const num of ['01-', '02-', '03-', '04-', '06-', '07-', '08-']) {
+    assert.ok(pkg.scripts['test:specs'].includes(num), `test:specs must include suite ${num}`);
+  }
+  assert.ok(!pkg.scripts['test:specs'].includes('05-'), 'test:specs must exclude pre-SET-005 snapshot 05-');
 });
 

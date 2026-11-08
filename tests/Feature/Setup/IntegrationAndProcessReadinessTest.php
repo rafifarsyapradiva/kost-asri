@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 
 it('reports environment and masked sandbox integration status without leaking raw secrets (SET-018..021)', function () {
     config([
+        'services.google.client_secret' => 'short98765',
         'services.midtrans.server_key' => 'SB-Mid-server-SECRET1234',
         'services.fonnte.token' => 'fonnte-secret-TOKEN5678',
         'services.fonnte.webhook_secret' => 'whsec-99998888777766665555444433332222',
@@ -19,6 +20,8 @@ it('reports environment and masked sandbox integration status without leaking ra
     $payload = json_decode($output, true, 512, JSON_THROW_ON_ERROR);
 
     expect($exitCode)->toBe(0)
+        ->and($output)->not->toContain('short98765')
+        ->and($output)->not->toContain('8765')
         ->and($output)->not->toContain('SB-Mid-server-SECRET1234')
         ->and($output)->not->toContain('fonnte-secret-TOKEN5678')
         ->and($output)->not->toContain('whsec-99998888777766665555444433332222')

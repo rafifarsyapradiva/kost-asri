@@ -129,7 +129,7 @@ class VerifySetupCommand extends Command
             return '(kosong)';
         }
 
-        if (strlen($trimmed) <= 8) {
+        if (strlen($trimmed) < 16) {
             return '********';
         }
 
