@@ -77,3 +77,4 @@ test('DSN-008: brand SVG assets are valid XML, use brand palette, and stay under
     assert.match(svg, /<\/svg>\s*$/);
   }
 });
+

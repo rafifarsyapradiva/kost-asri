@@ -58,3 +58,4 @@ test('SEC-003 & Review Focus #4: availability-sample.json passes strict allowlis
     assert.equal(bad.valid, false, `validator must reject ${forbidden}`);
   }
 });
+
