@@ -5,7 +5,11 @@ declare(strict_types=1);
 use App\Http\Controllers\Account\KtpPhotoController;
 use App\Http\Controllers\Account\ProfileCompletionController;
 use App\Http\Controllers\Account\TenantProfileController;
+use App\Http\Controllers\Admin\RoomController;
+use App\Http\Controllers\Admin\RoomMapController;
+use App\Http\Controllers\Admin\RoomTypeController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Public\AvailabilityController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
@@ -15,6 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('public.welcome-setup');
 })->name('public.home');
+
+// Public Room Availability Endpoint (FR-ROOM-04, SEC-003, BE-011)
+Route::get('/api/availability', [AvailabilityController::class, 'index'])
+    ->middleware('throttle:60,1')
+    ->name('api.availability');
 
 Route::middleware('guest')->group(function (): void {
     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
@@ -75,6 +84,14 @@ Route::middleware('auth')->group(function (): void {
     Route::get('/receipts/{receipt}/pdf', fn () => response('%PDF-stub', 200, ['Content-Type' => 'application/pdf']))
         ->middleware('can:view,receipt')
         ->name('receipts.pdf');
+
+    // Admin Room & Room Type Management (BE-009, BE-010, BE-012)
+    Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function (): void {
+        Route::get('/rooms/map', [RoomMapController::class, 'index'])->name('rooms.map');
+        Route::patch('/rooms/{room}/toggle-maintenance', [RoomController::class, 'toggleMaintenance'])->name('rooms.toggle-maintenance');
+        Route::resource('rooms', RoomController::class)->except(['create', 'show', 'edit']);
+        Route::resource('room-types', RoomTypeController::class)->except(['create', 'show', 'edit']);
+    });
 
     // Reservation payment step requiring completed profile
     Route::get('/reservasi/pembayaran', fn () => response()->json(['step' => 'payment']))

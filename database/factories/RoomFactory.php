@@ -23,7 +23,7 @@ class RoomFactory extends Factory
             'floor' => 1,
             'grid_row' => 1,
             'grid_col' => fake()->numberBetween(1, 8),
-            'room_type_id' => RoomType::factory(),
+            'room_type_id' => fn () => RoomType::inRandomOrder()->first()?->id ?? RoomType::factory(),
             'status' => RoomStatus::Available,
             'maintenance_note' => null,
             'notes' => null,
