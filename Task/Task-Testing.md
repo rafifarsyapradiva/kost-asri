@@ -165,8 +165,8 @@ it('menerapkan bebas denda di siklus 1, peringatan wali di siklus 2, dan denda 1
 
 ### 4.6 Feature Test — Pembayaran, Webhook, Chatbot, PDF & CMS (`tests/Feature/Integration/`)
 - [x] **TST-030 — Feature test Pembayaran Cash oleh Admin + penolakan pembayaran sebagian untuk invoice bulanan/mingguan + penerbitan `Receipt` (`FR-PAY-03..05`, `BR-22`)** · Est 2j · Dep: BE-036 · M.
-- [ ] **TST-031 — Feature test Webhook Midtrans (`POST /webhook/midtrans`): signature sah `settlement`/`capture`, penolakan signature palsu (403), idempotensi kiriman ganda, status `expire`/`cancel`, dan invoice `void` → `needs_review` (`FR-PAY-02`, `BR-24`)** · Est 3j · Dep: API-007, TST-002 · M.
-- [ ] **TST-032 — Feature test command `payment:reconcile-midtrans` menyinkronkan pembayaran `pending` menggunakan mock respons SDK Midtrans (`FR-CRON-06`)** · Est 1.5j · Dep: API-008 · M.
+- [x] **TST-031 — Feature test Webhook Midtrans (`POST /webhook/midtrans`): signature sah `settlement`/`capture`, penolakan signature palsu (403), idempotensi kiriman ganda, status `expire`/`cancel`, dan invoice `void` → `needs_review` (`FR-PAY-02`, `BR-24`)** · Est 3j · Dep: API-007, TST-002 · M.
+- [x] **TST-032 — Feature test command `payment:reconcile-midtrans` menyinkronkan pembayaran `pending` menggunakan mock respons SDK Midtrans (`FR-CRON-06`)** · Est 1.5j · Dep: API-008 · M.
 - [ ] **TST-033 — Feature test jadwal pengingat `notify:reminders` (tgl 1, 5, 9, 10 & H-2, H-1, H) dan `stay:checkout-reminder` (`FR-CRON-04`, `FR-CRON-07`, `BR-21`)** · Est 2j · Dep: BE-043, BE-044 · M.
 - [ ] **TST-034 — Feature test `FonnteChannel` & fitur Kirim Ulang notifikasi gagal via `Http::fake()` (`FR-NTF-01`, `FR-NTF-02`, `FR-NTF-04`)** · Est 2j · Dep: API-011, BE-039 · M.
 - [ ] **TST-035 — Feature test Webhook Chatbot Fonnte (`POST /webhook/fonnte`): balasan `MENU` & `1`–`7`, pencocokan tagihan penyewa by nomor HP, mode diam 60 menit saat `ADMIN` handover, pengabaian pesan grup, serta 403 saat token salah (`FR-BOT-01..05`)** · Est 2.5j · Dep: API-014 · M.

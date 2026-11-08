@@ -180,11 +180,11 @@ Selain route halaman Inertia/Blade pada Blueprint §7, berikut kontrak endpoint 
 - [x] **API-004 — Implementasi `MidtransService` (konfigurasi SDK `\Midtrans\Config`, builder payload `Snap::getSnapToken`)** · Est 2.5j · Dep: SET-019, DB-022 · M
   - Format `order_id` unik sesuai BR-23, `item_details` cocok persis dengan `gross_amount`, masa aktif 24 jam (FR-PAY-01).
 - [x] **API-005 — Endpoint `POST /invoices/{invoice}/snap-token` dengan logika reuse token aktif** · Est 1.5j · Dep: API-004, BE-008 · M.
-- [ ] **API-006 — Implementasi `Webhook\MidtransWebhookController` + verifikasi `signature_key` SHA-512 & pencatatan `webhook_logs`** · Est 2.5j · Dep: API-004, DB-015 · M (FR-PAY-02, BR-24, NFR-02).
-- [ ] **API-007 — Hubungkan callback status Midtrans (`settlement`, `capture`, `pending`, `expire`, `cancel`, `deny`) ke `ApplyPaymentAction` secara idempoten** · Est 2j · Dep: API-006, BE-035 · M
+- [x] **API-006 — Implementasi `Webhook\MidtransWebhookController` + verifikasi `signature_key` SHA-512 & pencatatan `webhook_logs`** · Est 2.5j · Dep: API-004, DB-015 · M (FR-PAY-02, BR-24, NFR-02).
+- [x] **API-007 — Hubungkan callback status Midtrans (`settlement`, `capture`, `pending`, `expire`, `cancel`, `deny`) ke `ApplyPaymentAction` secara idempoten** · Est 2j · Dep: API-006, BE-035 · M
   - Termasuk penanganan `needs_review` untuk `challenge` atau invoice yang terlanjur `void`.
-- [ ] **API-008 — Implementasi command `payment:reconcile-midtrans` via `\Midtrans\Transaction::status()`** · Est 2j · Dep: API-007 · M (FR-CRON-06).
-- [ ] **API-009 — Uji coba end-to-end di Midtrans Payment Simulator (BCA VA, QRIS, GoPay, kartu 3DS, serta skenario expire)** · Est 1.5j · Dep: API-007, SET-024 · M.
+- [x] **API-008 — Implementasi command `payment:reconcile-midtrans` via `\Midtrans\Transaction::status()`** · Est 2j · Dep: API-007 · M (FR-CRON-06).
+- [x] **API-009 — Uji coba end-to-end di Midtrans Payment Simulator (BCA VA, QRIS, GoPay, kartu 3DS, serta skenario expire)** · Est 1.5j · Dep: API-007, SET-024 · M.
 
 ### 5.3 WhatsApp Fonnte API & Chatbot Webhook
 - [ ] **API-010 — Implementasi `FonnteService` (`send`, cek status device `/device`) dengan timeout, error parsing & logging** · Est 2j · Dep: SET-020, DB-023 · M.

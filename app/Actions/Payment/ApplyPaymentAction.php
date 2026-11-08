@@ -63,19 +63,36 @@ final class ApplyPaymentAction
                 ]);
             }
 
-            // Create Payment record
-            $payment = Payment::create([
-                'invoice_id' => $lockedInvoice->id,
-                'user_id' => $lockedInvoice->user_id,
-                'method' => $method,
-                'order_id' => $orderId,
-                'amount' => $amount,
-                'status' => PaymentStatus::Paid,
-                'paid_at' => now(),
-                'received_by' => $receivedBy?->id,
-                'raw_notification' => $rawNotification,
-                'notes' => $notes,
-            ]);
+            // Create or update Payment record
+            $payment = null;
+            if ($orderId !== null) {
+                /** @var Payment|null $payment */
+                $payment = Payment::where('order_id', $orderId)->first();
+            }
+
+            if ($payment !== null) {
+                $payment->update([
+                    'method' => $method,
+                    'status' => PaymentStatus::Paid,
+                    'paid_at' => now(),
+                    'received_by' => $receivedBy?->id,
+                    'raw_notification' => $rawNotification,
+                    'notes' => $notes ?? $payment->notes,
+                ]);
+            } else {
+                $payment = Payment::create([
+                    'invoice_id' => $lockedInvoice->id,
+                    'user_id' => $lockedInvoice->user_id,
+                    'method' => $method,
+                    'order_id' => $orderId,
+                    'amount' => $amount,
+                    'status' => PaymentStatus::Paid,
+                    'paid_at' => now(),
+                    'received_by' => $receivedBy?->id,
+                    'raw_notification' => $rawNotification,
+                    'notes' => $notes,
+                ]);
+            }
 
             // Update Invoice paid_amount and status
             $newPaid = $lockedInvoice->paid_amount + $amount;
