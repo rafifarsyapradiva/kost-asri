@@ -110,9 +110,9 @@ Ditambah `Content-Security-Policy` terukur yang hanya mengizinkan script/frame d
 ## 5. Checklist Task (`SEC-001` – `SEC-035`)
 
 ### 5.1 Desain Keamanan & Kepatuhan Privasi (Fase 2)
-- [ ] **SEC-001 — Review Threat Model STRIDE (§1) terhadap seluruh desain endpoint di Blueprint** · Est 2j · Dep: DB-002 · M.
-- [ ] **SEC-002 — Susun teks Persetujuan Privasi & Kontak Wali (UU PDP) untuk form registrasi & Langkah 3 reservasi** · Est 1.5j · Dep: DSN-022 · M.
-- [ ] **SEC-003 — Pastikan kontrak JSON publik (`/api/availability` & halaman landing) 100% bebas dari kebocoran nama/kontak penghuni kamar** · Est 1j · Dep: BE-011 · M.
+- [x] **SEC-001 — Review Threat Model STRIDE (§1) terhadap seluruh desain endpoint di Blueprint** · Est 2j · Dep: DB-002 · M.
+- [x] **SEC-002 — Susun teks Persetujuan Privasi & Kontak Wali (UU PDP) untuk form registrasi & Langkah 3 reservasi** · Est 1.5j · Dep: DSN-022 · M.
+- [x] **SEC-003 — Pastikan kontrak JSON publik (`/api/availability` & halaman landing) 100% bebas dari kebocoran nama/kontak penghuni kamar** · Est 1j · Dep: BE-011 · M.
 
 ### 5.2 Keamanan Autentikasi, Sesi, OAuth & Otorisasi (Fase 3)
 - [ ] **SEC-004 — Terapkan aturan kekuatan password, konfirmasi password lama saat ubah password/email, & regenerasi session ID saat login/check-in** · Est 1.5j · Dep: BE-001 · M (NFR-01).

@@ -154,81 +154,81 @@ flowchart TD
 
 ### 5.1 Fondasi Design System
 
-- [ ] **DSN-001 — Moodboard Warm Biophilic & Clean Bento** · Est 4j · Dep: — · M
+- [x] **DSN-001 — Moodboard Warm Biophilic & Clean Bento** · Est 4j · Dep: — · M
   - Kumpulkan 15–20 referensi (Dribbble/Behance/Mobbin) untuk landing biophilic & dashboard bento.
   - AC: moodboard disetujui pemilik kost; arah foto (kamar terang, tanaman, kayu) ditetapkan.
-- [ ] **DSN-002 — Palet warna merek & netral** · Est 2j · Dep: DSN-001 · M
+- [x] **DSN-002 — Palet warna merek & netral** · Est 2j · Dep: DSN-001 · M
   - Buat color styles Figma sesuai §2.1.
-- [ ] **DSN-003 — Warna semantik status** · Est 2j · Dep: DSN-002 · M
+- [x] **DSN-003 — Warna semantik status** · Est 2j · Dep: DSN-002 · M
   - Style §2.2 + mapping ke setiap enum status (Blueprint §5).
   - AC: setiap status memiliki pasangan warna + ikon + label teks.
-- [ ] **DSN-004 — Aksen kelas kamar** · Est 2j · Dep: DSN-002 · M
+- [x] **DSN-004 — Aksen kelas kamar** · Est 2j · Dep: DSN-002 · M
   - Badge STD/VIP/DLX, border kiri, ikon (§2.3); uji kombinasi dengan 4 status kamar (12 kombinasi).
-- [ ] **DSN-005 — Tipografi & tabular-nums** · Est 2j · Dep: DSN-001 · M
+- [x] **DSN-005 — Tipografi & tabular-nums** · Est 2j · Dep: DSN-001 · M
   - Text styles §2.5; contoh tabel nominal Rupiah & denah dengan tabular-nums vs proportional sebagai pembanding.
-- [ ] **DSN-006 — Audit kontras WCAG AA** · Est 2j · Dep: DSN-003, DSN-004 · M
+- [x] **DSN-006 — Audit kontras WCAG AA** · Est 2j · Dep: DSN-003, DSN-004 · M
   - Verifikasi semua kombinasi teks/latar §2.4 dengan contrast checker; putuskan final gaya teks tombol CTA terracotta.
   - AC: tidak ada teks < 18px dengan rasio < 4,5 : 1.
-- [ ] **DSN-007 — Grid, spasi, radius, bayangan** · Est 2j · Dep: DSN-001 · M
+- [x] **DSN-007 — Grid, spasi, radius, bayangan** · Est 2j · Dep: DSN-001 · M
   - Token §2.6, layout grid publik 12 kolom & bento 4/2/1 kolom.
-- [ ] **DSN-008 — Ikonografi & ilustrasi** · Est 4j · Dep: DSN-001 · S
+- [x] **DSN-008 — Ikonografi & ilustrasi** · Est 4j · Dep: DSN-001 · S
   - Set ikon Lucide untuk fasilitas (wifi, AC, kamar mandi dalam, parkir, dapur, laundry, CCTV, dll); ornamen daun SVG untuk landing.
-- [ ] **DSN-009 — Dokumentasi token untuk developer** · Est 2j · Dep: DSN-002..DSN-007 · M
+- [x] **DSN-009 — Dokumentasi token untuk developer** · Est 2j · Dep: DSN-002..DSN-007 · M
   - Ekspor token ke format `@theme` (§2.7), serahkan ke FE-002.
 
 ### 5.2 Komponen UI (Component Library)
 
-- [ ] **DSN-010 — Tombol** · Est 2j · Dep: DSN-009 · M — varian primary (terracotta), secondary (forest), ghost, danger; ukuran sm/md/lg; state hover/focus/disabled/loading.
-- [ ] **DSN-011 — Input & form** · Est 3j · Dep: DSN-009 · M — text, select, date picker, upload KTP (preview), input Rupiah (prefix Rp, tabular-nums), error & helper text.
-- [ ] **DSN-012 — StatusBadge** · Est 1j · Dep: DSN-003 · M — pill dengan dot/ikon + label, untuk semua status.
-- [ ] **DSN-013 — RoomClassBadge** · Est 1j · Dep: DSN-004 · M.
-- [ ] **DSN-014 — Sel kamar (RoomCell)** · Est 3j · Dep: DSN-012, DSN-013 · M
+- [x] **DSN-010 — Tombol** · Est 2j · Dep: DSN-009 · M — varian primary (terracotta), secondary (forest), ghost, danger; ukuran sm/md/lg; state hover/focus/disabled/loading.
+- [x] **DSN-011 — Input & form** · Est 3j · Dep: DSN-009 · M — text, select, date picker, upload KTP (preview), input Rupiah (prefix Rp, tabular-nums), error & helper text.
+- [x] **DSN-012 — StatusBadge** · Est 1j · Dep: DSN-003 · M — pill dengan dot/ikon + label, untuk semua status.
+- [x] **DSN-013 — RoomClassBadge** · Est 1j · Dep: DSN-004 · M.
+- [x] **DSN-014 — Sel kamar (RoomCell)** · Est 3j · Dep: DSN-012, DSN-013 · M
   - Kotak ±88×88px: nomor kamar besar tabular-nums, fill warna status, border kiri warna kelas, ikon kecil status; state hover, selected, disabled (publik untuk non-tersedia).
-- [ ] **DSN-015 — BentoCard** · Est 2j · Dep: DSN-007 · M — ukuran 1×1, 2×1, 2×2; header ikon + judul + aksi; varian KPI (angka besar + tren).
-- [ ] **DSN-016 — Tabel data** · Est 3j · Dep: DSN-005 · M — header sticky, kolom angka rata kanan tabular-nums, baris status berwarna, paginasi, filter, empty state.
-- [ ] **DSN-017 — Modal, drawer, toast, confirm dialog** · Est 2j · Dep: DSN-010 · M.
-- [ ] **DSN-018 — Stepper 5 langkah** · Est 2j · Dep: DSN-010 · M — horizontal (desktop) / ringkas "Langkah 2 dari 5" (mobile), state done/active/upcoming.
-- [ ] **DSN-019 — Ringkasan biaya (PriceSummary)** · Est 2j · Dep: DSN-005 · M — daftar item, subtotal, DP minimal, sisa; sticky di sisi kanan (desktop) / bottom sheet (mobile).
-- [ ] **DSN-020 — Navigasi** · Est 3j · Dep: DSN-009 · M — navbar publik (sticky, menu mobile), sidebar dashboard admin (forest-900, collapsible), bottom nav dashboard penyewa (mobile).
+- [x] **DSN-015 — BentoCard** · Est 2j · Dep: DSN-007 · M — ukuran 1×1, 2×1, 2×2; header ikon + judul + aksi; varian KPI (angka besar + tren).
+- [x] **DSN-016 — Tabel data** · Est 3j · Dep: DSN-005 · M — header sticky, kolom angka rata kanan tabular-nums, baris status berwarna, paginasi, filter, empty state.
+- [x] **DSN-017 — Modal, drawer, toast, confirm dialog** · Est 2j · Dep: DSN-010 · M.
+- [x] **DSN-018 — Stepper 5 langkah** · Est 2j · Dep: DSN-010 · M — horizontal (desktop) / ringkas "Langkah 2 dari 5" (mobile), state done/active/upcoming.
+- [x] **DSN-019 — Ringkasan biaya (PriceSummary)** · Est 2j · Dep: DSN-005 · M — daftar item, subtotal, DP minimal, sisa; sticky di sisi kanan (desktop) / bottom sheet (mobile).
+- [x] **DSN-020 — Navigasi** · Est 3j · Dep: DSN-009 · M — navbar publik (sticky, menu mobile), sidebar dashboard admin (forest-900, collapsible), bottom nav dashboard penyewa (mobile).
 
 ### 5.3 Wireframe (Low-Fidelity)
 
-- [ ] **DSN-021 — Wireframe landing page** · Est 6j · Dep: DSN-007 · M
+- [x] **DSN-021 — Wireframe landing page** · Est 6j · Dep: DSN-007 · M
   - Urutan section: Hero → Tentang Kami → Fasilitas → Tipe Kamar (+ ketersediaan) → Video YouTube → Galeri → Alur Reservasi → Testimoni → FAQ → Lokasi → CTA + Footer (FR-CMS-10).
-- [ ] **DSN-022 — Wireframe wizard reservasi 5 langkah** · Est 6j · Dep: DSN-018 · M
+- [x] **DSN-022 — Wireframe wizard reservasi 5 langkah** · Est 6j · Dep: DSN-018 · M
   - Step 1 denah + filter tanggal/kelas; Step 2 pilihan tipe sewa (kartu) + kalkulator + pilihan Opsi Prorata dengan penjelasan & contoh; Step 3 form data diri & wali; Step 4 pilih DP/Lunas + metode; Step 5 sukses + unduh nota.
-- [ ] **DSN-023 — Wireframe auth** · Est 2j · Dep: DSN-007 · M — login, register, tombol "Masuk dengan Google", lupa password, lengkapi profil.
-- [ ] **DSN-024 — Wireframe dashboard admin** · Est 6j · Dep: DSN-015 · M — bento: okupansi, kamar per status, pendapatan bulan ini, tunggakan, check-in/out hari ini, jatuh tempo, reservasi terbaru, status cron.
-- [ ] **DSN-025 — Wireframe denah 2 lantai (admin & publik)** · Est 4j · Dep: DSN-014 · M — tab/segmented Lantai 1 / Lantai 2, 16 sel per lantai (grid 8×2 menyerupai koridor), legenda status & kelas, panel detail kamar.
-- [ ] **DSN-026 — Wireframe modul admin lainnya** · Est 8j · Dep: DSN-016 · M — reservasi (list + form manual), detail reservasi (check-in), lease & check-out, penyewa, invoice (detail + item + void + waive), pembayaran cash, CMS (list + form + reorder) untuk 9 konten, chatbot keyword, log notifikasi, laporan, pengaturan & template.
-- [ ] **DSN-027 — Wireframe dashboard penyewa** · Est 4j · Dep: DSN-015 · M — kartu kamar saya, masa sewa & "dibayar sampai", tagihan aktif + bayar, riwayat, perpanjang, profil & wali.
-- [ ] **DSN-028 — Review wireframe dengan pemilik kost** · Est 2j · Dep: DSN-021..DSN-027 · M — AC: catatan revisi terdokumentasi & disetujui.
+- [x] **DSN-023 — Wireframe auth** · Est 2j · Dep: DSN-007 · M — login, register, tombol "Masuk dengan Google", lupa password, lengkapi profil.
+- [x] **DSN-024 — Wireframe dashboard admin** · Est 6j · Dep: DSN-015 · M — bento: okupansi, kamar per status, pendapatan bulan ini, tunggakan, check-in/out hari ini, jatuh tempo, reservasi terbaru, status cron.
+- [x] **DSN-025 — Wireframe denah 2 lantai (admin & publik)** · Est 4j · Dep: DSN-014 · M — tab/segmented Lantai 1 / Lantai 2, 16 sel per lantai (grid 8×2 menyerupai koridor), legenda status & kelas, panel detail kamar.
+- [x] **DSN-026 — Wireframe modul admin lainnya** · Est 8j · Dep: DSN-016 · M — reservasi (list + form manual), detail reservasi (check-in), lease & check-out, penyewa, invoice (detail + item + void + waive), pembayaran cash, CMS (list + form + reorder) untuk 9 konten, chatbot keyword, log notifikasi, laporan, pengaturan & template.
+- [x] **DSN-027 — Wireframe dashboard penyewa** · Est 4j · Dep: DSN-015 · M — kartu kamar saya, masa sewa & "dibayar sampai", tagihan aktif + bayar, riwayat, perpanjang, profil & wali.
+- [x] **DSN-028 — Review wireframe dengan pemilik kost** · Est 2j · Dep: DSN-021..DSN-027 · M — AC: catatan revisi terdokumentasi & disetujui.
 
 ### 5.4 Mockup Hi-Fi & Prototype
 
-- [ ] **DSN-029 — Mockup landing (desktop & mobile)** · Est 10j · Dep: DSN-028 · M — gaya Warm Biophilic penuh: hero foto + blob mask, ornamen daun, kartu tipe kamar dengan aksen kelas & badge ketersediaan, CTA terracotta.
-- [ ] **DSN-030 — Mockup wizard reservasi** · Est 8j · Dep: DSN-028 · M — termasuk state error (kamar baru saja dipesan orang lain), loading Snap, sukses/gagal bayar.
-- [ ] **DSN-031 — Mockup dashboard admin (Bento)** · Est 10j · Dep: DSN-028 · M.
-- [ ] **DSN-032 — Mockup denah kamar** · Est 4j · Dep: DSN-028 · M — uji keterbacaan: admin harus bisa menghitung kamar per status dalam < 5 detik.
-- [ ] **DSN-033 — Mockup modul admin (CRUD, invoice, laporan)** · Est 12j · Dep: DSN-031 · M.
-- [ ] **DSN-034 — Mockup dashboard penyewa** · Est 6j · Dep: DSN-028 · M.
-- [ ] **DSN-035 — State kosong, error, loading, 403/404/500** · Est 3j · Dep: DSN-029 · M — ilustrasi biophilic untuk publik, sederhana untuk dashboard.
-- [ ] **DSN-036 — Prototype klik alur utama** · Est 4j · Dep: DSN-029..DSN-034 · S — (1) reservasi online sampai nota, (2) admin reservasi manual + cash + check-in, (3) penyewa bayar tagihan bulanan.
+- [x] **DSN-029 — Mockup landing (desktop & mobile)** · Est 10j · Dep: DSN-028 · M — gaya Warm Biophilic penuh: hero foto + blob mask, ornamen daun, kartu tipe kamar dengan aksen kelas & badge ketersediaan, CTA terracotta.
+- [x] **DSN-030 — Mockup wizard reservasi** · Est 8j · Dep: DSN-028 · M — termasuk state error (kamar baru saja dipesan orang lain), loading Snap, sukses/gagal bayar.
+- [x] **DSN-031 — Mockup dashboard admin (Bento)** · Est 10j · Dep: DSN-028 · M.
+- [x] **DSN-032 — Mockup denah kamar** · Est 4j · Dep: DSN-028 · M — uji keterbacaan: admin harus bisa menghitung kamar per status dalam < 5 detik.
+- [x] **DSN-033 — Mockup modul admin (CRUD, invoice, laporan)** · Est 12j · Dep: DSN-031 · M.
+- [x] **DSN-034 — Mockup dashboard penyewa** · Est 6j · Dep: DSN-028 · M.
+- [x] **DSN-035 — State kosong, error, loading, 403/404/500** · Est 3j · Dep: DSN-029 · M — ilustrasi biophilic untuk publik, sederhana untuk dashboard.
+- [x] **DSN-036 — Prototype klik alur utama** · Est 4j · Dep: DSN-029..DSN-034 · S — (1) reservasi online sampai nota, (2) admin reservasi manual + cash + check-in, (3) penyewa bayar tagihan bulanan.
 
 ### 5.5 Desain Dokumen & Pesan
 
-- [ ] **DSN-037 — Template nota reservasi PDF (A5/A4)** · Est 3j · Dep: DSN-005 · M — kop logo ASRI, warna forest, tabel rincian tabular-nums, status DP/LUNAS (FR-PDF-01).
-- [ ] **DSN-038 — Template invoice PDF** · Est 2j · Dep: DSN-037 · M — periode, item, denda ditandai merah, jatuh tempo, QR/link bayar (FR-PDF-02).
-- [ ] **DSN-039 — Template kwitansi PDF** · Est 2j · Dep: DSN-037 · M — terbilang, cap "LUNAS" hijau (FR-PDF-03).
-- [ ] **DSN-040 — Template email (Markdown mail)** · Est 3j · Dep: DSN-002 · M — header forest, tombol terracotta, footer alamat Tembalang.
-- [ ] **DSN-041 — Format pesan WhatsApp** · Est 2j · Dep: — · M — finalisasi template PRD §11.2 & menu chatbot §12 (gunakan *tebal* WA, emoji secukupnya, maks 1.000 karakter).
-- [ ] **DSN-042 — Template laporan PDF** · Est 2j · Dep: DSN-037 · S.
+- [x] **DSN-037 — Template nota reservasi PDF (A5/A4)** · Est 3j · Dep: DSN-005 · M — kop logo ASRI, warna forest, tabel rincian tabular-nums, status DP/LUNAS (FR-PDF-01).
+- [x] **DSN-038 — Template invoice PDF** · Est 2j · Dep: DSN-037 · M — periode, item, denda ditandai merah, jatuh tempo, QR/link bayar (FR-PDF-02).
+- [x] **DSN-039 — Template kwitansi PDF** · Est 2j · Dep: DSN-037 · M — terbilang, cap "LUNAS" hijau (FR-PDF-03).
+- [x] **DSN-040 — Template email (Markdown mail)** · Est 3j · Dep: DSN-002 · M — header forest, tombol terracotta, footer alamat Tembalang.
+- [x] **DSN-041 — Format pesan WhatsApp** · Est 2j · Dep: — · M — finalisasi template PRD §11.2 & menu chatbot §12 (gunakan *tebal* WA, emoji secukupnya, maks 1.000 karakter).
+- [x] **DSN-042 — Template laporan PDF** · Est 2j · Dep: DSN-037 · S.
 
 ### 5.6 Handoff
 
-- [ ] **DSN-043 — Spesifikasi responsif** · Est 2j · Dep: DSN-029..DSN-034 · M — breakpoint 360 / 640 / 768 / 1024 / 1280; perilaku denah di mobile (scroll horizontal per lantai atau grid 4×4).
-- [ ] **DSN-044 — Spesifikasi aksesibilitas** · Est 2j · Dep: DSN-006 · M — fokus terlihat (ring forest-500 2px), urutan tab, aria-label sel kamar ("Kamar 113, VIP, Terisi"), status tidak hanya warna.
-- [ ] **DSN-045 — Handoff ke developer** · Est 3j · Dep: semua di atas · M — link Figma dev mode, ekspor aset (SVG ikon/ornamen, foto WebP), daftar komponen → nama komponen Vue/Blade.
+- [x] **DSN-043 — Spesifikasi responsif** · Est 2j · Dep: DSN-029..DSN-034 · M — breakpoint 360 / 640 / 768 / 1024 / 1280; perilaku denah di mobile (scroll horizontal per lantai atau grid 4×4).
+- [x] **DSN-044 — Spesifikasi aksesibilitas** · Est 2j · Dep: DSN-006 · M — fokus terlihat (ring forest-500 2px), urutan tab, aria-label sel kamar ("Kamar 113, VIP, Terisi"), status tidak hanya warna.
+- [x] **DSN-045 — Handoff ke developer** · Est 3j · Dep: semua di atas · M — link Figma dev mode, ekspor aset (SVG ikon/ornamen, foto WebP), daftar komponen → nama komponen Vue/Blade.
 
 ---
 
@@ -246,9 +246,9 @@ flowchart TD
 
 ## 7. Phase Gate Desain (Definition of Done)
 
-- [ ] Seluruh mockup hi-fi desktop & mobile disetujui pemilik kost (tanda tangan/approval tertulis).
-- [ ] Token warna, tipografi, spasi terdokumentasi dan diserahkan (DSN-009).
-- [ ] Audit kontras lulus (DSN-006) dan spesifikasi aksesibilitas tersedia (DSN-044).
-- [ ] Template PDF, email, dan WA final.
-- [ ] Tidak ada pertanyaan desain terbuka yang memblokir implementasi.
+- [x] Seluruh mockup hi-fi desktop & mobile disetujui pemilik kost (tanda tangan/approval tertulis).
+- [x] Token warna, tipografi, spasi terdokumentasi dan diserahkan (DSN-009).
+- [x] Audit kontras lulus (DSN-006) dan spesifikasi aksesibilitas tersedia (DSN-044).
+- [x] Template PDF, email, dan WA final.
+- [x] Tidak ada pertanyaan desain terbuka yang memblokir implementasi.
 
