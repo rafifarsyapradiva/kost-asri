@@ -525,89 +525,89 @@ Total terverifikasi: Standard = 12 + 4 = **16**, VIP = 4 + 6 = **10**, Deluxe = 
 ## 7. Checklist Task (`DB-001` – `DB-040`)
 
 ### 7.1 Persiapan & Desain Skema
-- [ ] **DB-001 — Buat database `kost_asri` di MySQL/MariaDB** · Est 0.5j · Dep: — · M
+- [x] **DB-001 — Buat database `kost_asri` di MySQL/MariaDB** · Est 0.5j · Dep: — · M
   - Buat DB `kost_asri` dengan collation `utf8mb4_unicode_ci` via phpMyAdmin / CLI; verifikasi koneksi dari `.env`.
-- [ ] **DB-002 — Finalisasi diagram ERD & review relasi FK** · Est 2j · Dep: DB-001 · M
+- [x] **DB-002 — Finalisasi diagram ERD & review relasi FK** · Est 2j · Dep: DB-001 · M
   - Review seluruh relasi §2 & aturan `ON DELETE` §4 bersama tim backend.
-- [ ] **DB-003 — Buat seluruh PHP Backed Enum di `app/Enums`** · Est 2j · Dep: DB-002 · M
+- [x] **DB-003 — Buat seluruh PHP Backed Enum di `app/Enums`** · Est 2j · Dep: DB-002 · M
   - Implementasi 15 Enum sesuai Blueprint §5 lengkap dengan helper method `label()`, `color()`, dan `icon()`.
 
 ### 7.2 Migrations — Auth, Kamar & Transaksi
-- [ ] **DB-004 — Migration `users`, `password_reset_tokens`, `sessions`** · Est 1j · Dep: DB-003 · M
+- [x] **DB-004 — Migration `users`, `password_reset_tokens`, `sessions`** · Est 1j · Dep: DB-003 · M
   - Sesuaikan tabel `users` bawaan Laravel dengan kolom `phone`, `role`, `google_id`, `avatar_url`, `is_active`, serta `email` & `password` nullable.
-- [ ] **DB-005 — Migration `tenant_profiles`** · Est 1j · Dep: DB-004 · M
+- [x] **DB-005 — Migration `tenant_profiles`** · Est 1j · Dep: DB-004 · M
   - Kolom identitas, KTP privat, dan data wali lengkap (§3.1).
-- [ ] **DB-006 — Migration `room_types` & `room_type_images`** · Est 1j · Dep: DB-003 · M
+- [x] **DB-006 — Migration `room_types` & `room_type_images`** · Est 1j · Dep: DB-003 · M
   - Tarif harian/mingguan/bulanan `BIGINT UNSIGNED`, `room_class` unique, tabel foto multi-gambar.
-- [ ] **DB-007 — Migration `rooms`** · Est 1j · Dep: DB-006 · M
+- [x] **DB-007 — Migration `rooms`** · Est 1j · Dep: DB-006 · M
   - Kolom `code` unique, `floor`, `grid_row`, `grid_col`, `room_type_id`, `status`.
-- [ ] **DB-008 — Migration `reservations`** · Est 1.5j · Dep: DB-004, DB-007 · M
+- [x] **DB-008 — Migration `reservations`** · Est 1.5j · Dep: DB-004, DB-007 · M
   - Seluruh kolom §3.3 + composite index `idx_rsv_room_dates`.
-- [ ] **DB-009 — Migration `leases`** · Est 1.5j · Dep: DB-008 · M
+- [x] **DB-009 — Migration `leases`** · Est 1.5j · Dep: DB-008 · M
   - Snapshot tarif, `billed_until`, `paid_until`, `cycle_count`, `auto_renew`, `planned_checkout_date`.
-- [ ] **DB-010 — Migration `invoices` & `invoice_items`** · Est 2j · Dep: DB-009 · M
+- [x] **DB-010 — Migration `invoices` & `invoice_items`** · Est 2j · Dep: DB-009 · M
   - Kolom pokok, denda, diskon, `minimum_pay_amount`, `paid_amount`, index `idx_inv_lease_period`, serta detail baris item.
-- [ ] **DB-011 — Migration `payments` & `receipts`** · Est 1.5j · Dep: DB-010 · M
+- [x] **DB-011 — Migration `payments` & `receipts`** · Est 1.5j · Dep: DB-010 · M
   - Dukungan Midtrans (`order_id` unique, `snap_token`) & cash (`received_by`), serta tabel kwitansi 1-to-1.
-- [ ] **DB-012 — Migration `penalty_logs` & `number_sequences`** · Est 1j · Dep: DB-010 · M
+- [x] **DB-012 — Migration `penalty_logs` & `number_sequences`** · Est 1j · Dep: DB-010 · M
   - Pencatatan eskalasi siklus 1/2/3+ & counter penomoran dokumen atomik.
 
 ### 7.3 Migrations — Komunikasi, Chatbot, CMS & Sistem
-- [ ] **DB-013 — Migration `notification_templates`, `notification_logs`, `notifications`** · Est 1.5j · Dep: DB-004 · M
+- [x] **DB-013 — Migration `notification_templates`, `notification_logs`, `notifications`** · Est 1.5j · Dep: DB-004 · M
   - Template WA/Email, log pengiriman + retry, dan tabel notifikasi in-app Laravel.
-- [ ] **DB-014 — Migration `chatbot_keywords`, `chatbot_sessions`, `chatbot_messages`** · Est 1j · Dep: DB-003 · M
+- [x] **DB-014 — Migration `chatbot_keywords`, `chatbot_sessions`, `chatbot_messages`** · Est 1j · Dep: DB-003 · M
   - Struktur rule-based keyword, sinonim JSON, dan sesi handover 60 menit.
-- [ ] **DB-015 — Migration `webhook_logs`** · Est 0.5j · Dep: DB-001 · M
+- [x] **DB-015 — Migration `webhook_logs`** · Est 0.5j · Dep: DB-001 · M
   - Audit payload mentah Midtrans & Fonnte.
-- [ ] **DB-016 — Migration CMS: `facilities`, `galleries`, `videos`, `reservation_steps`** · Est 1.5j · Dep: DB-001 · M
+- [x] **DB-016 — Migration CMS: `facilities`, `galleries`, `videos`, `reservation_steps`** · Est 1.5j · Dep: DB-001 · M
   - Lengkap dengan `sort_order` dan `is_published`.
-- [ ] **DB-017 — Migration CMS: `testimonials`, `faqs`, `nearby_places`, `site_settings`** · Est 1.5j · Dep: DB-004 · M
+- [x] **DB-017 — Migration CMS: `testimonials`, `faqs`, `nearby_places`, `site_settings`** · Est 1.5j · Dep: DB-004 · M
   - Moderasi testimoni penyewa, FAQ, tempat terdekat, dan key-value JSON Tentang Kami / Lokasi / SEO.
-- [ ] **DB-018 — Migration sistem: `settings`, `activity_logs`, `jobs`, `cache`** · Est 1j · Dep: DB-004 · M
+- [x] **DB-018 — Migration sistem: `settings`, `activity_logs`, `jobs`, `cache`** · Est 1j · Dep: DB-004 · M
   - Parameter sistem dinamis, jejak audit admin, queue database.
 
 ### 7.4 Eloquent Models, Casts & Relationships
-- [ ] **DB-019 — Model `User` & `TenantProfile`** · Est 1.5j · Dep: DB-005 · M
+- [x] **DB-019 — Model `User` & `TenantProfile`** · Est 1.5j · Dep: DB-005 · M
   - Cast `role => UserRole::class`, `nik => 'encrypted'`, accessor normalisasi nomor WA `62xxx`, helper `isAdmin()`, `isActiveTenant()`.
-- [ ] **DB-020 — Model `RoomType`, `RoomTypeImage`, `Room`** · Est 1.5j · Dep: DB-007 · M
+- [x] **DB-020 — Model `RoomType`, `RoomTypeImage`, `Room`** · Est 1.5j · Dep: DB-007 · M
   - Scope `availableBetween($start, $end)` (FR-ROOM-04), relasi lease aktif & reservasi aktif.
-- [ ] **DB-021 — Model `Reservation` & `Lease`** · Est 2j · Dep: DB-009 · M
+- [x] **DB-021 — Model `Reservation` & `Lease`** · Est 2j · Dep: DB-009 · M
   - Cast tanggal & Enum, relasi ke `Room`, `User`, `Invoice`, `PenaltyLog`, scope `active()`, `expiring()`.
-- [ ] **DB-022 — Model `Invoice`, `InvoiceItem`, `Payment`, `Receipt`, `PenaltyLog`** · Est 2.5j · Dep: DB-012 · M
+- [x] **DB-022 — Model `Invoice`, `InvoiceItem`, `Payment`, `Receipt`, `PenaltyLog`** · Est 2.5j · Dep: DB-012 · M
   - Accessor `remaining_amount`, helper `recalculateTotals()`, pengecekan `isSettled()`.
-- [ ] **DB-023 — Model Komunikasi & Chatbot (`NotificationTemplate`, `NotificationLog`, `ChatbotKeyword`, `ChatbotSession`, `ChatbotMessage`, `WebhookLog`)** · Est 1.5j · Dep: DB-015 · M.
-- [ ] **DB-024 — Model CMS & Sistem (`Facility`, `Gallery`, `Video`, `ReservationStep`, `Testimonial`, `Faq`, `NearbyPlace`, `SiteSetting`, `Setting`, `ActivityLog`)** · Est 2j · Dep: DB-018 · M
+- [x] **DB-023 — Model Komunikasi & Chatbot (`NotificationTemplate`, `NotificationLog`, `ChatbotKeyword`, `ChatbotSession`, `ChatbotMessage`, `WebhookLog`)** · Est 1.5j · Dep: DB-015 · M.
+- [x] **DB-024 — Model CMS & Sistem (`Facility`, `Gallery`, `Video`, `ReservationStep`, `Testimonial`, `Faq`, `NearbyPlace`, `SiteSetting`, `Setting`, `ActivityLog`)** · Est 2j · Dep: DB-018 · M
   - Scope `publishedOrdered()` untuk seluruh model CMS.
-- [ ] **DB-025 — Helper `NumberSequence` & `Money`** · Est 1.5j · Dep: DB-012 · M
+- [x] **DB-025 — Helper `NumberSequence` & `Money`** · Est 1.5j · Dep: DB-012 · M
   - Generator nomor `RSV`/`INV`/`KWT` ber-lock (BR-30) dan utilitas pembulatan & terbilang Bahasa Indonesia (BR-32).
 
 ### 7.5 Seeders & Factories
-- [ ] **DB-026 — `SettingSeeder`** · Est 1j · Dep: DB-024 · M — isi seluruh parameter PRD §4.3.
-- [ ] **DB-027 — `RoomTypeSeeder` & `RoomSeeder` (32 kamar)** · Est 1.5j · Dep: DB-020 · M
+- [x] **DB-026 — `SettingSeeder`** · Est 1j · Dep: DB-024 · M — isi seluruh parameter PRD §4.3.
+- [x] **DB-027 — `RoomTypeSeeder` & `RoomSeeder` (32 kamar)** · Est 1.5j · Dep: DB-020 · M
   - Seed 3 kelas kamar & 32 kamar sesuai tabel §5.1 lengkap koordinat `grid_row` & `grid_col`.
-- [ ] **DB-028 — `AdminSeeder`** · Est 0.5j · Dep: DB-019 · M — akun admin utama + akun sampel lokal.
-- [ ] **DB-029 — `NotificationTemplateSeeder`** · Est 1.5j · Dep: DB-023 · M — seluruh template WA & Email PRD §11.
-- [ ] **DB-030 — `ChatbotKeywordSeeder`** · Est 1j · Dep: DB-023 · M — menu `MENU` & angka `1`–`7` beserta sinonim PRD §12.
-- [ ] **DB-031 — `CmsSeeder`** · Est 2j · Dep: DB-024 · M — data awal realistis 9 section landing ASRI Boarding House Tembalang.
-- [ ] **DB-032 — Susun urutan `DatabaseSeeder` idempoten** · Est 0.5j · Dep: DB-026..DB-031 · M
+- [x] **DB-028 — `AdminSeeder`** · Est 0.5j · Dep: DB-019 · M — akun admin utama + akun sampel lokal.
+- [x] **DB-029 — `NotificationTemplateSeeder`** · Est 1.5j · Dep: DB-023 · M — seluruh template WA & Email PRD §11.
+- [x] **DB-030 — `ChatbotKeywordSeeder`** · Est 1j · Dep: DB-023 · M — menu `MENU` & angka `1`–`7` beserta sinonim PRD §12.
+- [x] **DB-031 — `CmsSeeder`** · Est 2j · Dep: DB-024 · M — data awal realistis 9 section landing ASRI Boarding House Tembalang.
+- [x] **DB-032 — Susun urutan `DatabaseSeeder` idempoten** · Est 0.5j · Dep: DB-026..DB-031 · M
   - Gunakan `updateOrCreate` agar aman dijalankan ulang tanpa menduplikasi master data.
-- [ ] **DB-033 — Model Factories untuk seluruh entitas inti** · Est 3j · Dep: DB-022 · M
+- [x] **DB-033 — Model Factories untuk seluruh entitas inti** · Est 3j · Dep: DB-022 · M
   - `UserFactory`, `TenantProfileFactory`, `RoomTypeFactory`, `RoomFactory`, `ReservationFactory`, `LeaseFactory`, `InvoiceFactory`, `PaymentFactory` dengan state siap pakai untuk Pest (`Task-Testing.md`).
-- [ ] **DB-034 — `DemoTransactionSeeder` (khusus dev/QA)** · Est 2j · Dep: DB-033 · S
+- [x] **DB-034 — `DemoTransactionSeeder` (khusus dev/QA)** · Est 2j · Dep: DB-033 · S
   - Contoh kamar berstatus tersedia (hijau), dipesan DP (kuning), terisi lunas, dan terisi menunggak (merah) agar dashboard & denah langsung bisa diuji visual.
 
 ### 7.6 Verifikasi, Optimasi & Backup
-- [ ] **DB-035 — Uji `php artisan migrate:fresh --seed` bersih tanpa error** · Est 0.5j · Dep: DB-032 · M
+- [x] **DB-035 — Uji `php artisan migrate:fresh --seed` bersih tanpa error** · Est 0.5j · Dep: DB-032 · M
   - AC: 32 kamar terbentuk tepat (16 Standard, 10 VIP, 6 Deluxe; 16 Lt.1, 16 Lt.2).
-- [ ] **DB-036 — Audit `EXPLAIN` kueri kritikal** · Est 1.5j · Dep: DB-034 · M
+- [x] **DB-036 — Audit `EXPLAIN` kueri kritikal** · Est 1.5j · Dep: DB-034 · M
   - Cek `EXPLAIN` pada kueri ketersediaan kamar, generator invoice bulanan, pencarian tunggakan, dan laporan pendapatan; pastikan tidak ada full table scan pada tabel transaksi.
-- [ ] **DB-037 — Uji constraint FK (`RESTRICT` vs `CASCADE`)** · Est 1j · Dep: DB-035 · M
+- [x] **DB-037 — Uji constraint FK (`RESTRICT` vs `CASCADE`)** · Est 1j · Dep: DB-035 · M
   - Verifikasi kamar dengan reservasi/lease tidak bisa dihapus di level DB.
-- [ ] **DB-038 — Uji enkripsi kolom `tenant_profiles.nik`** · Est 0.5j · Dep: DB-019 · M
+- [x] **DB-038 — Uji enkripsi kolom `tenant_profiles.nik`** · Est 0.5j · Dep: DB-019 · M
   - Pastikan nilai mentah di phpMyAdmin berupa ciphertext terenkripsi, sedangkan via Eloquent terbaca 16 digit asli.
-- [ ] **DB-039 — Implementasi command `backup:database` & retensi 14 hari** · Est 1.5j · Dep: DB-035 · M
+- [x] **DB-039 — Implementasi command `backup:database` & retensi 14 hari** · Est 1.5j · Dep: DB-035 · M
   - Mendukung path `mysqldump` XAMPP Windows (`c:\xampp\mysql\bin\mysqldump.exe`) maupun Linux produksi via `.env` (`MYSQLDUMP_PATH`).
-- [ ] **DB-040 — Uji simulasi restore backup ke database uji** · Est 1j · Dep: DB-039 · M
+- [x] **DB-040 — Uji simulasi restore backup ke database uji** · Est 1j · Dep: DB-039 · M
   - AC: file dump berhasil di-restore utuh ke `kost_asri_restore_test` tanpa kehilangan relasi.
 
 ---
@@ -624,9 +624,9 @@ Total terverifikasi: Standard = 12 + 4 = **16**, VIP = 4 + 6 = **10**, Deluxe = 
 | **Total** | **40 task** | **55.5 j** |
 
 ### Phase Gate Database (Definition of Done)
-- [ ] ERD & kamus data mencakup seluruh kebutuhan `FR-*` dan `BR-*` di PRD.
-- [ ] `php artisan migrate:fresh --seed` berjalan sukses di MariaDB 10.4.32 pada DB `kost_asri`.
-- [ ] Komposisi 32 kamar, 3 tipe kamar, parameter sistem, keyword chatbot, dan template notifikasi terisi lengkap.
-- [ ] Seluruh factory siap digunakan oleh suite pengujian otomatis (`Task-Testing.md`).
-- [ ] Mekanisme backup harian teruji dan dapat di-restore.
+- [x] ERD & kamus data mencakup seluruh kebutuhan `FR-*` dan `BR-*` di PRD.
+- [x] `php artisan migrate:fresh --seed` berjalan sukses di MariaDB 10.4.32 pada DB `kost_asri`.
+- [x] Komposisi 32 kamar, 3 tipe kamar, parameter sistem, keyword chatbot, dan template notifikasi terisi lengkap.
+- [x] Seluruh factory siap digunakan oleh suite pengujian otomatis (`Task-Testing.md`).
+- [x] Mekanisme backup harian teruji dan dapat di-restore.
 

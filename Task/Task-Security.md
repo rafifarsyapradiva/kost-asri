@@ -118,11 +118,11 @@ Ditambah `Content-Security-Policy` terukur yang hanya mengizinkan script/frame d
 - [ ] **SEC-004 — Terapkan aturan kekuatan password, konfirmasi password lama saat ubah password/email, & regenerasi session ID saat login/check-in** · Est 1.5j · Dep: BE-001 · M (NFR-01).
 - [ ] **SEC-005 — Validasi klaim `email_verified` pada callback Google OAuth sebelum menautkan ke akun manual ber-email sama** · Est 1j · Dep: API-002 · M (FR-AUTH-03).
 - [ ] **SEC-006 — Konfigurasi keamanan cookie sesi (`http_only`, `secure`, `same_site=lax`, `encrypt=true`) & timeout idle sesi Admin** · Est 1j · Dep: SET-012 · M.
-- [ ] **SEC-007 — Audit seluruh Eloquent Model terhadap kerentanan *Mass Assignment* (larang `$guarded = []`, pisahkan atribut sensitif `role`, `status`, `paid_amount`)** · Est 2j · Dep: DB-019..024 · M (NFR-01).
+- [x] **SEC-007 — Audit seluruh Eloquent Model terhadap kerentanan *Mass Assignment* (larang `$guarded = []`, pisahkan atribut sensitif `role`, `status`, `paid_amount`)** · Est 2j · Dep: DB-019..024 · M (NFR-01).
 - [ ] **SEC-008 — Verifikasi cakupan `EnsureRole` & `Policy` di seluruh route `/admin/*`, `/penyewa/*`, `/akun/*`, dan unduhan PDF** · Est 2j · Dep: BE-008 · M (NFR-01).
 
 ### 5.3 Pelindungan PII (NIK & KTP), Signed URL Wali & Upload Aman (Fase 3)
-- [ ] **SEC-009 — Implementasi enkripsi `tenant_profiles.nik` (`encrypted` cast + dukungan `APP_PREVIOUS_KEYS`) & tampilan masked `3374**********01` di tabel UI** · Est 1.5j · Dep: DB-019, BE-005 · M.
+- [x] **SEC-009 — Implementasi enkripsi `tenant_profiles.nik` (`encrypted` cast + dukungan `APP_PREVIOUS_KEYS`) & tampilan masked `3374**********01` di tabel UI** · Est 1.5j · Dep: DB-019, BE-005 · M.
 - [ ] **SEC-010 — Pengamanan penuh foto KTP di `storage/app/private/ktp/`: nama UUID, stream via `KtpPhotoController` khusus `admin`/pemilik, header `Cache-Control: private, no-store`** · Est 1.5j · Dep: BE-005, API-029 · M (NFR-03).
 - [ ] **SEC-011 — Hardening pipeline upload file (validasi MIME `finfo`, batas ukuran 2 MB, re-encode `Intervention Image` untuk buang EXIF/payload skrip)** · Est 2j · Dep: BE-009, BE-013 · M.
 - [ ] **SEC-012 — Implementasi halaman pembayaran publik terbatas dengan `URL::temporarySignedRoute` untuk `{link_bayar}` yang dikirim ke WA/Email Wali (data penyewa di-mask, hanya buka Snap Midtrans)** · Est 2.5j · Dep: API-005, BE-038 · M (FR-NTF-02).

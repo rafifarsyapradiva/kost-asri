@@ -124,12 +124,12 @@ it('menerapkan bebas denda di siklus 1, peringatan wali di siklus 2, dan denda 1
 ## 4. Checklist Task (`TST-001` – `TST-038`)
 
 ### 4.1 Konfigurasi Test Suite & Helper
-- [ ] **TST-001 — Konfigurasi `tests/Pest.php` (`LazilyRefreshDatabase`, `Http::preventStrayRequests()`, helper `actingAsAdmin()`, `actingAsTenant()`, `actingAsProspect()`)** · Est 1.5j · Dep: SET-010, DB-033 · M.
+- [x] **TST-001 — Konfigurasi `tests/Pest.php` (`LazilyRefreshDatabase`, `Http::preventStrayRequests()`, helper `actingAsAdmin()`, `actingAsTenant()`, `actingAsProspect()`)** · Est 1.5j · Dep: SET-010, DB-033 · M.
 - [ ] **TST-002 — Buat helper pembuat signature Midtrans valid/invalid & payload simulator webhook Midtrans/Fonnte di `tests/Support/WebhookPayloads.php`** · Est 1j · Dep: TST-001 · M.
 
 ### 4.2 Unit Test — Mesin Kalkulasi, Prorata, Denda & Utilitas (`tests/Unit/`)
-- [ ] **TST-003 — Unit test utilitas `Money` (pembulatan `BR-32`, format Rupiah, fungsi terbilang Bahasa Indonesia)** · Est 1j · Dep: DB-025 · M.
-- [ ] **TST-004 — Unit test `NumberSequence` (format `RSV`, `INV`, `KWT`, reset nomor urut saat berganti bulan/hari, ketahanan transaksi `BR-30`)** · Est 1j · Dep: DB-025 · M.
+- [x] **TST-003 — Unit test utilitas `Money` (pembulatan `BR-32`, format Rupiah, fungsi terbilang Bahasa Indonesia)** · Est 1j · Dep: DB-025 · M.
+- [x] **TST-004 — Unit test `NumberSequence` (format `RSV`, `INV`, `KWT`, reset nomor urut saat berganti bulan/hari, ketahanan transaksi `BR-30`)** · Est 1j · Dep: DB-025 · M.
 - [ ] **TST-005 — Unit test normalisasi nomor WhatsApp (`08xx`, `+62 8xx`, `628xx` → `628xxx`)** · Est 0.5j · Dep: BE-001 · M.
 - [ ] **TST-006 — Unit test `PriceCalculator` Sewa Harian (`jumlah_malam × tarif_harian`, minimal 1 malam, `BR-05`)** · Est 1j · Dep: BE-019 · M.
 - [ ] **TST-007 — Unit test `PriceCalculator` Sewa Mingguan rolling 7 hari (`start_k`, `end_k`, multi-minggu, `BR-08`)** · Est 1j · Dep: BE-019 · M.
