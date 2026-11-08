@@ -125,7 +125,7 @@ it('menerapkan bebas denda di siklus 1, peringatan wali di siklus 2, dan denda 1
 
 ### 4.1 Konfigurasi Test Suite & Helper
 - [x] **TST-001 — Konfigurasi `tests/Pest.php` (`LazilyRefreshDatabase`, `Http::preventStrayRequests()`, helper `actingAsAdmin()`, `actingAsTenant()`, `actingAsProspect()`)** · Est 1.5j · Dep: SET-010, DB-033 · M.
-- [ ] **TST-002 — Buat helper pembuat signature Midtrans valid/invalid & payload simulator webhook Midtrans/Fonnte di `tests/Support/WebhookPayloads.php`** · Est 1j · Dep: TST-001 · M.
+- [x] **TST-002 — Buat helper pembuat signature Midtrans valid/invalid & payload simulator webhook Midtrans/Fonnte di `tests/Support/WebhookPayloads.php`** · Est 1j · Dep: TST-001 · M.
 
 ### 4.2 Unit Test — Mesin Kalkulasi, Prorata, Denda & Utilitas (`tests/Unit/`)
 - [x] **TST-003 — Unit test utilitas `Money` (pembulatan `BR-32`, format Rupiah, fungsi terbilang Bahasa Indonesia)** · Est 1j · Dep: DB-025 · M.
