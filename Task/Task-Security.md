@@ -116,7 +116,7 @@ Ditambah `Content-Security-Policy` terukur yang hanya mengizinkan script/frame d
 
 ### 5.2 Keamanan Autentikasi, Sesi, OAuth & Otorisasi (Fase 3)
 - [x] **SEC-004 — Terapkan aturan kekuatan password, konfirmasi password lama saat ubah password/email, & regenerasi session ID saat login/check-in** · Est 1.5j · Dep: BE-001 · M (NFR-01).
-- [ ] **SEC-005 — Validasi klaim `email_verified` pada callback Google OAuth sebelum menautkan ke akun manual ber-email sama** · Est 1j · Dep: API-002 · M (FR-AUTH-03).
+- [x] **SEC-005 — Validasi klaim `email_verified` pada callback Google OAuth sebelum menautkan ke akun manual ber-email sama** · Est 1j · Dep: API-002 · M (FR-AUTH-03).
 - [x] **SEC-006 — Konfigurasi keamanan cookie sesi (`http_only`, `secure`, `same_site=lax`, `encrypt=true`) & timeout idle sesi Admin** · Est 1j · Dep: SET-012 · M.
 - [x] **SEC-007 — Audit seluruh Eloquent Model terhadap kerentanan *Mass Assignment* (larang `$guarded = []`, pisahkan atribut sensitif `role`, `status`, `paid_amount`)** · Est 2j · Dep: DB-019..024 · M (NFR-01).
 - [x] **SEC-008 — Verifikasi cakupan `EnsureRole` & `Policy` di seluruh route `/admin/*`, `/penyewa/*`, `/akun/*`, dan unduhan PDF** · Est 2j · Dep: BE-008 · M (NFR-01).

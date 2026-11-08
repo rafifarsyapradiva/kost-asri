@@ -171,10 +171,10 @@ Selain route halaman Inertia/Blade pada Blueprint §7, berikut kontrak endpoint 
 ## 5. Checklist Task (`API-001` – `API-036`)
 
 ### 5.1 Google OAuth 2.0 (Socialite)
-- [ ] **API-001 — Konfigurasi driver Google di `config/services.php` & pasang route `/auth/google/*`** · Est 0.5j · Dep: SET-018 · M.
-- [ ] **API-002 — Implementasi `Auth\GoogleController` (`redirect` & `callback`) + penautan akun email existing** · Est 2j · Dep: API-001, BE-001 · M
+- [x] **API-001 — Konfigurasi driver Google di `config/services.php` & pasang route `/auth/google/*`** · Est 0.5j · Dep: SET-018 · M.
+- [x] **API-002 — Implementasi `Auth\GoogleController` (`redirect` & `callback`) + penautan akun email existing** · Est 2j · Dep: API-001, BE-001 · M
   - AC: login Google membuat akun `calon_penyewa` baru bila belum ada, atau menautkan `google_id` ke akun manual ber-email sama tanpa duplikasi (FR-AUTH-03).
-- [ ] **API-003 — Tangani pembatalan consent, kegagalan token OAuth, & alur redirect ke `lengkapi-profil` bila nomor WA kosong** · Est 1j · Dep: API-002, BE-003 · M (FR-AUTH-07).
+- [x] **API-003 — Tangani pembatalan consent, kegagalan token OAuth, & alur redirect ke `lengkapi-profil` bila nomor WA kosong** · Est 1j · Dep: API-002, BE-003 · M (FR-AUTH-07).
 
 ### 5.2 Midtrans Snap Sandbox & Webhook
 - [ ] **API-004 — Implementasi `MidtransService` (konfigurasi SDK `\Midtrans\Config`, builder payload `Snap::getSnapToken`)** · Est 2.5j · Dep: SET-019, DB-022 · M

@@ -142,7 +142,7 @@ it('menerapkan bebas denda di siklus 1, peringatan wali di siklus 2, dan denda 1
 
 ### 4.3 Feature Test — Autentikasi, Otorisasi & Keamanan (`tests/Feature/Auth/`)
 - [x] **TST-014 — Feature test Register manual, Login, Logout, Reset Password, & rate limit 5 percobaan gagal (`FR-AUTH-01`, `FR-AUTH-02`, `FR-AUTH-04`)** · Est 2j · Dep: BE-001 · M.
-- [ ] **TST-015 — Feature test Google OAuth callback dengan mock Socialite: buat akun baru vs tautkan email existing tanpa duplikasi + paksa isi WA di `EnsureProfileComplete` (`FR-AUTH-03`, `FR-AUTH-07`)** · Est 2j · Dep: API-003 · M.
+- [x] **TST-015 — Feature test Google OAuth callback dengan mock Socialite: buat akun baru vs tautkan email existing tanpa duplikasi + paksa isi WA di `EnsureProfileComplete` (`FR-AUTH-03`, `FR-AUTH-07`)** · Est 2j · Dep: API-003 · M.
 - [x] **TST-016 — Feature test proteksi `EnsureRole` & redirect per role (`admin`, `penyewa`, `calon_penyewa`) menghasilkan 403 bila menyebrang modul (`FR-AUTH-05`)** · Est 1.5j · Dep: BE-002 · M.
 - [x] **TST-017 — Feature test keamanan Anti-IDOR pada `ReservationPolicy`, `InvoicePolicy`, `ReceiptPolicy`, dan foto KTP privat (`NFR-01`, `NFR-03`)** · Est 2j · Dep: BE-008, API-029 · M
   - AC: Penyewa A gagal (403) mengakses detail/PDF/Snap token milik Penyewa B; penyewa gagal membuka URL foto KTP penyewa lain.
