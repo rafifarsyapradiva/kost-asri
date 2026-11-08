@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Account\InvoicePaymentController;
 use App\Http\Controllers\Account\KtpPhotoController;
 use App\Http\Controllers\Account\ProfileCompletionController;
 use App\Http\Controllers\Account\ReservationController as AccountReservationController;
@@ -30,6 +31,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Public\AvailabilityController;
+use App\Http\Controllers\Public\GuardianPaymentController;
 use App\Http\Controllers\Public\LandingController;
 use App\Http\Controllers\Public\ReservationWizardController;
 use App\Http\Controllers\Tenant\TestimonialController as TenantTestimonialController;
@@ -51,6 +53,14 @@ Route::post('/reservasi/sewa', [ReservationWizardController::class, 'storeStep2'
 Route::post('/reservasi/hitung', [ReservationWizardController::class, 'calculate'])
     ->middleware('throttle:60,1')
     ->name('reservation.calculate');
+
+// Guardian Temporary Signed Payment Routes (SEC-012, FR-NTF-02)
+Route::get('/pay/{invoice}', [GuardianPaymentController::class, 'show'])
+    ->middleware('signed')
+    ->name('guardian.pay');
+Route::post('/pay/{invoice}/snap-token', [GuardianPaymentController::class, 'snapToken'])
+    ->middleware('signed')
+    ->name('guardian.snap-token');
 
 Route::middleware('guest')->group(function (): void {
     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
@@ -126,6 +136,10 @@ Route::middleware('auth')->group(function (): void {
         ->name('tenant.testimonial.store');
 
     // Anti-IDOR protected resource routes (BE-008, SEC-008, TST-017)
+    Route::post('/invoices/{invoice}/snap-token', [InvoicePaymentController::class, 'snapToken'])
+        ->middleware('can:view,invoice')
+        ->name('invoices.snap-token');
+
     Route::get('/invoices/{invoice}/pdf', fn () => response('%PDF-stub', 200, ['Content-Type' => 'application/pdf']))
         ->middleware('can:view,invoice')
         ->name('invoices.pdf');

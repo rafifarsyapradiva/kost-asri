@@ -177,9 +177,9 @@ Selain route halaman Inertia/Blade pada Blueprint §7, berikut kontrak endpoint 
 - [x] **API-003 — Tangani pembatalan consent, kegagalan token OAuth, & alur redirect ke `lengkapi-profil` bila nomor WA kosong** · Est 1j · Dep: API-002, BE-003 · M (FR-AUTH-07).
 
 ### 5.2 Midtrans Snap Sandbox & Webhook
-- [ ] **API-004 — Implementasi `MidtransService` (konfigurasi SDK `\Midtrans\Config`, builder payload `Snap::getSnapToken`)** · Est 2.5j · Dep: SET-019, DB-022 · M
+- [x] **API-004 — Implementasi `MidtransService` (konfigurasi SDK `\Midtrans\Config`, builder payload `Snap::getSnapToken`)** · Est 2.5j · Dep: SET-019, DB-022 · M
   - Format `order_id` unik sesuai BR-23, `item_details` cocok persis dengan `gross_amount`, masa aktif 24 jam (FR-PAY-01).
-- [ ] **API-005 — Endpoint `POST /invoices/{invoice}/snap-token` dengan logika reuse token aktif** · Est 1.5j · Dep: API-004, BE-008 · M.
+- [x] **API-005 — Endpoint `POST /invoices/{invoice}/snap-token` dengan logika reuse token aktif** · Est 1.5j · Dep: API-004, BE-008 · M.
 - [ ] **API-006 — Implementasi `Webhook\MidtransWebhookController` + verifikasi `signature_key` SHA-512 & pencatatan `webhook_logs`** · Est 2.5j · Dep: API-004, DB-015 · M (FR-PAY-02, BR-24, NFR-02).
 - [ ] **API-007 — Hubungkan callback status Midtrans (`settlement`, `capture`, `pending`, `expire`, `cancel`, `deny`) ke `ApplyPaymentAction` secara idempoten** · Est 2j · Dep: API-006, BE-035 · M
   - Termasuk penanganan `needs_review` untuk `challenge` atau invoice yang terlanjur `void`.

@@ -125,7 +125,7 @@ Ditambah `Content-Security-Policy` terukur yang hanya mengizinkan script/frame d
 - [x] **SEC-009 — Implementasi enkripsi `tenant_profiles.nik` (`encrypted` cast + dukungan `APP_PREVIOUS_KEYS`) & tampilan masked `3374**********01` di tabel UI** · Est 1.5j · Dep: DB-019, BE-005 · M.
 - [x] **SEC-010 — Pengamanan penuh foto KTP di `storage/app/private/ktp/`: nama UUID, stream via `KtpPhotoController` khusus `admin`/pemilik, header `Cache-Control: private, no-store`** · Est 1.5j · Dep: BE-005, API-029 · M (NFR-03).
 - [x] **SEC-011 — Hardening pipeline upload file (validasi MIME `finfo`, batas ukuran 2 MB, re-encode `Intervention Image` untuk buang EXIF/payload skrip)** · Est 2j · Dep: BE-009, BE-013 · M.
-- [ ] **SEC-012 — Implementasi halaman pembayaran publik terbatas dengan `URL::temporarySignedRoute` untuk `{link_bayar}` yang dikirim ke WA/Email Wali (data penyewa di-mask, hanya buka Snap Midtrans)** · Est 2.5j · Dep: API-005, BE-038 · M (FR-NTF-02).
+- [x] **SEC-012 — Implementasi halaman pembayaran publik terbatas dengan `URL::temporarySignedRoute` untuk `{link_bayar}` yang dikirim ke WA/Email Wali (data penyewa di-mask, hanya buka Snap Midtrans)** · Est 2.5j · Dep: API-005, BE-038 · M (FR-NTF-02).
 - [x] **SEC-013 — Implementasi command terjadwal retensi privasi (`privacy:prune-expired-ktp`) untuk menghapus foto KTP alumni > 1 tahun pasca check-out tanpa tunggakan** · Est 1.5j · Dep: BE-032 · S.
 - [x] **SEC-014 — Pasang HTML Sanitizer berbasis allowlist pada input rich-text CMS (`FAQ`, `Tentang Kami`) & escape ketat seluruh input penyewa/testimoni** · Est 1.5j · Dep: BE-016, BE-017 · M (NFR-01).
 
