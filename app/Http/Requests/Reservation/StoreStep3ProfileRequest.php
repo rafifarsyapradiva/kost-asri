@@ -11,7 +11,7 @@ class StoreStep3ProfileRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user() !== null;
+        return true;
     }
 
     public function rules(): array
@@ -34,6 +34,13 @@ class StoreStep3ProfileRequest extends FormRequest
             'guardian_email' => ['nullable', 'email', 'max:100'],
             'guardian_relation' => [$isGuardianRequired ? 'required' : 'nullable', 'string', 'max:50'],
             'privacy_consent' => ['required', 'accepted'],
+            'nik' => ['nullable', 'string', 'digits:16'],
+            'ktp_photo' => ['nullable', 'file', 'mimes:jpg,jpeg,png,webp', 'max:2048'],
+            'gender' => ['nullable', 'string', 'in:male,female'],
+            'birth_date' => ['nullable', 'date'],
+            'origin_address' => ['nullable', 'string', 'max:500'],
+            'occupation' => ['nullable', 'string', 'max:100'],
+            'institution_name' => ['nullable', 'string', 'max:150'],
         ];
     }
 }

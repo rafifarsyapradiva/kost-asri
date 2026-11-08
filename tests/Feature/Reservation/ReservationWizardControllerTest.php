@@ -96,3 +96,58 @@ it('rejects Step 3 data-diri for monthly stay if guardian info is missing (BR-28
     $response->assertStatus(422)
         ->assertJsonValidationErrors(['guardian_name', 'guardian_phone']);
 });
+
+it('renders all 5 wizard steps via inertia with correct components (FE-018..023)', function () {
+    $standard = RoomType::factory()->standard()->create(['monthly_rate' => 900_000]);
+    $room = Room::factory()->create(['room_type_id' => $standard->id]);
+    $user = User::factory()->create(['role' => 'calon_penyewa', 'phone' => '6281234567890']);
+
+    // Step 1
+    $this->get('/reservasi')
+        ->assertOk()
+        ->assertInertia(fn ($page) => $page->component('Reservation/Step1Room'));
+
+    // Step 2 with room draft
+    $this->withSession(['reservation_draft' => ['room_id' => $room->id]])
+        ->get('/reservasi/sewa')
+        ->assertOk()
+        ->assertInertia(fn ($page) => $page->component('Reservation/Step2Rent'));
+
+    // Step 3 with room & rent draft
+    $this->actingAs($user)
+        ->withSession(['reservation_draft' => [
+            'room_id' => $room->id,
+            'rent_type' => 'monthly',
+            'check_in_date' => '2026-11-15',
+            'duration_qty' => 1,
+            'prorata_option' => 'combined',
+        ]])
+        ->get('/reservasi/data-diri')
+        ->assertOk()
+        ->assertInertia(fn ($page) => $page->component('Reservation/Step3Profile'));
+
+    // Step 4
+    $this->actingAs($user)
+        ->withSession(['reservation_draft' => [
+            'room_id' => $room->id,
+            'rent_type' => 'monthly',
+            'check_in_date' => '2026-11-15',
+            'duration_qty' => 1,
+            'prorata_option' => 'combined',
+        ]])
+        ->get('/reservasi/pembayaran')
+        ->assertOk()
+        ->assertInertia(fn ($page) => $page->component('Reservation/Step4Payment'));
+
+    // Step 5
+    $reservation = Reservation::factory()->create([
+        'user_id' => $user->id,
+        'room_id' => $room->id,
+        'status' => ReservationStatus::PendingPayment,
+    ]);
+
+    $this->actingAs($user)
+        ->get("/reservasi/{$reservation->code}/selesai")
+        ->assertOk()
+        ->assertInertia(fn ($page) => $page->component('Reservation/Step5Done'));
+});

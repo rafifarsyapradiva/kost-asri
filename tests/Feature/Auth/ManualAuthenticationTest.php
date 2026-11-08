@@ -103,3 +103,13 @@ it('sends password reset link and resets password successfully (FR-AUTH-04, TST-
     expect(Hash::check('NewPassword123#', $user->fresh()->password))->toBeTrue();
     Event::assertDispatched(PasswordReset::class);
 });
+
+it('renders all authentication inertia pages with correct component names (FE-015, FR-AUTH-01..04)', function () {
+    $this->get('/login')->assertOk()->assertInertia(fn ($page) => $page->component('Auth/Login'));
+    $this->get('/register')->assertOk()->assertInertia(fn ($page) => $page->component('Auth/Register'));
+    $this->get('/forgot-password')->assertOk()->assertInertia(fn ($page) => $page->component('Auth/ForgotPassword'));
+    $this->get('/reset-password/sample-token')->assertOk()->assertInertia(fn ($page) => $page->component('Auth/ResetPassword'));
+
+    $user = User::factory()->unverified()->create();
+    $this->actingAs($user)->get('/verify-email')->assertOk()->assertInertia(fn ($page) => $page->component('Auth/VerifyEmail'));
+});

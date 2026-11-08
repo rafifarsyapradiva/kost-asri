@@ -61,7 +61,7 @@ Route::get('/api/availability', [AvailabilityController::class, 'index'])
     ->middleware('throttle:60,1')
     ->name('api.availability');
 
-// Reservation Wizard Steps 1 & 2 (Public / Auth) (BE-027, FR-RSV-01, FR-RSV-02, SEC-015)
+// Reservation Wizard Steps 1, 2 & 3 (Public / Auth) (BE-027, FR-RSV-01, FR-RSV-02, SEC-015, FE-021)
 Route::get('/reservasi', [ReservationWizardController::class, 'step1'])->name('reservation.step1');
 Route::post('/reservasi/kamar', [ReservationWizardController::class, 'storeStep1'])->name('reservation.step1.store');
 Route::get('/reservasi/sewa', [ReservationWizardController::class, 'step2'])->name('reservation.step2');
@@ -69,6 +69,8 @@ Route::post('/reservasi/sewa', [ReservationWizardController::class, 'storeStep2'
 Route::post('/reservasi/hitung', [ReservationWizardController::class, 'calculate'])
     ->middleware('throttle:60,1')
     ->name('reservation.calculate');
+Route::get('/reservasi/data-diri', [ReservationWizardController::class, 'step3'])->name('reservation.step3');
+Route::post('/reservasi/data-diri', [ReservationWizardController::class, 'storeStep3'])->name('reservation.step3.store');
 
 // Guardian Temporary Signed Payment Routes (SEC-012, FR-NTF-02)
 Route::get('/pay/{invoice}', [GuardianPaymentController::class, 'show'])
@@ -140,9 +142,7 @@ Route::middleware('auth')->group(function (): void {
         ->middleware('role:calon_penyewa,penyewa')
         ->name('account.reservations.cancel');
 
-    // Reservation Wizard Steps 3, 4, 5 (Auth required) (FR-RSV-03, FR-PAY-01, FR-PDF-01)
-    Route::get('/reservasi/data-diri', [ReservationWizardController::class, 'step3'])->name('reservation.step3');
-    Route::post('/reservasi/data-diri', [ReservationWizardController::class, 'storeStep3'])->name('reservation.step3.store');
+    // Reservation Wizard Steps 4, 5 (Auth required) (FR-RSV-03, FR-PAY-01, FR-PDF-01)
     Route::get('/reservasi/pembayaran', [ReservationWizardController::class, 'step4'])
         ->middleware('profile.complete')
         ->name('reservation.step4');

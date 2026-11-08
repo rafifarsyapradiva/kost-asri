@@ -21,9 +21,9 @@ export function useDateId() {
         return dayjs(date).fromNow();
     };
 
-    const formatCountdown = (targetDate) => {
+    const formatCountdown = (targetDate, nowRef = null) => {
         if (!targetDate) return '00:00:00';
-        const now = dayjs();
+        const now = nowRef !== null ? dayjs(nowRef) : dayjs();
         const target = dayjs(targetDate);
         const diffSeconds = target.diff(now, 'second');
         if (diffSeconds <= 0) return '00:00:00';

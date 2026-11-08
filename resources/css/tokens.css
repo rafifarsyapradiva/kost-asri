@@ -10,8 +10,12 @@
 
   /* Brand — Deep Forest Green & Sage */
   --color-forest-900: #1B4332;
+  --color-forest-800: #22543D;
   --color-forest-700: #2D6A4F;
   --color-forest-500: #40916C;
+  --color-forest-200: #B7E4C7;
+  --color-forest-100: #D8F3DC;
+  --color-forest-50: #EDF7F1;
   --color-sage-300: #95D5B2;
   --color-sage-100: #D8F3DC;
 
@@ -30,9 +34,14 @@
   --color-white: #FFFFFF;
   --color-ink-950: #111827;
   --color-ink-900: #1F2937;
+  --color-ink-800: #374151;
+  --color-ink-700: #4B5563;
   --color-ink-600: #4B5563;
   --color-ink-500: #6B7280;
+  --color-ink-400: #9CA3AF;
+  --color-line-100: #F3F4F6;
   --color-line-200: #E5E7EB;
+  --color-line-300: #D1D5DB;
 
   /* Semantic Statuses (always paired with icon + Indonesian label per NFR-08) */
   --color-success: #16A34A;
@@ -78,8 +87,12 @@
 :root {
   --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
   --color-forest-900: #1B4332;
+  --color-forest-800: #22543D;
   --color-forest-700: #2D6A4F;
   --color-forest-500: #40916C;
+  --color-forest-200: #B7E4C7;
+  --color-forest-100: #D8F3DC;
+  --color-forest-50: #EDF7F1;
   --color-sage-300: #95D5B2;
   --color-sage-100: #D8F3DC;
   --color-terracotta-400: #E78F77;
@@ -94,9 +107,14 @@
   --color-white: #FFFFFF;
   --color-ink-950: #111827;
   --color-ink-900: #1F2937;
+  --color-ink-800: #374151;
+  --color-ink-700: #4B5563;
   --color-ink-600: #4B5563;
   --color-ink-500: #6B7280;
+  --color-ink-400: #9CA3AF;
+  --color-line-100: #F3F4F6;
   --color-line-200: #E5E7EB;
+  --color-line-300: #D1D5DB;
   --color-success: #16A34A;
   --color-success-bg: #DCFCE7;
   --color-success-text: #14532D;

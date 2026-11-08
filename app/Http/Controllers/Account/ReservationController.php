@@ -9,8 +9,11 @@ use App\Enums\ReservationStatus;
 use App\Http\Controllers\Controller;
 use App\Models\Reservation;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ReservationController extends Controller
 {
@@ -19,19 +22,25 @@ class ReservationController extends Controller
     ) {
     }
 
-    public function index(Request $request): JsonResponse
+    public function index(Request $request): JsonResponse|Response
     {
-        $reservations = Reservation::with(['room.roomType', 'invoices'])
+        $reservations = Reservation::with(['room.roomType', 'invoices.payments'])
             ->where('user_id', $request->user()->id)
             ->latest()
             ->get();
 
-        return response()->json([
+        if ($request->wantsJson() && ! $request->header('X-Inertia')) {
+            return response()->json([
+                'reservations' => $reservations,
+            ]);
+        }
+
+        return Inertia::render('Account/MyReservations', [
             'reservations' => $reservations,
         ]);
     }
 
-    public function cancel(Request $request, Reservation $reservation): JsonResponse
+    public function cancel(Request $request, Reservation $reservation): JsonResponse|RedirectResponse
     {
         if ($reservation->user_id !== $request->user()->id) {
             abort(403, 'Aksi tidak diizinkan.');
@@ -46,9 +55,13 @@ class ReservationController extends Controller
         $reason = (string) $request->input('reason', 'Dibatalkan oleh calon penyewa');
         $this->cancelReservation->execute($reservation, $request->user(), $reason);
 
-        return response()->json([
-            'message' => 'Reservasi berhasil dibatalkan.',
-            'reservation' => $reservation->fresh(),
-        ]);
+        if ($request->wantsJson() && ! $request->header('X-Inertia')) {
+            return response()->json([
+                'message' => 'Reservasi berhasil dibatalkan.',
+                'reservation' => $reservation->fresh(),
+            ]);
+        }
+
+        return redirect()->back()->with('success', 'Reservasi berhasil dibatalkan.');
     }
 }

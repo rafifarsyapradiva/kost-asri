@@ -1,6 +1,7 @@
 <script setup>
 import { Link } from '@inertiajs/vue3';
 import ToastContainer from '@/Components/ToastContainer.vue';
+import Stepper from '@/Components/Stepper.vue';
 
 defineProps({
     currentStep: {
@@ -8,14 +9,6 @@ defineProps({
         default: 1,
     },
 });
-
-const steps = [
-    { number: 1, title: 'Pilih Kamar' },
-    { number: 2, title: 'Tipe Sewa' },
-    { number: 3, title: 'Data Diri & Wali' },
-    { number: 4, title: 'Pembayaran' },
-    { number: 5, title: 'Selesai' },
-];
 </script>
 
 <template>
@@ -34,8 +27,15 @@ const steps = [
                     </span>
                 </Link>
 
-                <div class="flex items-center gap-4 text-xs font-semibold">
-                    <span class="hidden sm:inline text-ink-500">Butuh bantuan?</span>
+                <div class="flex items-center gap-3 text-xs font-semibold">
+                    <Link
+                        v-if="$page.props.auth?.user"
+                        :href="route('account.reservations')"
+                        class="hidden sm:inline-flex items-center gap-1.5 rounded-lg border border-line-200 bg-white px-3 py-1.5 text-ink-700 hover:bg-slate-50 transition"
+                    >
+                        <span>Reservasi Saya</span>
+                    </Link>
+
                     <a
                         href="https://wa.me/6281234567890?text=Halo%20Admin%20Kost%20ASRI,%20saya%20ingin%20bertanya%20tentang%20reservasi"
                         target="_blank"
@@ -48,48 +48,15 @@ const steps = [
             </div>
 
             <!-- Stepper Progress Bar -->
-            <div class="border-t border-line-100 bg-slate-50/50 py-2.5 px-4 overflow-x-auto">
-                <div class="max-w-3xl mx-auto flex items-center justify-between min-w-[500px]">
-                    <div
-                        v-for="s in steps"
-                        :key="s.number"
-                        class="flex items-center gap-2"
-                    >
-                        <span
-                            :class="[
-                                'num flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold transition',
-                                currentStep === s.number
-                                    ? 'bg-terracotta-500 text-ink-900 ring-2 ring-terracotta-500/30'
-                                    : currentStep > s.number
-                                    ? 'bg-forest-900 text-white'
-                                    : 'bg-slate-200 text-slate-600'
-                            ]"
-                        >
-                            <svg v-if="currentStep > s.number" class="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-                            </svg>
-                            <span v-else>{{ s.number }}</span>
-                        </span>
-                        <span
-                            :class="[
-                                'text-xs font-medium',
-                                currentStep === s.number
-                                    ? 'font-bold text-forest-900'
-                                    : currentStep > s.number
-                                    ? 'text-forest-800'
-                                    : 'text-slate-500'
-                            ]"
-                        >
-                            {{ s.title }}
-                        </span>
-                        <div v-if="s.number < 5" class="h-0.5 w-8 bg-line-200 ml-2" />
-                    </div>
+            <div v-if="currentStep > 0" class="border-t border-line-100 bg-slate-50/50 py-3 px-4 sm:px-6 lg:px-8">
+                <div class="max-w-4xl mx-auto">
+                    <Stepper :current-step="currentStep" />
                 </div>
             </div>
         </header>
 
         <!-- Main Content -->
-        <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-28 lg:pb-8">
             <slot />
         </main>
 

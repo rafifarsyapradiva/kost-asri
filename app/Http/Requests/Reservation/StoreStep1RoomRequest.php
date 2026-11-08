@@ -17,6 +17,7 @@ class StoreStep1RoomRequest extends FormRequest
     {
         return [
             'room_id' => ['required', 'exists:rooms,id'],
+            'check_in_date' => ['nullable', 'date'],
         ];
     }
 }

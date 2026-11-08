@@ -35,11 +35,19 @@ it('redirects users without phone number to profile completion before payment (B
 });
 
 it('allows user with complete phone number to access payment page (BE-003)', function () {
+    $room = \App\Models\Room::factory()->create();
     $user = User::factory()->create([
         'phone' => '6281234567890',
         'role' => UserRole::Prospect,
     ]);
 
-    $this->actingAs($user)->get('/reservasi/pembayaran')
+    $this->actingAs($user)
+        ->withSession(['reservation_draft' => [
+            'room_id' => $room->id,
+            'rent_type' => 'monthly',
+            'check_in_date' => now()->toDateString(),
+            'prorata_option' => 'combined',
+        ]])
+        ->get('/reservasi/pembayaran')
         ->assertOk();
 });

@@ -85,17 +85,17 @@ Seluruh komponen wajib memetakan nilai Enum dari backend ke token desain di `res
 - [x] **FE-014 — Section **Lokasi Tembalang** (embed Google Maps lazy + kartu jarak tempat terdekat seperti kampus/minimarket) & verifikasi meta SEO / Open Graph** · Est 2j · Dep: FE-008, BE-018 · M (FR-CMS-08, FR-CMS-10).
 
 ### 4.3 Autentikasi & Area Akun Calon Penyewa (Vue + Inertia)
-- [ ] **FE-015 — Halaman Login, Register, Lupa/Reset Password, & Verifikasi Email bergaya Warm Biophilic + tombol "Masuk dengan Google"** · Est 3.5j · Dep: FE-007, BE-001, API-002, DSN-023 · M (FR-AUTH-01..04).
-- [ ] **FE-016 — Halaman `Account/CompleteProfile.vue` (wajib isi nomor WA pasca login Google pertama)** · Est 1.5j · Dep: FE-015, BE-003 · M (FR-AUTH-07).
-- [ ] **FE-017 — Halaman `Account/MyReservations.vue` (daftar reservasi calon penyewa, countdown batas bayar 24 jam, lanjutkan bayar Snap, unduh nota PDF, batalkan reservasi)** · Est 2.5j · Dep: FE-005, BE-028 · M (FR-RSV-04, FR-RSV-08).
+- [x] **FE-015 — Halaman Login, Register, Lupa/Reset Password, & Verifikasi Email bergaya Warm Biophilic + tombol "Masuk dengan Google"** · Est 3.5j · Dep: FE-007, BE-001, API-002, DSN-023 · M (FR-AUTH-01..04).
+- [x] **FE-016 — Halaman `Account/CompleteProfile.vue` (wajib isi nomor WA pasca login Google pertama)** · Est 1.5j · Dep: FE-015, BE-003 · M (FR-AUTH-07).
+- [x] **FE-017 — Halaman `Account/MyReservations.vue` (daftar reservasi calon penyewa, countdown batas bayar 24 jam, lanjutkan bayar Snap, unduh nota PDF, batalkan reservasi)** · Est 2.5j · Dep: FE-005, BE-028 · M (FR-RSV-04, FR-RSV-08).
 
 ### 4.4 Wizard Reservasi Online 5 Langkah (Vue + Inertia)
-- [ ] **FE-018 — Komponen `Stepper.vue` (5 langkah responsif) & `PriceSummaryCard.vue` (sticky desktop / expandable bottom-sheet mobile)** · Est 2.5j · Dep: FE-004, DSN-018, DSN-019 · M.
-- [ ] **FE-019 — **Langkah 1 (`Step1Room.vue`)**: pilih tanggal rencana masuk, filter kelas kamar, pilih kamar tersedia (hijau) langsung dari `RoomFloorMap` 2 lantai** · Est 3j · Dep: FE-006, FE-018, BE-027 · M (FR-RSV-01, FR-ROOM-03, FR-ROOM-04).
-- [ ] **FE-020 — **Langkah 2 (`Step2Rent.vue`)**: pilih Harian / Mingguan / Bulanan, input durasi, kartu perbandingan interaktif **Prorata Opsi 1 (Gabung)** vs **Opsi 2 (Penuh Dulu)** lengkap simulasi tagihan bulan depannya, sinkron ke `/reservasi/hitung`** · Est 4j · Dep: FE-018, BE-027, API-028 · M (FR-RSV-02, FR-BILL-01..05).
-- [ ] **FE-021 — **Langkah 3 (`Step3Profile.vue`)**: inline prompt login/Google bila guest, form identitas + upload KTP + form Data Wali (wajib otomatis untuk Mingguan & Bulanan, opsional Harian)** · Est 3.5j · Dep: FE-003, BE-027 · M (FR-TNT-01, BR-28).
-- [ ] **FE-022 — **Langkah 4 (`Step4Payment.vue`)**: pilihan DP (slider/input ≥ 30%) atau Lunas 100%, metode Midtrans Snap (`useSnap`) atau Tunai/Cash ke penjaga, penanganan konflik kamar bila baru saja diambil orang lain** · Est 4j · Dep: FE-002, BE-027, API-005 · M (FR-RSV-03, FR-PAY-01, FR-PAY-03).
-- [ ] **FE-023 — **Langkah 5 (`Step5Done.vue`)**: status reservasi & pembayaran real-time, countdown hold 24 jam (bila belum lunas/cash), tombol unduh Nota PDF, & panduan jam check-in** · Est 2.5j · Dep: FE-022, API-025 · M (FR-RSV-01, FR-PDF-01).
+- [x] **FE-018 — Komponen `Stepper.vue` (5 langkah responsif) & `PriceSummaryCard.vue` (sticky desktop / expandable bottom-sheet mobile)** · Est 2.5j · Dep: FE-004, DSN-018, DSN-019 · M.
+- [x] **FE-019 — **Langkah 1 (`Step1Room.vue`)**: pilih tanggal rencana masuk, filter kelas kamar, pilih kamar tersedia (hijau) langsung dari `RoomFloorMap` 2 lantai** · Est 3j · Dep: FE-006, FE-018, BE-027 · M (FR-RSV-01, FR-ROOM-03, FR-ROOM-04).
+- [x] **FE-020 — **Langkah 2 (`Step2Rent.vue`)**: pilih Harian / Mingguan / Bulanan, input durasi, kartu perbandingan interaktif **Prorata Opsi 1 (Gabung)** vs **Opsi 2 (Penuh Dulu)** lengkap simulasi tagihan bulan depannya, sinkron ke `/reservasi/hitung`** · Est 4j · Dep: FE-018, BE-027, API-028 · M (FR-RSV-02, FR-BILL-01..05).
+- [x] **FE-021 — **Langkah 3 (`Step3Profile.vue`)**: inline prompt login/Google bila guest, form identitas + upload KTP + form Data Wali (wajib otomatis untuk Mingguan & Bulanan, opsional Harian)** · Est 3.5j · Dep: FE-003, BE-027 · M (FR-TNT-01, BR-28).
+- [x] **FE-022 — **Langkah 4 (`Step4Payment.vue`)**: pilihan DP (slider/input ≥ 30%) atau Lunas 100%, metode Midtrans Snap (`useSnap`) atau Tunai/Cash ke penjaga, penanganan konflik kamar bila baru saja diambil orang lain** · Est 4j · Dep: FE-002, BE-027, API-005 · M (FR-RSV-03, FR-PAY-01, FR-PAY-03).
+- [x] **FE-023 — **Langkah 5 (`Step5Done.vue`)**: status reservasi & pembayaran real-time, countdown hold 24 jam (bila belum lunas/cash), tombol unduh Nota PDF, & panduan jam check-in** · Est 2.5j · Dep: FE-022, API-025 · M (FR-RSV-01, FR-PDF-01).
 
 ### 4.5 Dashboard Admin ERP — Clean Bento Grid (`/admin/*`)
 - [ ] **FE-024 — `Admin/Dashboard.vue`: susunan Bento Grid KPI (okupansi %, ringkasan 32 kamar per status, pendapatan bulan ini, tunggakan, jadwal check-in/out hari ini, tagihan jatuh tempo, reservasi terbaru, lampu status cronjob)** · Est 4j · Dep: FE-005, BE-045, DSN-031 · M (FR-DASH-01).
