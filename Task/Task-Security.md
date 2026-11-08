@@ -115,19 +115,19 @@ Ditambah `Content-Security-Policy` terukur yang hanya mengizinkan script/frame d
 - [x] **SEC-003 — Pastikan kontrak JSON publik (`/api/availability` & halaman landing) 100% bebas dari kebocoran nama/kontak penghuni kamar** · Est 1j · Dep: BE-011 · M.
 
 ### 5.2 Keamanan Autentikasi, Sesi, OAuth & Otorisasi (Fase 3)
-- [ ] **SEC-004 — Terapkan aturan kekuatan password, konfirmasi password lama saat ubah password/email, & regenerasi session ID saat login/check-in** · Est 1.5j · Dep: BE-001 · M (NFR-01).
+- [x] **SEC-004 — Terapkan aturan kekuatan password, konfirmasi password lama saat ubah password/email, & regenerasi session ID saat login/check-in** · Est 1.5j · Dep: BE-001 · M (NFR-01).
 - [ ] **SEC-005 — Validasi klaim `email_verified` pada callback Google OAuth sebelum menautkan ke akun manual ber-email sama** · Est 1j · Dep: API-002 · M (FR-AUTH-03).
-- [ ] **SEC-006 — Konfigurasi keamanan cookie sesi (`http_only`, `secure`, `same_site=lax`, `encrypt=true`) & timeout idle sesi Admin** · Est 1j · Dep: SET-012 · M.
+- [x] **SEC-006 — Konfigurasi keamanan cookie sesi (`http_only`, `secure`, `same_site=lax`, `encrypt=true`) & timeout idle sesi Admin** · Est 1j · Dep: SET-012 · M.
 - [x] **SEC-007 — Audit seluruh Eloquent Model terhadap kerentanan *Mass Assignment* (larang `$guarded = []`, pisahkan atribut sensitif `role`, `status`, `paid_amount`)** · Est 2j · Dep: DB-019..024 · M (NFR-01).
-- [ ] **SEC-008 — Verifikasi cakupan `EnsureRole` & `Policy` di seluruh route `/admin/*`, `/penyewa/*`, `/akun/*`, dan unduhan PDF** · Est 2j · Dep: BE-008 · M (NFR-01).
+- [x] **SEC-008 — Verifikasi cakupan `EnsureRole` & `Policy` di seluruh route `/admin/*`, `/penyewa/*`, `/akun/*`, dan unduhan PDF** · Est 2j · Dep: BE-008 · M (NFR-01).
 
 ### 5.3 Pelindungan PII (NIK & KTP), Signed URL Wali & Upload Aman (Fase 3)
 - [x] **SEC-009 — Implementasi enkripsi `tenant_profiles.nik` (`encrypted` cast + dukungan `APP_PREVIOUS_KEYS`) & tampilan masked `3374**********01` di tabel UI** · Est 1.5j · Dep: DB-019, BE-005 · M.
-- [ ] **SEC-010 — Pengamanan penuh foto KTP di `storage/app/private/ktp/`: nama UUID, stream via `KtpPhotoController` khusus `admin`/pemilik, header `Cache-Control: private, no-store`** · Est 1.5j · Dep: BE-005, API-029 · M (NFR-03).
-- [ ] **SEC-011 — Hardening pipeline upload file (validasi MIME `finfo`, batas ukuran 2 MB, re-encode `Intervention Image` untuk buang EXIF/payload skrip)** · Est 2j · Dep: BE-009, BE-013 · M.
+- [x] **SEC-010 — Pengamanan penuh foto KTP di `storage/app/private/ktp/`: nama UUID, stream via `KtpPhotoController` khusus `admin`/pemilik, header `Cache-Control: private, no-store`** · Est 1.5j · Dep: BE-005, API-029 · M (NFR-03).
+- [x] **SEC-011 — Hardening pipeline upload file (validasi MIME `finfo`, batas ukuran 2 MB, re-encode `Intervention Image` untuk buang EXIF/payload skrip)** · Est 2j · Dep: BE-009, BE-013 · M.
 - [ ] **SEC-012 — Implementasi halaman pembayaran publik terbatas dengan `URL::temporarySignedRoute` untuk `{link_bayar}` yang dikirim ke WA/Email Wali (data penyewa di-mask, hanya buka Snap Midtrans)** · Est 2.5j · Dep: API-005, BE-038 · M (FR-NTF-02).
 - [ ] **SEC-013 — Implementasi command terjadwal retensi privasi (`privacy:prune-expired-ktp`) untuk menghapus foto KTP alumni > 1 tahun pasca check-out tanpa tunggakan** · Est 1.5j · Dep: BE-032 · S.
-- [ ] **SEC-014 — Pasang HTML Sanitizer berbasis allowlist pada input rich-text CMS (`FAQ`, `Tentang Kami`) & escape ketat seluruh input penyewa/testimoni** · Est 1.5j · Dep: BE-016, BE-017 · M (NFR-01).
+- [x] **SEC-014 — Pasang HTML Sanitizer berbasis allowlist pada input rich-text CMS (`FAQ`, `Tentang Kami`) & escape ketat seluruh input penyewa/testimoni** · Est 1.5j · Dep: BE-016, BE-017 · M (NFR-01).
 
 ### 5.4 Pengamanan Transaksi Keuangan, Anti-Hoarding, Webhook & DomPDF (Fase 3)
 - [ ] **SEC-015 — Pastikan kalkulasi biaya reservasi, DP, prorata, dan nominal Snap Token 100% dihitung ulang di server (tolak manipulasi harga dari payload request)** · Est 1.5j · Dep: BE-026, API-005 · M (NFR-06).
@@ -135,12 +135,12 @@ Ditambah `Content-Security-Policy` terukur yang hanya mengizinkan script/frame d
 - [ ] **SEC-017 — Terapkan proteksi *Anti-Room-Hoarding*: batasi maksimal 1 reservasi `pending_payment` aktif per pengguna + rate limit pembuatan reservasi per IP (`5/jam`)** · Est 1.5j · Dep: BE-026, API-030 · M.
 - [ ] **SEC-018 — Hardening `MidtransWebhookController`: perbandingan `hash_equals` SHA-512, validasi silang `gross_amount` == `payment.amount`, idempotensi, & alert jika signature gagal berulang** · Est 1.5j · Dep: API-006 · M (BR-24, NFR-02).
 - [ ] **SEC-019 — Hardening `FonnteWebhookController`: validasi `hash_equals` token rahasia, abaikan grup/broadcast, & cegah kebocoran tagihan ke nomor WA yang tidak terdaftar di `users.phone`** · Est 1.5j · Dep: API-013, BE-040 · M (NFR-02).
-- [ ] **SEC-020 — Hardening konfigurasi DomPDF (`enable_remote=false`, `enable_php=false`, `chroot` ke `base_path()`) untuk mencegah SSRF & LFI lewat teks PDF** · Est 1j · Dep: SET-016, API-020 · M.
+- [x] **SEC-020 — Hardening konfigurasi DomPDF (`enable_remote=false`, `enable_php=false`, `chroot` ke `base_path()`) untuk mencegah SSRF & LFI lewat teks PDF** · Est 1j · Dep: SET-016, API-020 · M.
 
 ### 5.5 HTTP Headers, Audit Log, Dependency & Hardening Server (Fase 3 & 5)
-- [ ] **SEC-021 — Buat & daftarkan middleware `SetSecurityHeaders` (CSP Midtrans/YouTube/Maps, HSTS, `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`)** · Est 2j · Dep: SET-017 · M.
+- [x] **SEC-021 — Buat & daftarkan middleware `SetSecurityHeaders` (CSP Midtrans/YouTube/Maps, HSTS, `X-Frame-Options`, `nosniff`, `Referrer-Policy`, `Permissions-Policy`)** · Est 2j · Dep: SET-017 · M.
 - [x] **SEC-022 — Pastikan pengecualian CSRF di `bootstrap/app.php` **hanya** berlaku spesifik untuk `webhook/midtrans` dan `webhook/fonnte`** · Est 0.5j · Dep: SET-017 · M (NFR-01).
-- [ ] **SEC-023 — Kunci integritas `activity_logs`, `penalty_logs`, dan `webhook_logs` (larang route/method update & delete pada model audit)** · Est 1j · Dep: BE-007 · M (NFR-09).
+- [x] **SEC-023 — Kunci integritas `activity_logs`, `penalty_logs`, dan `webhook_logs` (larang route/method update & delete pada model audit)** · Est 1j · Dep: BE-007 · M (NFR-09).
 - [ ] **SEC-024 — Masking seluruh kunci API di halaman Pengaturan Admin & larang pengiriman secret mentah ke props Inertia frontend** · Est 1j · Dep: BE-049, FE-038 · M (NFR-02).
 - [ ] **SEC-025 — Konfigurasi Apache VirtualHost lokal & Nginx produksi agar DocumentRoot menunjuk ke `/public` serta blokir akses URL ke `/.env`, `/.git`, `/Blueprint`, `/Documentation`, `/Task`** · Est 1.5j · Dep: SET-003, SET-025 · M.
 - [ ] **SEC-026 — Buat user database MySQL produksi minimal-privilege (`kost_asri_app`) & nonaktifkan login MySQL remote dari luar localhost** · Est 1j · Dep: SET-025 · M.

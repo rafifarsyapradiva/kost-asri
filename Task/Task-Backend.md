@@ -67,41 +67,41 @@
 ## 4. Checklist Task (`BE-001` – `BE-055`)
 
 ### 4.1 Autentikasi, Role Middleware & Profil
-- [ ] **BE-001 — Implementasi autentikasi manual (Register, Login + rate limit 5/menit, Logout, Email Verification, Reset Password)** · Est 3j · Dep: SET-008, DB-019 · M
+- [x] **BE-001 — Implementasi autentikasi manual (Register, Login + rate limit 5/menit, Logout, Email Verification, Reset Password)** · Est 3j · Dep: SET-008, DB-019 · M
   - Mencakup normalisasi WA ke `62xxx` dan penetapan role awal `calon_penyewa` (FR-AUTH-01, FR-AUTH-02, FR-AUTH-04).
-- [ ] **BE-002 — Middleware `EnsureRole` & helper redirect pasca-login per role** · Est 1.5j · Dep: BE-001 · M
+- [x] **BE-002 — Middleware `EnsureRole` & helper redirect pasca-login per role** · Est 1.5j · Dep: BE-001 · M
   - Redirect `admin` → `/admin/dashboard`, `penyewa` → `/penyewa/dashboard`, `calon_penyewa` → `/akun/reservasi-saya`; akses lintas modul menghasilkan 403 (FR-AUTH-05).
-- [ ] **BE-003 — Middleware `EnsureProfileComplete` & `ProfileCompletionController`** · Est 1.5j · Dep: BE-001 · M
+- [x] **BE-003 — Middleware `EnsureProfileComplete` & `ProfileCompletionController`** · Est 1.5j · Dep: BE-001 · M
   - Mengarahkan user baru (terutama dari Google OAuth tanpa nomor WA) ke `/akun/lengkapi-profil` sebelum masuk langkah pembayaran reservasi (FR-AUTH-07).
-- [ ] **BE-004 — Layanan pembuatan akun walk-in oleh Admin (`CreateWalkInUserAction`)** · Est 1.5j · Dep: BE-001 · M
+- [x] **BE-004 — Layanan pembuatan akun walk-in oleh Admin (`CreateWalkInUserAction`)** · Est 1.5j · Dep: BE-001 · M
   - Mendukung pendaftaran cepat dengan email opsional + nomor WA wajib + password acak yang dikirim ke WA/Email (FR-AUTH-06).
-- [ ] **BE-005 — CRUD Profil Penyewa, Data Wali & Akses Privat Foto KTP (`TenantProfileController`, `KtpPhotoController`)** · Est 2.5j · Dep: DB-019, SET-015 · M
+- [x] **BE-005 — CRUD Profil Penyewa, Data Wali & Akses Privat Foto KTP (`TenantProfileController`, `KtpPhotoController`)** · Est 2.5j · Dep: DB-019, SET-015 · M
   - Simpan KTP di `storage/app/private/ktp/` dengan nama UUID, validasi `jpg/png/webp` maks 2 MB, route stream berotorisasi Policy (FR-TNT-01, BR-28, NFR-03).
 
 ### 4.2 Pengaturan, Audit & Utilitas Inti
-- [ ] **BE-006 — Implementasi `SettingService` (ber-cache) & helper global `setting($key, $default)`** · Est 1.5j · Dep: DB-026 · M.
-- [ ] **BE-007 — Implementasi `ActivityLogger` service & trait `LogsAdminActivity`** · Est 2j · Dep: DB-024 · S
+- [x] **BE-006 — Implementasi `SettingService` (ber-cache) & helper global `setting($key, $default)`** · Est 1.5j · Dep: DB-026 · M.
+- [x] **BE-007 — Implementasi `ActivityLogger` service & trait `LogsAdminActivity`** · Est 2j · Dep: DB-024 · S
   - Mencatat aktor, IP, user-agent, perubahan sebelum/sesudah untuk aksi admin (FR-DASH-05, NFR-09).
-- [ ] **BE-008 — Implementasi Policy lengkap (`ReservationPolicy`, `InvoicePolicy`, `LeasePolicy`, `ReceiptPolicy`, `TenantProfilePolicy`)** · Est 2j · Dep: BE-002, DB-022 · M
+- [x] **BE-008 — Implementasi Policy lengkap (`ReservationPolicy`, `InvoicePolicy`, `LeasePolicy`, `ReceiptPolicy`, `TenantProfilePolicy`)** · Est 2j · Dep: BE-002, DB-022 · M
   - Mencegah celah IDOR di seluruh endpoint penyewa & calon penyewa (NFR-01).
 
 ### 4.3 Manajemen Kamar, Tipe Kamar & Ketersediaan
-- [ ] **BE-009 — Admin CRUD `RoomTypeController` + upload/kompresi multi-foto (`Intervention Image`)** · Est 3j · Dep: DB-020, SET-006 · M
+- [x] **BE-009 — Admin CRUD `RoomTypeController` + upload/kompresi multi-foto (`Intervention Image`)** · Est 3j · Dep: DB-020, SET-006 · M
   - Konversi WebP + buat thumbnail otomatis; perubahan tarif tidak mengubah invoice yang telah terbit (FR-ROOM-01, FR-CMS-02).
-- [ ] **BE-010 — Admin CRUD `RoomController` + toggle status `maintenance`** · Est 2.5j · Dep: DB-020 · M
+- [x] **BE-010 — Admin CRUD `RoomController` + toggle status `maintenance`** · Est 2.5j · Dep: DB-020 · M
   - Tolak penghapusan kamar bila memiliki riwayat transaksi; tolak set `maintenance` bila status kamar bukan `available` (FR-ROOM-02, BR-25).
-- [ ] **BE-011 — Implementasi `AvailabilityService` & endpoint publik `GET /api/availability`** · Est 3j · Dep: DB-021 · M
+- [x] **BE-011 — Implementasi `AvailabilityService` & endpoint publik `GET /api/availability`** · Est 3j · Dep: DB-021 · M
   - Menghitung status ketersediaan 32 kamar untuk rentang tanggal tertentu + mengembalikan struktur denah Lantai 1 & Lantai 2 (FR-ROOM-03, FR-ROOM-04, BR-01).
-- [ ] **BE-012 — Endpoint Denah Kamar Interaktif Admin (`Admin\RoomMapController`)** · Est 2j · Dep: BE-011 · M
+- [x] **BE-012 — Endpoint Denah Kamar Interaktif Admin (`Admin\RoomMapController`)** · Est 2j · Dep: BE-011 · M
   - Menyertakan ringkasan penghuni aktif, tanggal jatuh tempo/habis sewa, dan status tagihan per sel kamar (FR-ROOM-03).
 
 ### 4.4 CMS Landing Page (9 Modul Konten)
-- [ ] **BE-013 — Service upload & optimasi media CMS (`MediaUploadService`) + endpoint drag-and-drop reorder generik** · Est 2j · Dep: SET-015 · M.
-- [ ] **BE-014 — Admin CRUD `FacilityController` & `ReservationStepController`** · Est 2j · Dep: DB-024, BE-013 · M (FR-CMS-01, FR-CMS-05).
-- [ ] **BE-015 — Admin CRUD `VideoController` (ekstraksi & validasi YouTube ID otomatis) & `GalleryController`** · Est 2.5j · Dep: DB-024, BE-013 · M (FR-CMS-03, FR-CMS-04).
-- [ ] **BE-016 — Admin CRUD `FaqController` & moderasi `TestimonialController` (+ submit testimoni oleh penyewa aktif)** · Est 2.5j · Dep: DB-024 · M (FR-CMS-06, FR-CMS-07, FR-TNT-03).
-- [ ] **BE-017 — Admin pengelolaan Lokasi + `NearbyPlaceController`, Tentang Kami, & Meta SEO (`SiteSettingController`)** · Est 2.5j · Dep: DB-024, BE-013 · M (FR-CMS-08, FR-CMS-09).
-- [ ] **BE-018 — `Public\LandingController` (agregasi ter-cache seluruh section `is_published=true` + detail tipe kamar)** · Est 2.5j · Dep: BE-011, BE-014..BE-017 · M
+- [x] **BE-013 — Service upload & optimasi media CMS (`MediaUploadService`) + endpoint drag-and-drop reorder generik** · Est 2j · Dep: SET-015 · M.
+- [x] **BE-014 — Admin CRUD `FacilityController` & `ReservationStepController`** · Est 2j · Dep: DB-024, BE-013 · M (FR-CMS-01, FR-CMS-05).
+- [x] **BE-015 — Admin CRUD `VideoController` (ekstraksi & validasi YouTube ID otomatis) & `GalleryController`** · Est 2.5j · Dep: DB-024, BE-013 · M (FR-CMS-03, FR-CMS-04).
+- [x] **BE-016 — Admin CRUD `FaqController` & moderasi `TestimonialController` (+ submit testimoni oleh penyewa aktif)** · Est 2.5j · Dep: DB-024 · M (FR-CMS-06, FR-CMS-07, FR-TNT-03).
+- [x] **BE-017 — Admin pengelolaan Lokasi + `NearbyPlaceController`, Tentang Kami, & Meta SEO (`SiteSettingController`)** · Est 2.5j · Dep: DB-024, BE-013 · M (FR-CMS-08, FR-CMS-09).
+- [x] **BE-018 — `Public\LandingController` (agregasi ter-cache seluruh section `is_published=true` + detail tipe kamar)** · Est 2.5j · Dep: BE-011, BE-014..BE-017 · M
   - Otomatis menyembunyikan section kosong dan menyuplai meta Open Graph/SEO (FR-CMS-10).
 
 ### 4.5 Mesin Kalkulasi Billing, Prorata & Denda

@@ -130,7 +130,7 @@ it('menerapkan bebas denda di siklus 1, peringatan wali di siklus 2, dan denda 1
 ### 4.2 Unit Test — Mesin Kalkulasi, Prorata, Denda & Utilitas (`tests/Unit/`)
 - [x] **TST-003 — Unit test utilitas `Money` (pembulatan `BR-32`, format Rupiah, fungsi terbilang Bahasa Indonesia)** · Est 1j · Dep: DB-025 · M.
 - [x] **TST-004 — Unit test `NumberSequence` (format `RSV`, `INV`, `KWT`, reset nomor urut saat berganti bulan/hari, ketahanan transaksi `BR-30`)** · Est 1j · Dep: DB-025 · M.
-- [ ] **TST-005 — Unit test normalisasi nomor WhatsApp (`08xx`, `+62 8xx`, `628xx` → `628xxx`)** · Est 0.5j · Dep: BE-001 · M.
+- [x] **TST-005 — Unit test normalisasi nomor WhatsApp (`08xx`, `+62 8xx`, `628xx` → `628xxx`)** · Est 0.5j · Dep: BE-001 · M.
 - [ ] **TST-006 — Unit test `PriceCalculator` Sewa Harian (`jumlah_malam × tarif_harian`, minimal 1 malam, `BR-05`)** · Est 1j · Dep: BE-019 · M.
 - [ ] **TST-007 — Unit test `PriceCalculator` Sewa Mingguan rolling 7 hari (`start_k`, `end_k`, multi-minggu, `BR-08`)** · Est 1j · Dep: BE-019 · M.
 - [ ] **TST-008 — Unit test `ProrataCalculator` & Bulanan **Opsi 1 (Gabung)** pada bulan 28, 29 (kabisat 2028), 30, dan 31 hari (`BR-13`, `BR-14`)** · Est 2j · Dep: BE-019 · M.
@@ -141,15 +141,15 @@ it('menerapkan bebas denda di siklus 1, peringatan wali di siklus 2, dan denda 1
 - [ ] **TST-013 — Unit test `KeywordMatcher` Chatbot (pencocokan huruf tidak peka kapital, tanda baca, angka menu `1`–`7`, sinonim, dan fallback `MENU`)** · Est 1j · Dep: BE-040 · M.
 
 ### 4.3 Feature Test — Autentikasi, Otorisasi & Keamanan (`tests/Feature/Auth/`)
-- [ ] **TST-014 — Feature test Register manual, Login, Logout, Reset Password, & rate limit 5 percobaan gagal (`FR-AUTH-01`, `FR-AUTH-02`, `FR-AUTH-04`)** · Est 2j · Dep: BE-001 · M.
+- [x] **TST-014 — Feature test Register manual, Login, Logout, Reset Password, & rate limit 5 percobaan gagal (`FR-AUTH-01`, `FR-AUTH-02`, `FR-AUTH-04`)** · Est 2j · Dep: BE-001 · M.
 - [ ] **TST-015 — Feature test Google OAuth callback dengan mock Socialite: buat akun baru vs tautkan email existing tanpa duplikasi + paksa isi WA di `EnsureProfileComplete` (`FR-AUTH-03`, `FR-AUTH-07`)** · Est 2j · Dep: API-003 · M.
-- [ ] **TST-016 — Feature test proteksi `EnsureRole` & redirect per role (`admin`, `penyewa`, `calon_penyewa`) menghasilkan 403 bila menyebrang modul (`FR-AUTH-05`)** · Est 1.5j · Dep: BE-002 · M.
-- [ ] **TST-017 — Feature test keamanan Anti-IDOR pada `ReservationPolicy`, `InvoicePolicy`, `ReceiptPolicy`, dan foto KTP privat (`NFR-01`, `NFR-03`)** · Est 2j · Dep: BE-008, API-029 · M
+- [x] **TST-016 — Feature test proteksi `EnsureRole` & redirect per role (`admin`, `penyewa`, `calon_penyewa`) menghasilkan 403 bila menyebrang modul (`FR-AUTH-05`)** · Est 1.5j · Dep: BE-002 · M.
+- [x] **TST-017 — Feature test keamanan Anti-IDOR pada `ReservationPolicy`, `InvoicePolicy`, `ReceiptPolicy`, dan foto KTP privat (`NFR-01`, `NFR-03`)** · Est 2j · Dep: BE-008, API-029 · M
   - AC: Penyewa A gagal (403) mengakses detail/PDF/Snap token milik Penyewa B; penyewa gagal membuka URL foto KTP penyewa lain.
 
 ### 4.4 Feature Test — Kamar, Ketersediaan & Reservasi (`tests/Feature/Reservation/`)
-- [ ] **TST-018 — Feature test CRUD Tipe Kamar, 32 Kamar, aturan `maintenance`, dan penolakan hapus kamar bertransaksi (`FR-ROOM-01..03`, `BR-25`)** · Est 1.5j · Dep: BE-010 · M.
-- [ ] **TST-019 — Feature test `AvailabilityService` & endpoint `/api/availability`: deteksi akurat irisan tanggal reservasi & lease aktif (`FR-ROOM-04`, `BR-01`)** · Est 2j · Dep: BE-011 · M.
+- [x] **TST-018 — Feature test CRUD Tipe Kamar, 32 Kamar, aturan `maintenance`, dan penolakan hapus kamar bertransaksi (`FR-ROOM-01..03`, `BR-25`)** · Est 1.5j · Dep: BE-010 · M.
+- [x] **TST-019 — Feature test `AvailabilityService` & endpoint `/api/availability`: deteksi akurat irisan tanggal reservasi & lease aktif (`FR-ROOM-04`, `BR-01`)** · Est 2j · Dep: BE-011 · M.
 - [ ] **TST-020 — Feature test Wizard Reservasi Online 5 Langkah end-to-end untuk Harian, Mingguan, dan Bulanan (skema DP & Lunas, Midtrans & Cash) (`FR-RSV-01..03`)** · Est 3j · Dep: BE-027 · M.
 - [ ] **TST-021 — Feature test pencegahan double-booking pada kamar & tanggal yang sama (`BR-01`)** · Est 1.5j · Dep: BE-026 · M.
 - [ ] **TST-022 — Feature test Reservasi Manual oleh Admin + pembuatan akun walk-in hanya nomor WA (`FR-RSV-05`, `FR-AUTH-06`)** · Est 2j · Dep: BE-030 · M.
@@ -171,7 +171,7 @@ it('menerapkan bebas denda di siklus 1, peringatan wali di siklus 2, dan denda 1
 - [ ] **TST-034 — Feature test `FonnteChannel` & fitur Kirim Ulang notifikasi gagal via `Http::fake()` (`FR-NTF-01`, `FR-NTF-02`, `FR-NTF-04`)** · Est 2j · Dep: API-011, BE-039 · M.
 - [ ] **TST-035 — Feature test Webhook Chatbot Fonnte (`POST /webhook/fonnte`): balasan `MENU` & `1`–`7`, pencocokan tagihan penyewa by nomor HP, mode diam 60 menit saat `ADMIN` handover, pengabaian pesan grup, serta 403 saat token salah (`FR-BOT-01..05`)** · Est 2.5j · Dep: API-014 · M.
 - [ ] **TST-036 — Feature test generator DomPDF untuk Nota Reservasi, Invoice, Kwitansi, dan Laporan menghasilkan stream `application/pdf` valid (`%PDF-`) (`FR-PDF-01..03`, `FR-DASH-02`)** · Est 2j · Dep: API-025 · M.
-- [ ] **TST-037 — Feature test CMS 9 modul landing page (CRUD, upload gambar `Storage::fake`, reorder, moderasi testimoni, penyembunyian section kosong di halaman `/`) (`FR-CMS-01..10`, `FR-TNT-03`)** · Est 2.5j · Dep: BE-018 · M.
+- [x] **TST-037 — Feature test CMS 9 modul landing page (CRUD, upload gambar `Storage::fake`, reorder, moderasi testimoni, penyembunyian section kosong di halaman `/`) (`FR-CMS-01..10`, `FR-TNT-03`)** · Est 2.5j · Dep: BE-018 · M.
 - [ ] **TST-038 — Eksekusi penuh `php artisan test --coverage`, pastikan 0 kegagalan & coverage mesin billing ≥ 80%** · Est 1.5j · Dep: TST-003..037 · M (NFR-10).
 
 ---
