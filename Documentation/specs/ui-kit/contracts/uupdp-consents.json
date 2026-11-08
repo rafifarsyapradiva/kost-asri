@@ -1,0 +1,61 @@
+{
+  "version": "v1.0-2026-11",
+  "lawReference": "UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi (Pasal 20, Pasal 21, dan Pasal 22)",
+  "checkboxes": {
+    "consent_privacy_policy": {
+      "field": "consent_privacy_policy",
+      "surface": ["/register", "/reservasi/data-diri"],
+      "defaultChecked": false,
+      "validationRule": "required|accepted",
+      "requiredWhenRentType": ["daily", "weekly", "monthly"],
+      "timestampColumn": "privacy_consented_at",
+      "labelId": "Saya menyatakan telah membaca dan menyetujui Pemberitahuan Privasi ASRI BOARDING HOUSE, termasuk pengumpulan dan pemrosesan nama lengkap, alamat email, serta nomor WhatsApp saya untuk keperluan pembuatan akun, administrasi reservasi kamar, dan pengiriman informasi layanan hunian sesuai UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi."
+    },
+    "consent_identity_ktp": {
+      "field": "consent_identity_ktp",
+      "surface": ["/reservasi/data-diri", "/penyewa/profil"],
+      "defaultChecked": false,
+      "validationRule": "required|accepted",
+      "requiredWhenRentType": ["daily", "weekly", "monthly"],
+      "timestampColumn": "ktp_consented_at",
+      "labelId": "Persetujuan Data Identitas & KTP (UU PDP): Saya secara sadar menyetujui pengumpulan dan penyimpanan Nomor Induk Kependudukan (NIK) dalam bentuk terenkripsi serta Foto KTP saya pada penyimpanan privat terbatas milik ASRI BOARDING HOUSE semata-mata untuk verifikasi identitas penghuni dan keamanan lingkungan kost. Saya memahami bahwa Foto KTP akan dihapus atau dianonimkan secara otomatis 1 (satu) tahun setelah masa sewa berakhir sepanjang tidak terdapat sengketa atau tunggakan kewajiban pembayaran."
+    },
+    "consent_guardian_escalation": {
+      "field": "consent_guardian_escalation",
+      "surface": ["/reservasi/data-diri", "/penyewa/profil"],
+      "defaultChecked": false,
+      "validationRule": "required|accepted",
+      "requiredWhenRentType": ["weekly", "monthly"],
+      "optionalWhenRentType": ["daily"],
+      "timestampColumn": "guardian_escalation_consented_at",
+      "labelId": "Persetujuan Kontak & Pemberitahuan Wali: Saya menyatakan telah memperoleh izin dari Wali/Penanggung Jawab yang saya cantumkan, dan secara eksplisit memberi wewenang kepada pengelola ASRI BOARDING HOUSE untuk menghubungi serta mengirimkan pemberitahuan status tagihan, surat peringatan keterlambatan, rincian denda (10%), dan tautan pembayaran terbatas kepada Wali melalui WhatsApp dan Email apabila terjadi keterlambatan pembayaran sewa melewati batas jatuh tempo sesuai ketentuan kost yang berlaku (peringatan pada keterlambatan siklus bulanan ke-2, serta pengenaan denda 10% mulai siklus bulanan ke-3+ atau melewati toleransi H+1 pada sewa mingguan) maupun dalam keadaan darurat penghuni."
+    }
+  },
+  "privacyNoticeSummary": [
+    {
+      "no": 1,
+      "title": "Identitas Pengendali Data Pribadi",
+      "detail": "Pengelola ASRI BOARDING HOUSE, berlokasi di kawasan Tembalang, Kota Semarang, Jawa Tengah."
+    },
+    {
+      "no": 2,
+      "title": "Dasar Hukum & Tujuan Pemrosesan",
+      "detail": "Pelaksanaan perjanjian sewa kamar, verifikasi identitas saat Check-in, penagihan berkala, penerbitan kwitansi resmi, serta komunikasi darurat atau eskalasi keterlambatan kepada Wali."
+    },
+    {
+      "no": 3,
+      "title": "Jenis Data & Pengamanan Teknis",
+      "detail": "NIK disimpan terenkripsi AES-256 disertai hash satu arah; Foto KTP di-re-encode tanpa metadata EXIF ke penyimpanan privat non-publik ber-UUID yang hanya dapat diakses melalui otorisasi ketat."
+    },
+    {
+      "no": 4,
+      "title": "Masa Retensi & Penghapusan Data",
+      "detail": "Foto KTP dihapus atau dianonimkan otomatis 1 (satu) tahun setelah masa sewa berakhir lunas; arsip transaksi keuangan (invoice dan kwitansi) disimpan minimal 5 (lima) tahun sesuai ketentuan pembukuan."
+    },
+    {
+      "no": 5,
+      "title": "Hak Subjek Data Pribadi",
+      "detail": "Penghuni berhak mengakses, memperbaiki pembaruan data profil/kontak Wali melalui halaman profil penyewa, serta mengajukan penarikan persetujuan setelah seluruh perikatan dan kewajiban sewa berakhir."
+    }
+  ]
+}
