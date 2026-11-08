@@ -95,6 +95,8 @@ class SiteSettingController extends Controller
             ], 'updated_at' => now()]
         );
 
+        \Illuminate\Support\Facades\Cache::forget('landing.aggregated_content');
+
         return back()->with('success', 'Pengaturan situs landing page berhasil diperbarui.');
     }
 }

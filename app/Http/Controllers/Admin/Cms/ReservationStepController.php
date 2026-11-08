@@ -32,12 +32,13 @@ class ReservationStepController extends Controller
         $validated = $request->validate([
             'step_number' => ['required', 'integer', 'min:1'],
             'title' => ['required', 'string', 'max:100'],
-            'description' => ['nullable', 'string', 'max:255'],
+            'description' => ['required', 'string'],
             'icon' => ['nullable', 'string', 'max:50'],
             'is_published' => ['nullable', 'boolean'],
             'sort_order' => ['nullable', 'integer'],
         ]);
 
+        $validated['icon'] ??= 'check';
         $validated['sort_order'] ??= $validated['step_number'];
         $validated['is_published'] = $validated['is_published'] ?? true;
 
@@ -51,12 +52,13 @@ class ReservationStepController extends Controller
         $validated = $request->validate([
             'step_number' => ['required', 'integer', 'min:1'],
             'title' => ['required', 'string', 'max:100'],
-            'description' => ['nullable', 'string', 'max:255'],
+            'description' => ['required', 'string'],
             'icon' => ['nullable', 'string', 'max:50'],
             'is_published' => ['nullable', 'boolean'],
             'sort_order' => ['nullable', 'integer'],
         ]);
 
+        $validated['icon'] ??= 'check';
         $step->update($validated);
 
         return redirect()->route('admin.cms.steps.index')->with('success', 'Langkah reservasi berhasil diperbarui.');

@@ -19,7 +19,7 @@ class RoomTypeFactory extends Factory
     {
         return [
             'name' => 'Kamar Standard',
-            'slug' => 'kamar-standard-' . fake()->unique()->slug(),
+            'slug' => 'kamar-standard-' . fake()->unique()->lexify('??????'),
             'room_class' => RoomClass::Standard,
             'daily_rate' => 60_000,
             'weekly_rate' => 300_000,

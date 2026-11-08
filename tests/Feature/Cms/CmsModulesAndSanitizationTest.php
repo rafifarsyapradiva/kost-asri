@@ -9,14 +9,15 @@ use App\Models\Video;
 use App\Support\HtmlSanitizer;
 
 it('sanitizes rich text CMS input removing scripts and event handlers (SEC-014)', function () {
-    $dirty = '<p>Pertanyaan aman <script>alert("hack")</script> <a href="javascript:steal()">link</a> <b onclick="evil()">bold</b></p>';
+    $dirty = '<p>Pertanyaan aman <script>alert("hack")</script> <a href="javascript:steal()">link</a> <a href=javascript:evil()>unquoted</a> <b onclick="evil()">bold</b></p>';
     $clean = HtmlSanitizer::clean($dirty);
 
     expect($clean)->not->toContain('<script>')
         ->and($clean)->not->toContain('javascript:')
         ->and($clean)->not->toContain('onclick')
         ->and($clean)->toContain('<p>Pertanyaan aman')
-        ->and($clean)->toContain('bold');
+        ->and($clean)->toContain('bold')
+        ->and($clean)->toContain('href="#"');
 });
 
 it('allows active tenant to submit testimonial and admin to moderate it (BE-016, FR-TNT-03, FR-CMS-06)', function () {

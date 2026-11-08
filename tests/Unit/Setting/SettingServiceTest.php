@@ -17,5 +17,6 @@ it('retrieves cached settings and auto-flushes on update (BE-006)', function () 
         ->and(setting('test_tax'))->toBe(10);
 
     $service->set('test_tax', 12, 'int');
-    expect($service->get('test_tax'))->toBe(12);
+    expect($service->get('test_tax'))->toBe(12)
+        ->and($service->all()['test_tax'])->toBe(12);
 });

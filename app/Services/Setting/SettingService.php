@@ -47,6 +47,7 @@ class SettingService
         }
 
         Cache::forget("settings.{$key}");
+        Cache::forget('settings.__all__');
     }
 
     /**

@@ -1,7 +1,7 @@
 @extends('public.layouts.base')
 
-@section('title', ($settings['kost_name'] ?? 'ASRI Boarding House') . ' — Tembalang, Semarang')
-@section('meta_description', $settings['kost_tagline'] ?? 'Hunian kost asri 32 kamar di Tembalang, dekat kampus UNDIP Semarang.')
+@section('title', $siteSettings['seo']['meta_title'] ?? (($settings['kost_name'] ?? 'ASRI Boarding House') . ' — Tembalang, Semarang'))
+@section('meta_description', $siteSettings['seo']['meta_description'] ?? ($settings['kost_tagline'] ?? 'Hunian kost asri 32 kamar di Tembalang, dekat kampus UNDIP Semarang.'))
 
 @section('content')
 <main class="min-h-screen">
@@ -223,9 +223,9 @@
                         <h3 class="font-bold text-forest-900 text-base mt-0.5">{{ $place->name }}</h3>
                     </div>
                     <div class="text-right">
-                        <span class="num text-sm font-bold text-terracotta-600">{{ $place->distance_meters }} m</span>
-                        @if($place->drive_minutes)
-                            <p class="num text-xs text-ink-500">~{{ $place->drive_minutes }} menit</p>
+                        <span class="num text-sm font-bold text-terracotta-600">{{ $place->distance_text }}</span>
+                        @if($place->travel_minutes)
+                            <p class="num text-xs text-ink-500">~{{ $place->travel_minutes }} menit</p>
                         @endif
                     </div>
                 </div>
@@ -262,5 +262,79 @@
         </div>
     </section>
     @endif
+    {{-- About Us Section (FR-CMS-08) --}}
+    @if(!empty($siteSettings['about_us']) && (!empty($siteSettings['about_us']['about_title']) || !empty($siteSettings['about_us']['about_body'])))
+    <section class="py-16 px-6 sm:px-12 max-w-6xl mx-auto">
+        <div class="flex flex-col md:flex-row items-center gap-10">
+            @if(!empty($siteSettings['about_us']['about_image']))
+                <div class="w-full md:w-1/2 rounded-2xl overflow-hidden shadow-md">
+                    <img src="{{ asset('storage/' . $siteSettings['about_us']['about_image']) }}" alt="{{ $siteSettings['about_us']['about_title'] ?? 'Tentang ASRI' }}" class="w-full h-80 object-cover">
+                </div>
+            @endif
+            <div class="w-full {{ !empty($siteSettings['about_us']['about_image']) ? 'md:w-1/2' : '' }}">
+                <span class="text-xs uppercase font-bold tracking-wider text-forest-700">Tentang Hunian</span>
+                <h2 class="text-3xl font-bold text-forest-900 mt-2">{{ $siteSettings['about_us']['about_title'] ?? 'Tentang ASRI Boarding House' }}</h2>
+                <div class="mt-4 text-ink-700 leading-relaxed text-sm prose">
+                    {!! nl2br(e($siteSettings['about_us']['about_body'] ?? '')) !!}
+                </div>
+            </div>
+        </div>
+    </section>
+    @endif
+
+    {{-- Location & Contact Section (FR-CMS-09) --}}
+    @if(!empty($siteSettings['location']) && (!empty($siteSettings['location']['address']) || !empty($siteSettings['location']['google_maps_embed'])))
+    <section class="py-16 px-6 sm:px-12 bg-cream-100/70">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <h2 class="text-3xl font-bold text-forest-900">Lokasi & Kontak</h2>
+                <p class="mt-2 text-ink-600">Akses mudah di kawasan Tembalang, dekat dengan pusat aktivitas Anda.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-2xl border border-line-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-forest-900 text-lg mb-4">Informasi Alamat & Operasional</h3>
+                        <div class="space-y-4 text-sm text-ink-700">
+                            <div>
+                                <span class="font-semibold block text-forest-800">Alamat:</span>
+                                <span>{{ $siteSettings['location']['address'] ?? 'Tembalang, Semarang' }}</span>
+                            </div>
+                            @if(!empty($siteSettings['location']['operating_hours']))
+                                <div>
+                                    <span class="font-semibold block text-forest-800">Jam Operasional:</span>
+                                    <span>{{ $siteSettings['location']['operating_hours'] }}</span>
+                                </div>
+                            @endif
+                            @if(!empty($siteSettings['location']['phone']))
+                                <div>
+                                    <span class="font-semibold block text-forest-800">Telepon / WhatsApp:</span>
+                                    <span class="num">{{ $siteSettings['location']['phone'] }}</span>
+                                </div>
+                            @endif
+                            @if(!empty($siteSettings['location']['email']))
+                                <div>
+                                    <span class="font-semibold block text-forest-800">Email:</span>
+                                    <span>{{ $siteSettings['location']['email'] }}</span>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="rounded-2xl overflow-hidden border border-line-200 bg-white shadow-sm min-h-[280px]">
+                    @if(!empty($siteSettings['location']['google_maps_embed']))
+                        <div class="w-full h-full min-h-[280px]">
+                            {!! $siteSettings['location']['google_maps_embed'] !!}
+                        </div>
+                    @else
+                        <div class="w-full h-full flex items-center justify-center bg-forest-50 text-forest-700 text-sm font-medium p-6">
+                            Peta Google Maps
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </section>
+    @endif
 </main>
 @endsection
+

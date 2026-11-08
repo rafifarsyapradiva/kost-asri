@@ -33,7 +33,7 @@ class NearbyPlaceController extends Controller
             'name' => ['required', 'string', 'max:150'],
             'category' => ['required', 'string', 'max:50'],
             'distance_text' => ['required', 'string', 'max:50'],
-            'map_url' => ['nullable', 'string', 'url'],
+            'travel_minutes' => ['nullable', 'integer', 'min:0'],
             'is_published' => ['nullable', 'boolean'],
             'sort_order' => ['nullable', 'integer'],
         ]);
@@ -52,7 +52,7 @@ class NearbyPlaceController extends Controller
             'name' => ['required', 'string', 'max:150'],
             'category' => ['required', 'string', 'max:50'],
             'distance_text' => ['required', 'string', 'max:50'],
-            'map_url' => ['nullable', 'string', 'url'],
+            'travel_minutes' => ['nullable', 'integer', 'min:0'],
             'is_published' => ['nullable', 'boolean'],
             'sort_order' => ['nullable', 'integer'],
         ]);

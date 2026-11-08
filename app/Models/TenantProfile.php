@@ -80,7 +80,7 @@ class TenantProfile extends Model
     protected function guardianPhone(): Attribute
     {
         return Attribute::make(
-            set: fn (?string $value): ?string => \App\Support\PhoneNormalizer::normalize($value) ?? ($value ? preg_replace('/[^0-9]/', '', $value) : null)
+            set: fn (?string $value): ?string => \App\Support\PhoneNormalizer::normalize($value) ?? ($value ? (preg_replace('/[^0-9]/', '', $value) ?: null) : null)
         );
     }
 

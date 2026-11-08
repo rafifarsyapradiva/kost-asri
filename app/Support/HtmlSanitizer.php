@@ -29,8 +29,12 @@ class HtmlSanitizer
         // 3. Remove inline JavaScript event handlers (e.g. onclick, onerror, onload)
         $noEvents = preg_replace('/\s*on[a-zA-Z]+\s*=\s*(["\'][^"\']*["\']|[^\s>]+)/i', '', $stripped) ?? '';
 
-        // 4. Remove javascript: and data: protocol in links
-        $noDangerousProtocols = preg_replace('/href\s*=\s*["\']\s*(javascript|data|vbscript):[^"\']*["\']/i', 'href="#"', $noEvents) ?? '';
+        // 4. Remove javascript:, data:, and vbscript: protocols (quoted or unquoted)
+        $noDangerousProtocols = preg_replace(
+            '/\b(href|src)\s*=\s*(["\']?)\s*(javascript|data|vbscript):[^\s>"\']*\2?/i',
+            '$1="#"',
+            $noEvents
+        ) ?? '';
 
         return trim($noDangerousProtocols);
     }

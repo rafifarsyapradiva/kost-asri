@@ -11,10 +11,12 @@ use App\Models\Gallery;
 use App\Models\NearbyPlace;
 use App\Models\ReservationStep;
 use App\Models\RoomType;
+use App\Models\SiteSetting;
 use App\Models\Testimonial;
 use App\Models\Video;
 use App\Services\Setting\SettingService;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Cache;
 
 class LandingController extends Controller
 {
@@ -28,30 +30,26 @@ class LandingController extends Controller
      */
     public function index(): View
     {
-        $facilities = Facility::publishedOrdered()->get();
-        $roomTypes = RoomType::where('is_published', true)
-            ->orderBy('sort_order')
-            ->with('images')
-            ->get();
-        $videos = Video::publishedOrdered()->get();
-        $galleries = Gallery::publishedOrdered()->get();
-        $steps = ReservationStep::publishedOrdered()->get();
-        $testimonials = Testimonial::publishedOrdered()->get();
-        $faqs = Faq::publishedOrdered()->get();
-        $nearbyPlaces = NearbyPlace::publishedOrdered()->get();
+        $cmsData = Cache::remember('landing.aggregated_content', 3600, function (): array {
+            return [
+                'facilities' => Facility::publishedOrdered()->get(),
+                'roomTypes' => RoomType::where('is_published', true)
+                    ->orderBy('sort_order')
+                    ->with('images')
+                    ->get(),
+                'videos' => Video::publishedOrdered()->get(),
+                'galleries' => Gallery::publishedOrdered()->get(),
+                'steps' => ReservationStep::publishedOrdered()->get(),
+                'testimonials' => Testimonial::publishedOrdered()->get(),
+                'faqs' => Faq::publishedOrdered()->get(),
+                'nearbyPlaces' => NearbyPlace::publishedOrdered()->get(),
+                'siteSettings' => SiteSetting::all()->pluck('value', 'key')->toArray(),
+            ];
+        });
+
         $settings = $this->settingService->all();
 
-        return view('public.welcome', compact(
-            'facilities',
-            'roomTypes',
-            'videos',
-            'galleries',
-            'steps',
-            'testimonials',
-            'faqs',
-            'nearbyPlaces',
-            'settings',
-        ));
+        return view('public.welcome', array_merge($cmsData, ['settings' => $settings]));
     }
 
     /**
