@@ -201,12 +201,12 @@ Selain route halaman Inertia/Blade pada Blueprint §7, berikut kontrak endpoint 
 - [x] **API-019 — Listener `LogSentEmail` & `LogFailedEmail` ke `notification_logs` + mekanisme fallback saat WA gagal** · Est 1.5j · Dep: API-017, DB-023 · M (FR-NTF-04).
 
 ### 5.5 DomPDF — Nota, Invoice, Kwitansi & Laporan
-- [ ] **API-020 — Implementasi `PdfService` dasar + helper embed logo Base64 & CSS cetak `tabular-nums`** · Est 1.5j · Dep: SET-016 · M.
-- [ ] **API-021 — View Blade & generator **Nota Reservasi PDF** (`resources/views/pdf/reservation-note.blade.php`)** · Est 2j · Dep: API-020, DSN-037 · M (FR-PDF-01).
-- [ ] **API-022 — View Blade & generator **Invoice PDF** (`resources/views/pdf/invoice.blade.php`)** · Est 2j · Dep: API-020, DSN-038 · M (FR-PDF-02).
-- [ ] **API-023 — View Blade & generator **Kwitansi Pembayaran PDF** lengkap teks terbilang & cap LUNAS (`resources/views/pdf/receipt.blade.php`)** · Est 2j · Dep: API-020, DSN-039, DB-025 · M (FR-PDF-03).
-- [ ] **API-024 — View Blade & generator **Laporan Pendapatan / Tunggakan / Okupansi PDF** (`resources/views/pdf/report.blade.php`)** · Est 2j · Dep: API-020, DSN-042, BE-048 · M (FR-DASH-02).
-- [ ] **API-025 — Controller unduh/stream PDF berotorisasi Policy (`ReservationPdfController`, `InvoicePdfController`, `ReceiptPdfController`) + lampiran otomatis ke Email** · Est 1.5j · Dep: API-021..023, BE-008 · M.
+- [x] **API-020 — Implementasi `PdfService` dasar + helper embed logo Base64 & CSS cetak `tabular-nums`** · Est 1.5j · Dep: SET-016 · M.
+- [x] **API-021 — View Blade & generator **Nota Reservasi PDF** (`resources/views/pdf/reservation-note.blade.php`)** · Est 2j · Dep: API-020, DSN-037 · M (FR-PDF-01).
+- [x] **API-022 — View Blade & generator **Invoice PDF** (`resources/views/pdf/invoice.blade.php`)** · Est 2j · Dep: API-020, DSN-038 · M (FR-PDF-02).
+- [x] **API-023 — View Blade & generator **Kwitansi Pembayaran PDF** lengkap teks terbilang & cap LUNAS (`resources/views/pdf/receipt.blade.php`)** · Est 2j · Dep: API-020, DSN-039, DB-025 · M (FR-PDF-03).
+- [x] **API-024 — View Blade & generator **Laporan Pendapatan / Tunggakan / Okupansi PDF** (`resources/views/pdf/report.blade.php`)** · Est 2j · Dep: API-020, DSN-042, BE-048 · M (FR-DASH-02).
+- [x] **API-025 — Controller unduh/stream PDF berotorisasi Policy (`ReservationPdfController`, `InvoicePdfController`, `ReceiptPdfController`) + lampiran otomatis ke Email** · Est 1.5j · Dep: API-021..023, BE-008 · M.
 
 ### 5.6 Cronjob / Scheduler & Endpoint JSON Internal
 - [ ] **API-026 — Daftarkan seluruh 9 jadwal command di `routes/console.php` dengan `withoutOverlapping()` & logging output** · Est 1j · Dep: BE-042..044, API-008, DB-039 · M (FR-CRON-01..07).

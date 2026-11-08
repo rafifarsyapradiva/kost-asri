@@ -3,9 +3,12 @@
 declare(strict_types=1);
 
 use App\Http\Controllers\Account\InvoicePaymentController;
+use App\Http\Controllers\Account\InvoicePdfController;
 use App\Http\Controllers\Account\KtpPhotoController;
 use App\Http\Controllers\Account\ProfileCompletionController;
+use App\Http\Controllers\Account\ReceiptPdfController;
 use App\Http\Controllers\Account\ReservationController as AccountReservationController;
+use App\Http\Controllers\Account\ReservationPdfController;
 use App\Http\Controllers\Account\TenantProfileController;
 use App\Http\Controllers\Admin\Cms\FacilityController;
 use App\Http\Controllers\Admin\Cms\FaqController;
@@ -22,6 +25,7 @@ use App\Http\Controllers\Admin\InvoiceAdjustmentController;
 use App\Http\Controllers\Admin\LeaseController;
 use App\Http\Controllers\Admin\NotificationLogController as AdminNotificationLogController;
 use App\Http\Controllers\Admin\PaymentController as AdminPaymentController;
+use App\Http\Controllers\Admin\ReportPdfController;
 use App\Http\Controllers\Admin\ReservationController as AdminReservationController;
 use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\RoomMapController;
@@ -137,16 +141,20 @@ Route::middleware('auth')->group(function (): void {
         ->middleware('role:penyewa')
         ->name('tenant.testimonial.store');
 
-    // Anti-IDOR protected resource routes (BE-008, SEC-008, TST-017)
+    // Anti-IDOR protected resource routes (BE-008, SEC-008, TST-017, API-021..023)
     Route::post('/invoices/{invoice}/snap-token', [InvoicePaymentController::class, 'snapToken'])
         ->middleware('can:view,invoice')
         ->name('invoices.snap-token');
 
-    Route::get('/invoices/{invoice}/pdf', fn () => response('%PDF-stub', 200, ['Content-Type' => 'application/pdf']))
+    Route::get('/reservations/{reservation:code}/pdf', ReservationPdfController::class)
+        ->middleware('can:view,reservation')
+        ->name('reservations.pdf');
+
+    Route::get('/invoices/{invoice}/pdf', InvoicePdfController::class)
         ->middleware('can:view,invoice')
         ->name('invoices.pdf');
 
-    Route::get('/receipts/{receipt}/pdf', fn () => response('%PDF-stub', 200, ['Content-Type' => 'application/pdf']))
+    Route::get('/receipts/{receipt}/pdf', ReceiptPdfController::class)
         ->middleware('can:view,receipt')
         ->name('receipts.pdf');
 
@@ -164,6 +172,7 @@ Route::middleware('auth')->group(function (): void {
         // Admin Payments & Front-Desk Cash Recording (BE-036, FR-PAY-03)
         Route::get('/payments', [AdminPaymentController::class, 'index'])->name('payments.index');
         Route::post('/invoices/{invoice}/cash', [AdminPaymentController::class, 'recordCash'])->name('invoices.cash');
+        Route::get('/reports/pdf', ReportPdfController::class)->name('reports.pdf');
 
         // Invoice Adjustment, Void, & Waive Penalty (BE-025, FR-BILL-07, FR-PEN-04)
         Route::post('/invoices/{invoice}/items', [InvoiceAdjustmentController::class, 'addItem'])->name('invoices.items.add');
