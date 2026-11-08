@@ -2,7 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Account\KtpPhotoController;
 use App\Http\Controllers\Account\ProfileCompletionController;
+use App\Http\Controllers\Account\TenantProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\NewPasswordController;
@@ -55,6 +57,24 @@ Route::middleware('auth')->group(function (): void {
     Route::get('/akun/reservasi-saya', fn () => response()->json(['module' => 'prospect']))
         ->middleware('role:calon_penyewa,penyewa')
         ->name('account.reservations');
+
+    // Profile & Private KTP Photo (BE-005, SEC-010, TST-017)
+    Route::get('/akun/profil', [TenantProfileController::class, 'show'])->name('account.profile');
+    Route::post('/akun/profil', [TenantProfileController::class, 'store']);
+    Route::get('/private/ktp/{tenantProfile}', [KtpPhotoController::class, 'show'])->name('account.ktp.show');
+
+    // Anti-IDOR protected resource routes (BE-008, SEC-008, TST-017)
+    Route::get('/reservasi/{reservation:code}/selesai', fn () => response()->json(['status' => 'completed']))
+        ->middleware('can:view,reservation')
+        ->name('reservation.completed');
+
+    Route::get('/invoices/{invoice}/pdf', fn () => response('%PDF-stub', 200, ['Content-Type' => 'application/pdf']))
+        ->middleware('can:view,invoice')
+        ->name('invoices.pdf');
+
+    Route::get('/receipts/{receipt}/pdf', fn () => response('%PDF-stub', 200, ['Content-Type' => 'application/pdf']))
+        ->middleware('can:view,receipt')
+        ->name('receipts.pdf');
 
     // Reservation payment step requiring completed profile
     Route::get('/reservasi/pembayaran', fn () => response()->json(['step' => 'payment']))
