@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\Account\ProfileCompletionController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\NewPasswordController;
@@ -38,8 +39,25 @@ Route::middleware('auth')->group(function (): void {
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
-    // Stubs for role destinations
-    Route::get('/admin/dashboard', fn () => response()->json(['module' => 'admin']))->name('admin.dashboard');
-    Route::get('/penyewa/dashboard', fn () => response()->json(['module' => 'tenant']))->name('tenant.dashboard');
-    Route::get('/akun/reservasi-saya', fn () => response()->json(['module' => 'prospect']))->name('account.reservations');
+    // Profile Completion (FR-AUTH-07, BE-003)
+    Route::get('/akun/lengkapi-profil', [ProfileCompletionController::class, 'show'])->name('account.profile.complete');
+    Route::post('/akun/lengkapi-profil', [ProfileCompletionController::class, 'update']);
+
+    // Role-protected dashboards
+    Route::get('/admin/dashboard', fn () => response()->json(['module' => 'admin']))
+        ->middleware('role:admin')
+        ->name('admin.dashboard');
+
+    Route::get('/penyewa/dashboard', fn () => response()->json(['module' => 'tenant']))
+        ->middleware('role:penyewa')
+        ->name('tenant.dashboard');
+
+    Route::get('/akun/reservasi-saya', fn () => response()->json(['module' => 'prospect']))
+        ->middleware('role:calon_penyewa,penyewa')
+        ->name('account.reservations');
+
+    // Reservation payment step requiring completed profile
+    Route::get('/reservasi/pembayaran', fn () => response()->json(['step' => 'payment']))
+        ->middleware('profile.complete')
+        ->name('reservation.payment');
 });

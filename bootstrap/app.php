@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Http\Middleware\EnsureProfileComplete;
+use App\Http\Middleware\EnsureRole;
 use App\Http\Middleware\HandleInertiaRequests;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -20,6 +22,16 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->web(append: [
             HandleInertiaRequests::class,
+        ]);
+
+        $middleware->redirectTo(
+            guests: '/login',
+            users: fn () => \App\Http\Controllers\Auth\AuthenticatedSessionController::getDashboardUrl(auth()->user()),
+        );
+
+        $middleware->alias([
+            'role' => EnsureRole::class,
+            'profile.complete' => EnsureProfileComplete::class,
         ]);
 
         $middleware->validateCsrfTokens(except: [
