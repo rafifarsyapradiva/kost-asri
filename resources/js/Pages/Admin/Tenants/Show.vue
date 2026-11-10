@@ -1,13 +1,18 @@
 <script setup>
+import { ref } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import BentoCard from '@/Components/BentoCard.vue';
 import StatusBadge from '@/Components/StatusBadge.vue';
 import RupiahText from '@/Components/RupiahText.vue';
+import Modal from '@/Components/Modal.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
 
-defineProps({
+const props = defineProps({
     tenant: Object,
 });
+
+const showKtpModal = ref(false);
 </script>
 
 <template>
@@ -40,6 +45,15 @@ defineProps({
                         <div class="flex justify-between py-2 border-b border-line-100">
                             <span class="text-ink-500">NIK (Masked)</span>
                             <span class="num font-semibold text-ink-900">{{ tenant.tenant_profile?.nik_masked || 'Belum diisi' }}</span>
+                        </div>
+                        <div v-if="tenant.tenant_profile?.id" class="pt-2 flex justify-end">
+                            <button
+                                type="button"
+                                @click="showKtpModal = true"
+                                class="px-3 py-1.5 rounded-lg border border-forest-800 bg-forest-50 text-forest-900 font-bold hover:bg-forest-100 transition shadow-2xs"
+                            >
+                                🔒 Lihat Dokumen KTP (Privat)
+                            </button>
                         </div>
                     </div>
                 </BentoCard>
@@ -99,6 +113,38 @@ defineProps({
                 </div>
             </BentoCard>
         </div>
+
+        <!-- Private KTP Photo Modal -->
+        <Modal :show="showKtpModal" @close="showKtpModal = false">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-3 border-b border-line-200 pb-3">
+                    <h3 class="text-base font-bold text-forest-900">Dokumen KTP: {{ tenant.name }}</h3>
+                    <span class="text-[11px] font-semibold text-danger-700 bg-red-50 px-2.5 py-1 rounded-md border border-red-200">
+                        UU PDP Terlindungi
+                    </span>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="rounded-xl border border-line-200 bg-slate-100 overflow-hidden flex items-center justify-center p-2 min-h-60">
+                        <img
+                            v-if="tenant.tenant_profile?.id"
+                            :src="`/admin/tenants/${tenant.tenant_profile.id}/ktp`"
+                            alt="Foto KTP Pribadi"
+                            class="max-h-96 w-auto object-contain rounded-lg shadow-xs"
+                            @error="(e) => e.target.parentElement.innerHTML = '<span class=\'text-xs text-ink-500 py-10\'>Foto KTP belum diunggah atau tidak tersedia di disk privat.</span>'"
+                        />
+                    </div>
+
+                    <div class="p-3 bg-amber-50 border border-amber-200 rounded-xl text-[11px] text-amber-900 leading-relaxed">
+                        Dokumen ini disimpan terenkripsi di disk privat <code>storage/app/private/ktp/</code>. Akses diaudit secara ketat dan dilarang untuk disebarluaskan ke pihak ketiga.
+                    </div>
+
+                    <div class="flex justify-end pt-2">
+                        <SecondaryButton @click="showKtpModal = false">Tutup Viewer</SecondaryButton>
+                    </div>
+                </div>
+            </div>
+        </Modal>
     </AdminLayout>
 </template>
 

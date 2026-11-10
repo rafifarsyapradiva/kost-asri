@@ -34,6 +34,18 @@ const props = defineProps({
 
 const { formatRupiah } = useRupiah();
 const { formatDate, fromNow } = useDateId();
+
+const formatCronTitle = (key) => {
+    const titles = {
+        generate_monthly: 'Tagihan Bulanan',
+        generate_weekly: 'Tagihan Mingguan',
+        apply_penalties: 'Kalkulasi Denda',
+        notify_reminders: 'Pengingat WA/Email',
+        expire_reservations: 'Hold 24 Jam',
+        checkout_reminder: 'Pengingat Check-out',
+    };
+    return titles[key] || String(key).replace('_', ' ');
+};
 </script>
 
 <template>
@@ -213,11 +225,11 @@ const { formatDate, fromNow } = useDateId();
                             <div>
                                 <p class="font-bold text-forest-900">{{ inv.tenant?.name || 'Penyewa' }}</p>
                                 <p class="text-[11px] text-ink-500">
-                                    {{ inv.invoice_number }} • Jatuh Tempo: <span class="num font-semibold">{{ formatDate(inv.due_date) }}</span>
+                                    {{ inv.number || inv.invoice_number }} • Jatuh Tempo: <span class="num font-semibold">{{ formatDate(inv.due_date) }}</span>
                                 </p>
                             </div>
                             <div class="text-right">
-                                <RupiahText :amount="inv.total_amount - inv.paid_amount" class="text-sm font-bold text-danger-700 block" />
+                                <RupiahText :amount="(inv.total ?? inv.total_amount ?? 0) - (inv.paid_amount ?? 0)" class="text-sm font-bold text-danger-700 block" />
                                 <StatusBadge :status="inv.status" class="mt-0.5" />
                             </div>
                         </div>
@@ -256,22 +268,22 @@ const { formatDate, fromNow } = useDateId();
             <!-- Bento Row 4: Status Kesehatan Cronjob Otomatis -->
             <BentoCard
                 title="Lampu Pemantauan Cronjob Otomatis"
-                subtitle="Status eksekusi 7 command scheduler Laravel"
+                subtitle="Status eksekusi 7 command scheduler otomatis Laravel (WIB)"
             >
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
                     <div
                         v-for="(timestamp, key) in cron_health"
                         :key="key"
-                        class="p-3 rounded-xl border border-line-200 bg-slate-50/50"
+                        class="p-3 rounded-xl border border-line-200 bg-slate-50/50 hover:bg-white transition shadow-2xs"
                     >
                         <div class="flex items-center gap-1.5 mb-1">
-                            <span :class="['h-2 w-2 rounded-full', timestamp ? 'bg-green-500' : 'bg-yellow-500']"></span>
-                            <span class="text-[10px] font-bold uppercase tracking-wider text-ink-700 truncate">
-                                {{ key.replace('_', ' ') }}
+                            <span :class="['h-2 w-2 rounded-full shrink-0 animate-pulse', timestamp ? 'bg-emerald-500' : 'bg-amber-500']"></span>
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-forest-900 truncate" :title="String(key)">
+                                {{ formatCronTitle(key) }}
                             </span>
                         </div>
                         <p class="num text-[11px] font-medium text-ink-600 truncate">
-                            {{ timestamp ? fromNow(timestamp) : 'Belum jalan' }}
+                            {{ timestamp ? fromNow(timestamp) : 'Belum dieksekusi' }}
                         </p>
                     </div>
                 </div>

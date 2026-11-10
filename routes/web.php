@@ -189,6 +189,8 @@ Route::middleware('auth')->group(function (): void {
 
         // Admin Manual Reservations (BE-030, FR-RSV-05)
         Route::get('/reservations', [AdminReservationController::class, 'index'])->name('reservations.index');
+        Route::get('/reservations/create', [AdminReservationController::class, 'create'])->name('reservations.create');
+        Route::get('/reservations/{reservation}', [AdminReservationController::class, 'show'])->name('reservations.show');
         Route::post('/reservations', [AdminReservationController::class, 'store'])->name('reservations.store');
 
         // Admin Payments & Front-Desk Cash Recording (BE-036, FR-PAY-03)

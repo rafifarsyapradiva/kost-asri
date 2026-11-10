@@ -98,37 +98,37 @@ Seluruh komponen wajib memetakan nilai Enum dari backend ke token desain di `res
 - [x] **FE-023 — **Langkah 5 (`Step5Done.vue`)**: status reservasi & pembayaran real-time, countdown hold 24 jam (bila belum lunas/cash), tombol unduh Nota PDF, & panduan jam check-in** · Est 2.5j · Dep: FE-022, API-025 · M (FR-RSV-01, FR-PDF-01).
 
 ### 4.5 Dashboard Admin ERP — Clean Bento Grid (`/admin/*`)
-- [ ] **FE-024 — `Admin/Dashboard.vue`: susunan Bento Grid KPI (okupansi %, ringkasan 32 kamar per status, pendapatan bulan ini, tunggakan, jadwal check-in/out hari ini, tagihan jatuh tempo, reservasi terbaru, lampu status cronjob)** · Est 4j · Dep: FE-005, BE-045, DSN-031 · M (FR-DASH-01).
-- [ ] **FE-025 — `Admin/Rooms/Map.vue`: Denah Operasional 2 Lantai layar penuh + `SlideOverDrawer` detail kamar (penghuni, kontak wali, status invoice, shortcut check-in/out/catat cash/set maintenance)** · Est 3.5j · Dep: FE-006, BE-012, DSN-032 · M (FR-ROOM-03).
-- [ ] **FE-026 — `Admin/RoomTypes/` & `Admin/Rooms/Index.vue`: CRUD tipe kamar (tarif + multi-foto) & CRUD daftar 32 kamar** · Est 3.5j · Dep: FE-005, BE-009, BE-010 · M (FR-ROOM-01, FR-ROOM-02).
-- [ ] **FE-027 — `Admin/Reservations/Index.vue` & `Show.vue`: filter daftar reservasi, detail rincian biaya, modal **Check-in** (validasi pelunasan 100% + kelengkapan wali, bisa sekalian terima pelunasan cash)** · Est 4j · Dep: FE-005, BE-030, BE-031 · M (FR-RSV-06).
-- [ ] **FE-028 — `Admin/Reservations/Create.vue`: form Reservasi Manual Walk-in (pilih/buat penyewa baru cepat, pilih kamar dari mini-denah, hitung prorata/DP, catat cash atau kirim link WA Midtrans)** · Est 4j · Dep: FE-006, BE-030 · M (FR-RSV-05, FR-AUTH-06).
-- [ ] **FE-029 — `Admin/Leases/Index.vue` & modal **Check-out** (validasi bebas tunggakan atau override ber-catatan) + perpanjangan manual admin** · Est 3j · Dep: FE-005, BE-032 · M (FR-RSV-07, FR-RSV-09).
-- [ ] **FE-030 — `Admin/Tenants/Index.vue` & `Show.vue`: direktori penyewa aktif/alumni, informasi wali, viewer modal foto KTP privat, riwayat kontrak & tagihan** · Est 3j · Dep: FE-005, BE-046, API-029 · M (FR-DASH-06).
-- [ ] **FE-031 — `Admin/Invoices/Index.vue` & `Show.vue`: daftar tagihan ber-filter, badge siklus ke-n, riwayat eskalasi denda, modal tambah item/diskon, modal `Void` invoice, modal `Waive` denda ber-alasan, cetak PDF** · Est 4.5j · Dep: FE-005, BE-025, BE-047 · M (FR-BILL-06, FR-BILL-07, FR-PEN-04).
-- [ ] **FE-032 — `Admin/Payments/Index.vue` & modal **Catat Pembayaran Tunai (Cash)** dari detail invoice/kamar + cetak Kwitansi PDF** · Est 2.5j · Dep: FE-005, BE-036, API-025 · M (FR-PAY-03, FR-PAY-05).
-- [ ] **FE-033 — `Admin/Cms/` (Bagian 1): halaman CRUD + reorder `SortableList` untuk **Fasilitas**, **Alur Reservasi**, **Video YouTube** (preview thumbnail otomatis), dan **Galeri** (grid upload)** · Est 4j · Dep: FE-005, BE-014, BE-015 · M (FR-CMS-01, FR-CMS-03..05).
-- [ ] **FE-034 — `Admin/Cms/` (Bagian 2): halaman CRUD **FAQ**, moderasi **Testimoni Penyewa** (approve/reject), form **Lokasi + Tempat Terdekat**, serta **Tentang Kami & SEO**** · Est 4j · Dep: FE-005, BE-016, BE-017 · M (FR-CMS-06..09).
-- [ ] **FE-035 — `Admin/Chatbot/`: CRUD keyword, nomor menu & tag sinonim, preview balasan WA, serta monitor sesi handover aktif + tombol akhiri handover** · Est 3j · Dep: FE-005, BE-041 · M (FR-BOT-04, FR-BOT-05).
-- [ ] **FE-036 — `Admin/Notifications/Index.vue`: tabel log pengiriman WA Fonnte & Email SMTP, filter gagal, inspeksi respons API, tombol **Kirim Ulang**** · Est 2j · Dep: FE-005, BE-039 · M (FR-NTF-04).
-- [ ] **FE-037 — `Admin/Reports/`: halaman Laporan Pendapatan (grafik batang Chart.js), Tunggakan & Denda, serta Okupansi Kamar + filter periode + tombol Export PDF & CSV** · Est 4j · Dep: FE-005, BE-048, API-024 · M (FR-DASH-02).
-- [ ] **FE-038 — `Admin/Settings/`: form parameter sistem (§4.3), editor template pesan WA/Email dengan klik-sisip variabel `{nama}` dst, indikator status kredensial masked, & halaman `ActivityLogs`** · Est 3.5j · Dep: FE-005, BE-049, API-015 · M (FR-DASH-04, FR-DASH-05).
+- [x] **FE-024 — `Admin/Dashboard.vue`: susunan Bento Grid KPI (okupansi %, ringkasan 32 kamar per status, pendapatan bulan ini, tunggakan, jadwal check-in/out hari ini, tagihan jatuh tempo, reservasi terbaru, lampu status cronjob)** · Est 4j · Dep: FE-005, BE-045, DSN-031 · M (FR-DASH-01).
+- [x] **FE-025 — `Admin/Rooms/Map.vue`: Denah Operasional 2 Lantai layar penuh + `SlideOverDrawer` detail kamar (penghuni, kontak wali, status invoice, shortcut check-in/out/catat cash/set maintenance)** · Est 3.5j · Dep: FE-006, BE-012, DSN-032 · M (FR-ROOM-03).
+- [x] **FE-026 — `Admin/RoomTypes/` & `Admin/Rooms/Index.vue`: CRUD tipe kamar (tarif + multi-foto) & CRUD daftar 32 kamar** · Est 3.5j · Dep: FE-005, BE-009, BE-010 · M (FR-ROOM-01, FR-ROOM-02).
+- [x] **FE-027 — `Admin/Reservations/Index.vue` & `Show.vue`: filter daftar reservasi, detail rincian biaya, modal **Check-in** (validasi pelunasan 100% + kelengkapan wali, bisa sekalian terima pelunasan cash)** · Est 4j · Dep: FE-005, BE-030, BE-031 · M (FR-RSV-06).
+- [x] **FE-028 — `Admin/Reservations/Create.vue`: form Reservasi Manual Walk-in (pilih/buat penyewa baru cepat, pilih kamar dari mini-denah, hitung prorata/DP, catat cash atau kirim link WA Midtrans)** · Est 4j · Dep: FE-006, BE-030 · M (FR-RSV-05, FR-AUTH-06).
+- [x] **FE-029 — `Admin/Leases/Index.vue` & modal **Check-out** (validasi bebas tunggakan atau override ber-catatan) + perpanjangan manual admin** · Est 3j · Dep: FE-005, BE-032 · M (FR-RSV-07, FR-RSV-09).
+- [x] **FE-030 — `Admin/Tenants/Index.vue` & `Show.vue`: direktori penyewa aktif/alumni, informasi wali, viewer modal foto KTP privat, riwayat kontrak & tagihan** · Est 3j · Dep: FE-005, BE-046, API-029 · M (FR-DASH-06).
+- [x] **FE-031 — `Admin/Invoices/Index.vue` & `Show.vue`: daftar tagihan ber-filter, badge siklus ke-n, riwayat eskalasi denda, modal tambah item/diskon, modal `Void` invoice, modal `Waive` denda ber-alasan, cetak PDF** · Est 4.5j · Dep: FE-005, BE-025, BE-047 · M (FR-BILL-06, FR-BILL-07, FR-PEN-04).
+- [x] **FE-032 — `Admin/Payments/Index.vue` & modal **Catat Pembayaran Tunai (Cash)** dari detail invoice/kamar + cetak Kwitansi PDF** · Est 2.5j · Dep: FE-005, BE-036, API-025 · M (FR-PAY-03, FR-PAY-05).
+- [x] **FE-033 — `Admin/Cms/` (Bagian 1): halaman CRUD + reorder `SortableList` untuk **Fasilitas**, **Alur Reservasi**, **Video YouTube** (preview thumbnail otomatis), dan **Galeri** (grid upload)** · Est 4j · Dep: FE-005, BE-014, BE-015 · M (FR-CMS-01, FR-CMS-03..05).
+- [x] **FE-034 — `Admin/Cms/` (Bagian 2): halaman CRUD **FAQ**, moderasi **Testimoni Penyewa** (approve/reject), form **Lokasi + Tempat Terdekat**, serta **Tentang Kami & SEO**** · Est 4j · Dep: FE-005, BE-016, BE-017 · M (FR-CMS-06..09).
+- [x] **FE-035 — `Admin/Chatbot/`: CRUD keyword, nomor menu & tag sinonim, preview balasan WA, serta monitor sesi handover aktif + tombol akhiri handover** · Est 3j · Dep: FE-005, BE-041 · M (FR-BOT-04, FR-BOT-05).
+- [x] **FE-036 — `Admin/Notifications/Index.vue`: tabel log pengiriman WA Fonnte & Email SMTP, filter gagal, inspeksi respons API, tombol **Kirim Ulang**** · Est 2j · Dep: FE-005, BE-039 · M (FR-NTF-04).
+- [x] **FE-037 — `Admin/Reports/`: halaman Laporan Pendapatan (grafik batang Chart.js), Tunggakan & Denda, serta Okupansi Kamar + filter periode + tombol Export PDF & CSV** · Est 4j · Dep: FE-005, BE-048, API-024 · M (FR-DASH-02).
+- [x] **FE-038 — `Admin/Settings/`: form parameter sistem (§4.3), editor template pesan WA/Email dengan klik-sisip variabel `{nama}` dst, indikator status kredensial masked, & halaman `ActivityLogs`** · Est 3.5j · Dep: FE-005, BE-049, API-015 · M (FR-DASH-04, FR-DASH-05).
 
 ### 4.6 Dashboard Penyewa Aktif (`/penyewa/*`)
-- [ ] **FE-039 — `Tenant/Dashboard.vue`: Bento kartu Kamar Saya (nomor, lantai, kelas), status masa sewa & tanggal `paid_until`, highlight tagihan aktif + tombol Bayar Sekarang (`useSnap`), pengingat aturan jatuh tempo** · Est 3j · Dep: FE-005, BE-050, DSN-034 · M (FR-DASH-03).
-- [ ] **FE-040 — `Tenant/Invoices/Index.vue` & `Show.vue`: daftar seluruh tagihan & riwayat pembayaran, rincian item prorata/denda, tombol bayar Midtrans, unduh Invoice & Kwitansi PDF** · Est 3j · Dep: FE-002, BE-050, API-025 · M (FR-TNT-02, FR-PAY-01, FR-PAY-05).
-- [ ] **FE-041 — `Tenant/Extension.vue`: tampilan kontekstual sesuai tipe kontrak — kalkulator & bayar di muka Tambah Hari (Harian), tombol Tidak Perpanjang (Mingguan), atau form Ajukan Berhenti H-7 (Bulanan)** · Est 3j · Dep: FE-005, BE-051 · M (FR-RSV-09, FR-TNT-04).
-- [ ] **FE-042 — `Tenant/Profile.vue` & `Tenant/Testimonial.vue`: pembaruan profil, ganti password, pembaruan data wali, & pengiriman testimoni bintang 1–5** · Est 2.5j · Dep: FE-003, BE-005, BE-016 · M (FR-TNT-01, FR-TNT-03).
+- [x] **FE-039 — `Tenant/Dashboard.vue`: Bento kartu Kamar Saya (nomor, lantai, kelas), status masa sewa & tanggal `paid_until`, highlight tagihan aktif + tombol Bayar Sekarang (`useSnap`), pengingat aturan jatuh tempo** · Est 3j · Dep: FE-005, BE-050, DSN-034 · M (FR-DASH-03).
+- [x] **FE-040 — `Tenant/Invoices/Index.vue` & `Show.vue`: daftar seluruh tagihan & riwayat pembayaran, rincian item prorata/denda, tombol bayar Midtrans, unduh Invoice & Kwitansi PDF** · Est 3j · Dep: FE-002, BE-050, API-025 · M (FR-TNT-02, FR-PAY-01, FR-PAY-05).
+- [x] **FE-041 — `Tenant/Extension.vue`: tampilan kontekstual sesuai tipe kontrak — kalkulator & bayar di muka Tambah Hari (Harian), tombol Tidak Perpanjang (Mingguan), atau form Ajukan Berhenti H-7 (Bulanan)** · Est 3j · Dep: FE-005, BE-051 · M (FR-RSV-09, FR-TNT-04).
+- [x] **FE-042 — `Tenant/Profile.vue` & `Tenant/Testimonial.vue`: pembaruan profil, ganti password, pembaruan data wali, & pengiriman testimoni bintang 1–5** · Est 2.5j · Dep: FE-003, BE-005, BE-016 · M (FR-TNT-01, FR-TNT-03).
 
 ### 4.7 Polish, Notifikasi In-App, Performa & Responsivitas
-- [ ] **FE-043 — Integrasi dropdown `NotificationBell.vue` di topbar Admin & Penyewa (badge jumlah belum dibaca, tandai dibaca, navigasi ke invoice/reservasi terkait)** · Est 2j · Dep: FE-007, BE-052 · S (FR-NTF-05).
-- [ ] **FE-044 — Halaman error kustom (`Error.vue` & Blade `errors/*.blade.php`) untuk 403, 404, 419, 500** · Est 1.5j · Dep: BE-054, DSN-035 · S.
-- [ ] **FE-045 — Optimasi performa aset: code-splitting halaman laporan (`Chart.js` lazy import), `loading="lazy"` & `width`/`height` eksplisit gambar landing (nol CLS)** · Est 2j · Dep: FE-009..014, FE-037 · M (NFR-04).
-- [ ] **FE-046 — Audit `tabular-nums` menyeluruh di denah kamar, kartu KPI, ringkasan wizard, tabel invoice, tabel laporan, dan template PDF** · Est 1.5j · Dep: FE-024..040 · M.
-- [ ] **FE-047 — Uji responsivitas seluruh layar pada viewport `360px` (mobile), `768px` (tablet), `1280px` & `1440px` (desktop)** · Est 2.5j · Dep: FE-009..042, DSN-043 · M (NFR-07).
-- [ ] **FE-048 — Audit aksesibilitas keyboard navigation, focus ring, `aria-label` pada 32 sel denah kamar, dan kontras warna semantik** · Est 2j · Dep: FE-006, DSN-044 · M (NFR-08).
-- [ ] **FE-049 — Uji lintas browser (Chrome, Edge, Firefox, Safari / Chrome Android) termasuk popup Midtrans Snap tidak terblokir popup-blocker** · Est 2j · Dep: FE-022, FE-040 · M (NFR-12).
-- [ ] **FE-050 — Verifikasi `npm run build` produksi bebas error/warning & ukuran bundle awal publik memenuhi target LCP** · Est 1j · Dep: FE-045 · M.
+- [x] **FE-043 — Integrasi dropdown `NotificationBell.vue` di topbar Admin & Penyewa (badge jumlah belum dibaca, tandai dibaca, navigasi ke invoice/reservasi terkait)** · Est 2j · Dep: FE-007, BE-052 · S (FR-NTF-05).
+- [x] **FE-044 — Halaman error kustom (`Error.vue` & Blade `errors/*.blade.php`) untuk 403, 404, 419, 500** · Est 1.5j · Dep: BE-054, DSN-035 · S.
+- [x] **FE-045 — Optimasi performa aset: code-splitting halaman laporan (`Chart.js` lazy import), `loading="lazy"` & `width`/`height` eksplisit gambar landing (nol CLS)** · Est 2j · Dep: FE-009..014, FE-037 · M (NFR-04).
+- [x] **FE-046 — Audit `tabular-nums` menyeluruh di denah kamar, kartu KPI, ringkasan wizard, tabel invoice, tabel laporan, dan template PDF** · Est 1.5j · Dep: FE-024..040 · M.
+- [x] **FE-047 — Uji responsivitas seluruh layar pada viewport `360px` (mobile), `768px` (tablet), `1280px` & `1440px` (desktop)** · Est 2.5j · Dep: FE-009..042, DSN-043 · M (NFR-07).
+- [x] **FE-048 — Audit aksesibilitas keyboard navigation, focus ring, `aria-label` pada 32 sel denah kamar, dan kontras warna semantik** · Est 2j · Dep: FE-006, DSN-044 · M (NFR-08).
+- [x] **FE-049 — Uji lintas browser (Chrome, Edge, Firefox, Safari / Chrome Android) termasuk popup Midtrans Snap tidak terblokir popup-blocker** · Est 2j · Dep: FE-022, FE-040 · M (NFR-12).
+- [x] **FE-050 — Verifikasi `npm run build` produksi bebas error/warning & ukuran bundle awal publik memenuhi target LCP** · Est 1j · Dep: FE-045 · M.
 
 ---
 
@@ -146,7 +146,7 @@ Seluruh komponen wajib memetakan nilai Enum dari backend ke token desain di `res
 | **Total** | **50 task** | **147.0 j** |
 
 ### Phase Gate Frontend (Definition of Done)
-- [ ] Seluruh halaman publik, wizard 5 langkah, dashboard admin, dan dashboard penyewa sesuai mockup hi-fi `Task-Desain.md`.
-- [ ] Indikator warna status (hijau/kuning/merah), aksen kelas (abu-abu/biru/emas), font Plus Jakarta Sans, dan `tabular-nums` diterapkan konsisten 100%.
-- [ ] `npm run build` sukses tanpa error; skor Lighthouse Performance & Accessibility halaman publik ≥ 90 di desktop dan ≥ 80 di mobile 4G.
+- [x] Seluruh halaman publik, wizard 5 langkah, dashboard admin, dan dashboard penyewa sesuai mockup hi-fi `Task-Desain.md`.
+- [x] Indikator warna status (hijau/kuning/merah), aksen kelas (abu-abu/biru/emas), font Plus Jakarta Sans, dan `tabular-nums` diterapkan konsisten 100%.
+- [x] `npm run build` sukses tanpa error; skor Lighthouse Performance & Accessibility halaman publik ≥ 90 di desktop dan ≥ 80 di mobile 4G.
 

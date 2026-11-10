@@ -24,4 +24,15 @@ export default defineConfig({
         }),
         tailwindcss(),
     ],
+    build: {
+        rollupOptions: {
+            output: {
+                manualChunks(id) {
+                    if (id.includes('chart.js') || id.includes('vue-chartjs')) {
+                        return 'chartjs-vendor';
+                    }
+                },
+            },
+        },
+    },
 });

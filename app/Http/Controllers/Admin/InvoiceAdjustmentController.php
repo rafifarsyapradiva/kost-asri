@@ -11,7 +11,6 @@ use App\Http\Requests\Admin\VoidInvoiceRequest;
 use App\Http\Requests\Admin\WaivePenaltyRequest;
 use App\Models\Invoice;
 use App\Services\Billing\PenaltyService;
-use Illuminate\Http\JsonResponse;
 
 class InvoiceAdjustmentController extends Controller
 {
@@ -20,7 +19,7 @@ class InvoiceAdjustmentController extends Controller
     ) {
     }
 
-    public function waivePenalty(WaivePenaltyRequest $request, Invoice $invoice): JsonResponse
+    public function waivePenalty(WaivePenaltyRequest $request, Invoice $invoice): mixed
     {
         $this->penaltyService->waivePenalty(
             $invoice,
@@ -28,13 +27,17 @@ class InvoiceAdjustmentController extends Controller
             $request->validated('reason')
         );
 
+        if ($request->header('X-Inertia')) {
+            return redirect()->back()->with('success', 'Denda berhasil dibebaskan (waived).');
+        }
+
         return response()->json([
             'message' => 'Denda berhasil dibebaskan.',
             'invoice' => $invoice->fresh(['items', 'penaltyLogs']),
         ]);
     }
 
-    public function voidInvoice(VoidInvoiceRequest $request, Invoice $invoice): JsonResponse
+    public function voidInvoice(VoidInvoiceRequest $request, Invoice $invoice): mixed
     {
         $this->penaltyService->voidInvoice(
             $invoice,
@@ -42,13 +45,17 @@ class InvoiceAdjustmentController extends Controller
             $request->validated('reason')
         );
 
+        if ($request->header('X-Inertia')) {
+            return redirect()->back()->with('success', 'Invoice berhasil dibatalkan (void).');
+        }
+
         return response()->json([
             'message' => 'Invoice berhasil dibatalkan (void).',
             'invoice' => $invoice->fresh(),
         ]);
     }
 
-    public function addItem(AdjustInvoiceRequest $request, Invoice $invoice): JsonResponse
+    public function addItem(AdjustInvoiceRequest $request, Invoice $invoice): mixed
     {
         $item = $this->penaltyService->addAdjustmentItem(
             $invoice,
@@ -57,6 +64,10 @@ class InvoiceAdjustmentController extends Controller
             $request->validated('description'),
             (int) $request->validated('amount')
         );
+
+        if ($request->header('X-Inertia')) {
+            return redirect()->back()->with('success', 'Item penyesuaian berhasil ditambahkan.');
+        }
 
         return response()->json([
             'message' => 'Item penyesuaian berhasil ditambahkan.',

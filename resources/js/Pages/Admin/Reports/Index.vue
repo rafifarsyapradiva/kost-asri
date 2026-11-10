@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, defineAsyncComponent } from 'vue';
 import { Head, Link } from '@inertiajs/vue3';
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import BentoCard from '@/Components/BentoCard.vue';
@@ -7,6 +7,8 @@ import KpiStatCard from '@/Components/KpiStatCard.vue';
 import RupiahText from '@/Components/RupiahText.vue';
 import StatusBadge from '@/Components/StatusBadge.vue';
 import { useRupiah } from '@/Composables/useRupiah';
+
+const RevenueBarChart = defineAsyncComponent(() => import('@/Components/RevenueBarChart.vue'));
 
 const props = defineProps({
     revenue: Object,
@@ -87,6 +89,11 @@ const { formatRupiah } = useRupiah();
                         badge-type="success"
                     />
                 </div>
+
+                <!-- Grafik Batang Pendapatan -->
+                <BentoCard title="Visualisasi Tren Pendapatan (Chart.js Lazy-Loaded)" subtitle="Grafik harian transaksi lunas">
+                    <RevenueBarChart :payments="revenue.payments || []" />
+                </BentoCard>
 
                 <BentoCard title="Rincian Transaksi Pembayaran">
                     <div v-if="!revenue.payments || revenue.payments.length === 0" class="py-8 text-center text-xs text-ink-500">

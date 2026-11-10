@@ -5,16 +5,27 @@ import AdminLayout from '@/Layouts/AdminLayout.vue';
 import BentoCard from '@/Components/BentoCard.vue';
 import StatusBadge from '@/Components/StatusBadge.vue';
 import ConfirmDialog from '@/Components/ConfirmDialog.vue';
+import Modal from '@/Components/Modal.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
+import TextInput from '@/Components/TextInput.vue';
+import InputLabel from '@/Components/InputLabel.vue';
 import RupiahText from '@/Components/RupiahText.vue';
+import { useDateId } from '@/Composables/useDateId';
 
 const props = defineProps({
     lease: Object,
 });
 
+const { formatDate } = useDateId();
+
 const showCheckoutModal = ref(false);
 const overrideCheckout = ref(false);
 const checkoutNotes = ref('');
 const isProcessing = ref(false);
+
+const showExtendModal = ref(false);
+const extendNights = ref(1);
 
 const processCheckout = () => {
     isProcessing.value = true;
@@ -32,6 +43,22 @@ const processCheckout = () => {
         }
     );
 };
+
+const processExtend = () => {
+    isProcessing.value = true;
+    router.post(
+        `/admin/leases/${props.lease.id}/extend`,
+        {
+            extra_nights: extendNights.value,
+        },
+        {
+            onFinish: () => {
+                isProcessing.value = false;
+                showExtendModal.value = false;
+            },
+        }
+    );
+};
 </script>
 
 <template>
@@ -43,7 +70,15 @@ const processCheckout = () => {
                 <Link href="/admin/leases" class="text-xs font-semibold text-forest-700 hover:text-forest-900">
                     ← Kembali ke Daftar Kontrak
                 </Link>
-                <div v-if="lease.status === 'active' || lease.status === 'ending'">
+                <div v-if="lease.status === 'active' || lease.status === 'ending'" class="flex items-center gap-2">
+                    <button
+                        v-if="lease.rent_type === 'daily'"
+                        type="button"
+                        @click="showExtendModal = true"
+                        class="px-4 py-2 rounded-xl border border-forest-900 text-forest-900 font-semibold text-xs hover:bg-forest-50 transition shadow-xs"
+                    >
+                        + Tambah Hari (Perpanjang)
+                    </button>
                     <button
                         type="button"
                         @click="showCheckoutModal = true"
@@ -68,15 +103,15 @@ const processCheckout = () => {
                         </div>
                         <div class="flex justify-between py-2 border-b border-line-100">
                             <span class="text-ink-500">Tanggal Mulai Sewa</span>
-                            <span class="num font-semibold text-ink-900">{{ lease.start_date }}</span>
+                            <span class="num font-semibold text-ink-900">{{ formatDate(lease.start_date) }}</span>
                         </div>
                         <div class="flex justify-between py-2 border-b border-line-100">
                             <span class="text-ink-500">Rencana Selesai</span>
-                            <span class="num font-semibold text-ink-900">{{ lease.planned_checkout_date || 'Aktif Berjalan' }}</span>
+                            <span class="num font-semibold text-ink-900">{{ lease.planned_checkout_date ? formatDate(lease.planned_checkout_date) : 'Aktif Berjalan' }}</span>
                         </div>
                         <div class="flex justify-between py-2 border-b border-line-100">
                             <span class="text-ink-500">Lunas Hingga (Paid Until)</span>
-                            <span class="num font-bold text-forest-800">{{ lease.paid_until }}</span>
+                            <span class="num font-bold text-forest-800">{{ formatDate(lease.paid_until) }}</span>
                         </div>
                         <div class="flex justify-between py-2 border-b border-line-100 items-center">
                             <span class="text-ink-500">Status Kontrak</span>
@@ -120,12 +155,12 @@ const processCheckout = () => {
                         class="py-3 flex items-center justify-between text-xs"
                     >
                         <div>
-                            <p class="font-bold text-forest-900">{{ inv.invoice_number }} ({{ inv.invoice_type }})</p>
-                            <p class="num text-[11px] text-ink-500">Jatuh Tempo: {{ inv.due_date }}</p>
+                            <p class="font-bold text-forest-900">{{ inv.number || inv.invoice_number }} ({{ inv.type || inv.invoice_type }})</p>
+                            <p class="num text-[11px] text-ink-500">Jatuh Tempo: {{ formatDate(inv.due_date) }}</p>
                         </div>
                         <div class="text-right flex items-center gap-4">
                             <div>
-                                <RupiahText :amount="inv.total_amount" class="font-bold block" />
+                                <RupiahText :amount="inv.total ?? inv.total_amount ?? 0" class="font-bold block" />
                                 <span v-if="inv.paid_amount > 0" class="num text-[10px] text-green-700 block">
                                     Dibayar: <RupiahText :amount="inv.paid_amount" />
                                 </span>
@@ -166,6 +201,30 @@ const processCheckout = () => {
                 ></textarea>
             </div>
         </ConfirmDialog>
+
+        <!-- Extend Daily Modal -->
+        <Modal :show="showExtendModal" @close="showExtendModal = false">
+            <div class="p-6">
+                <h3 class="text-base font-bold text-forest-900 mb-2">Perpanjang Sewa Harian</h3>
+                <p class="text-xs text-ink-600 mb-4">
+                    Kamar {{ lease.room?.code }} — Masukkan jumlah malam tambahan. Invoice perpanjangan (daily_extension) akan otomatis dibuat dan wajib dilunasi di muka.
+                </p>
+
+                <form @submit.prevent="processExtend" class="space-y-4 text-xs">
+                    <div>
+                        <InputLabel value="Jumlah Malam Tambahan" />
+                        <TextInput type="number" v-model="extendNights" min="1" max="30" required />
+                    </div>
+
+                    <div class="flex justify-end gap-2 pt-3">
+                        <SecondaryButton @click="showExtendModal = false">Batal</SecondaryButton>
+                        <PrimaryButton :disabled="isProcessing">
+                            Buat Tagihan Perpanjangan
+                        </PrimaryButton>
+                    </div>
+                </form>
+            </div>
+        </Modal>
     </AdminLayout>
 </template>
 

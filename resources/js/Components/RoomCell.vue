@@ -99,7 +99,7 @@ const handleClick = () => {
         :disabled="!isClickable"
         :aria-label="ariaLabel"
         :class="[
-            'group relative flex flex-col justify-between rounded-xl border border-l-4 p-3 text-left transition-all',
+            'group relative flex flex-col justify-between rounded-xl border border-l-4 p-3 text-left transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-forest-500 focus-visible:ring-offset-1',
             classBorderColor,
             statusStyles.bg,
             statusStyles.border,

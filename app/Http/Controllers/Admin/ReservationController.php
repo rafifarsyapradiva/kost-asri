@@ -15,9 +15,14 @@ use App\Enums\ReservationSource;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreManualReservationRequest;
 use App\Models\Reservation;
+use App\Models\Room;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Inertia\Response;
 
 class ReservationController extends Controller
 {
@@ -28,16 +33,60 @@ class ReservationController extends Controller
     ) {
     }
 
-    public function index(): JsonResponse
+    public function index(Request $request): Response|JsonResponse
     {
-        $reservations = Reservation::with(['user.tenantProfile', 'room.roomType', 'invoices'])
-            ->latest()
-            ->paginate(15);
+        $query = Reservation::with(['user.tenantProfile', 'room.roomType', 'invoices']);
 
-        return response()->json($reservations);
+        if ($request->filled('status')) {
+            $query->where('status', $request->input('status'));
+        }
+
+        if ($request->filled('search')) {
+            $search = (string) $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('code', 'like', "%{$search}%")
+                    ->orWhereHas('user', fn ($u) => $u->where('name', 'like', "%{$search}%")->orWhere('phone', 'like', "%{$search}%"))
+                    ->orWhereHas('room', fn ($r) => $r->where('code', 'like', "%{$search}%"));
+            });
+        }
+
+        $reservations = $query->latest('id')->paginate(15)->withQueryString();
+
+        if ($request->wantsJson() && ! $request->header('X-Inertia')) {
+            return response()->json($reservations);
+        }
+
+        return Inertia::render('Admin/Reservations/Index', [
+            'reservations' => $reservations,
+            'filters' => $request->only(['status', 'search']),
+        ]);
     }
 
-    public function store(StoreManualReservationRequest $request): JsonResponse
+    public function create(): Response
+    {
+        $rooms = Room::with('roomType')->where('status', 'available')->orderBy('code')->get();
+        $users = User::select('id', 'name', 'phone', 'email')->orderBy('name')->take(50)->get();
+
+        return Inertia::render('Admin/Reservations/Create', [
+            'available_rooms' => $rooms,
+            'users' => $users,
+        ]);
+    }
+
+    public function show(Reservation $reservation): Response|JsonResponse
+    {
+        $reservation->load(['user.tenantProfile', 'room.roomType', 'invoices.payments', 'invoices.receipts', 'lease']);
+
+        if (request()->wantsJson() && ! request()->header('X-Inertia')) {
+            return response()->json($reservation);
+        }
+
+        return Inertia::render('Admin/Reservations/Show', [
+            'reservation' => $reservation,
+        ]);
+    }
+
+    public function store(StoreManualReservationRequest $request): JsonResponse|RedirectResponse
     {
         $admin = $request->user();
 
@@ -101,6 +150,11 @@ class ReservationController extends Controller
                 admin: $admin,
                 notes: 'Pembayaran tunai langsung saat walk-in reservation'
             );
+        }
+
+        if ($request->header('X-Inertia')) {
+            return redirect()->route('admin.reservations.show', $reservation)
+                ->with('success', 'Reservasi manual walk-in berhasil dibuat.');
         }
 
         return response()->json([
